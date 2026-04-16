@@ -552,7 +552,37 @@
         }
     </style>
 </head>
+<div style="position: fixed; bottom: 20px; right: 20px; background: white; padding: 15px; border: 2px solid var(--gold); z-index: 1000; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+    <h4 style="margin-bottom: 10px; font-size: 12px; color: var(--mocha);">Simulador de Presente</h4>
+    <input type="number" id="simular-valor" placeholder="R$ Valor" style="width: 100px; padding: 5px; margin-bottom: 5px;">
+    <button onclick="testarPix()" style="background: var(--gold); color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; display: block; width: 100%;">
+        Simular PIX
+    </button>
+</div>
 
+<script>
+async function testarPix() {
+    const valorInput = document.getElementById('simular-valor');
+    const valor = parseFloat(valorInput.value);
+
+    if (isNaN(valor) || valor <= 0) {
+        alert("Insira um valor válido para simular.");
+        return;
+    }
+
+    try {
+        const { error } = await sb.from('presentes').insert([{ valor: valor }]);
+        if (error) throw error;
+
+        alert(`Sucesso! R$ ${valor} adicionados ao banco.`);
+        valorInput.value = '';
+        carregarValor(); // Recarrega a barra automaticamente
+    } catch (err) {
+        console.error("Erro na simulação:", err);
+        alert("Erro ao conectar com Supabase. Verifique a tabela 'presentes' e o RLS.");
+    }
+}
+</script>
 <body>
 
     <nav aria-label="Navegação">
@@ -692,9 +722,10 @@
                         <!-- Substitua SUA_CHAVE_PIX_AQUI pela chave real -->
                         <img
                             id="qr-img"
-                            src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=SUA_CHAVE_PIX_AQUI"
+                            src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=066.553.061-75"
                             alt="QR Code Pix" />
                     </div>
+
 
                     <div class="pix-copy-box">
                         <p style="font-size: 0.75rem; color: #888;">
@@ -702,7 +733,7 @@
                         </p>
                         <!-- Substitua pelo CPF/e-mail/telefone Pix real -->
                         <p id="chavePix" style="font-family: monospace; font-size: 0.9rem; margin-top: 5px; color: var(--mocha);">
-                            000.000.000-00
+                            066.553.061-75
                         </p>
                         <button class="copy-btn" id="btnCopiar" onclick="copiarPix()" type="button">
                             Copiar Chave PIX
