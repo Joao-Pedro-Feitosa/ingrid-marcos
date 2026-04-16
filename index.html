@@ -1,264 +1,184 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Ingrid Sobabe & Marcos Paulo — 31 de outubro de 2026</title>
     
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
 
     <style>
-        /* ── SEU CSS ORIGINAL (INTACTO) ── */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        /* ── Variáveis e Reset ────────────────────────────────── */
         :root {
-            --cream: #faf7f2; --blush: #f0ddd6; --rose: #c9897a; --gold: #b89a6a;
-            --gold-lt: #d4b88a; --mocha: #6b4f42; --ink: #3a2e28; --white: #ffffff;
+            --cream: #faf7f2; --blush: #f0ddd6; --gold: #b89a6a; --mocha: #6b4f42; --ink: #3a2e28; --white: #ffffff;
             --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Jost', sans-serif;
-            --sp: clamp(4rem, 8vw, 7rem);
         }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: var(--sans); background: var(--cream); color: var(--ink); overflow-x: hidden; }
+        .sec { padding: 5rem 10%; max-width: 1100px; margin: 0 auto; text-align: center; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all .8s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .stitle { font-family: var(--serif); font-size: 2.5rem; font-style: italic; color: var(--mocha); margin-bottom: 1rem; }
 
-        .reveal { opacity: 0; transform: translateY(40px) scale(.985); filter: blur(6px); transition: opacity .9s ease, transform .9s ease, filter .9s ease; will-change: opacity, transform, filter; }
-        .reveal.visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-        .reveal.out-up { opacity: 0; transform: translateY(-40px) scale(.985); filter: blur(6px); }
-        .reveal.out-down { opacity: 0; transform: translateY(40px) scale(.985); filter: blur(6px); }
-        .d1 { transition-delay: .25s; } .d2 { transition-delay: .9s; } .d3 { transition-delay: .55s; }
+        /* ── SEÇÃO PRESENTES ── */
+        .cotas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 2rem; }
+        .cota-card { background: white; border: 1px solid var(--blush); padding: 20px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .cota-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .cota-card h4 { color: var(--gold); font-size: 1.2rem; margin-bottom: 5px; }
+        .cota-card p { font-size: 0.8rem; color: #888; }
 
-        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: center; flex-wrap: wrap; gap: .3rem clamp(1.2rem, 3.5vw, 2.8rem); padding: .9rem 1.5rem; background: rgba(250, 247, 242, .9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(184, 154, 106, .18); }
-        nav a { font-size: .68rem; font-weight: 500; letter-spacing: .17em; text-transform: uppercase; color: var(--mocha); text-decoration: none; transition: color .25s; white-space: nowrap; }
-        
-        #hero { min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
-        .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 9s ease; }
-        .hero-center { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; pointer-events: none; }
-        .hero-mono { font-family: var(--serif); font-size: clamp(3.5rem, 9vw, 7.5rem); color: var(--white); text-shadow: 0 2px 24px rgba(58, 46, 40, .5); }
-        .hero-names { font-family: var(--serif); font-size: clamp(.95rem, 2.2vw, 1.3rem); letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .92); }
-        .hero-date { margin-top: 1.5rem; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-lt); background: rgba(0, 0, 0, .22); padding: .42rem 1.3rem; border: 1px solid rgba(212, 184, 138, .38); border-radius: 50px; }
+        /* ── MODAL ── */
+        .pix-overlay { position: fixed; inset: 0; background: rgba(58, 46, 40, 0.95); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
+        .pix-modal { background: var(--cream); width: 100%; max-width: 500px; padding: 2rem; border-radius: 12px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .input-valor { width: 100%; padding: 12px; border: 1px solid var(--gold); border-radius: 6px; margin: 10px 0; font-size: 1rem; text-align: center; }
+        textarea { width: 100%; padding: 12px; border: 1px solid var(--blush); border-radius: 6px; margin: 10px 0; font-family: var(--sans); height: 80px; resize: none; }
+        .btn-gerar { background: var(--gold); color: white; border: none; padding: 12px 25px; border-radius: 4px; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; }
 
-        #countdown { background: var(--ink); padding: 2.8rem clamp(1.5rem, 6vw, 5rem); text-align: center; }
-        .cd-num { font-family: var(--serif); font-size: clamp(2.8rem, 7vw, 5rem); color: var(--white); }
-        
-        .sec { padding: var(--sp) clamp(1.5rem, 6vw, 5rem); max-width: 1000px; margin: 0 auto; }
-        .fw { padding: var(--sp) clamp(1.5rem, 6vw, 5rem); }
-        .inner { max-width: 1000px; margin: 0 auto; }
-        .stag { font-size: .67rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: .75rem; }
-        .stitle { font-family: var(--serif); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 300; font-style: italic; color: var(--mocha); line-height: 1.15; margin-bottom: 1.1rem; }
-        .sbody { font-size: .93rem; line-height: 1.9; color: #6b5a52; max-width: 52ch; }
-        .orn { display: flex; align-items: center; gap: .7rem; margin: 1.5rem 0 2.1rem; }
-        .orn-d { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
-        .orn-l { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--blush)); max-width: 80px; }
+        /* ── CARROSSEL DE MENSAGENS ── */
+        #mensagens { background: var(--blush); padding: 4rem 10%; }
+        .carousel-container { max-width: 800px; margin: 0 auto; position: relative; overflow: hidden; height: 200px; }
+        .message-slide { position: absolute; width: 100%; opacity: 0; transition: 0.8s; text-align: center; }
+        .message-slide.active { opacity: 1; }
+        .msg-text { font-family: var(--serif); font-size: 1.5rem; font-style: italic; color: var(--mocha); }
+        .msg-author { margin-top: 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
 
-        /* ── ADICIONAL: ESTILOS PARA CARROSSEL E PIX (Sem quebrar o original) ── */
-        .carousel-wrapper { position: relative; height: 160px; overflow: hidden; margin: 2rem 0; }
-        .msg-slide { position: absolute; width: 100%; opacity: 0; transition: opacity 1s ease-in-out; text-align: center; }
-        .msg-slide.active { opacity: 1; }
-        .msg-text { font-family: var(--serif); font-size: 1.3rem; font-style: italic; color: var(--mocha); margin-bottom: 0.5rem; }
-        .msg-author { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-
-        .cota-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .cota-card { background: var(--white); border: 1px solid rgba(184, 154, 106, 0.2); padding: 2rem; border-radius: 6px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .cota-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 8px 30px rgba(107, 79, 66, 0.1); }
-        .cota-price { font-family: var(--serif); font-size: 1.8rem; color: var(--gold); margin-bottom: 0.5rem; }
-
-        .modal-pix { position: fixed; inset: 0; background: rgba(58, 46, 40, 0.9); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 2rem; }
-        .modal-content { background: var(--cream); padding: 2.5rem; border-radius: 8px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        .modal-content input, .modal-content textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid var(--blush); border-radius: 4px; font-family: var(--sans); }
-        .btn-acao { background: var(--gold); color: white; border: none; padding: 1rem 2rem; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
         .hidden { display: none; }
-        footer { text-align: center; padding: 3rem 2rem; background: var(--ink); color: rgba(255, 255, 255, 0.38); font-size: 0.74rem; }
-        footer .fn { font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--gold-lt); display: block; margin-bottom: 0.45rem; }
     </style>
 </head>
-
 <body>
 
-    <nav>
-        <a href="#hero">Início</a>
-        <a href="#galeria">Fotos</a>
-        <a href="#recados">Recados</a>
-        <a href="#presentes">Presentes</a>
-        <a href="#info">Informações</a>
-        <a href="#rsvp">Presença</a>
-    </nav>
-
-    <section id="hero">
-        <div class="hero-photo"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900" /></div>
-        <div class="hero-center">
-            <p class="hero-mono">I & M</p>
-            <p class="hero-names">Ingrid Sobabe & Marcos Paulo</p>
-            <p class="hero-date">31 de outubro de 2026</p>
-        </div>
-        <div class="hero-photo"><img src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=900" /></div>
-    </section>
-
-    <div id="countdown">
-        <p class="cd-label" style="color:var(--gold-lt); font-size: 0.64rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.4rem;">Faltam para o nosso grande dia</p>
-        <div class="cd-grid" id="cd-grid">
-            <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl" style="color:rgba(255,255,255,0.4); display:block; font-size: 0.6rem; text-transform: uppercase;">Dias</span></div>
-            <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl" style="color:rgba(255,255,255,0.4); display:block; font-size: 0.6rem; text-transform: uppercase;">Horas</span></div>
-            <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl" style="color:rgba(255,255,255,0.4); display:block; font-size: 0.6rem; text-transform: uppercase;">Minutos</span></div>
-            <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl" style="color:rgba(255,255,255,0.4); display:block; font-size: 0.6rem; text-transform: uppercase;">Segundos</span></div>
-        </div>
-    </div>
-
-    <section id="recados" class="sec" style="background: var(--blush);">
+    <section id="presentes" class="sec">
         <div class="reveal">
-            <p class="stag">Mural de Carinho</p>
-            <h2 class="stitle">O que dizem sobre nós</h2>
-            <div class="carousel-wrapper" id="mural-mensagens">
-                <div class="msg-slide active"><p class="msg-text">"Carregando mensagens carinhosas..."</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="presentes" class="fw">
-        <div class="inner">
-            <div class="reveal">
-                <p class="stag">Lista de Presentes</p>
-                <h2 class="stitle">Ajude-nos em nossa Lua de Mel</h2>
-                <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
-                <p class="sbody">Sua presença é nosso maior presente, mas se desejar nos ajudar a construir nosso novo lar ou nossa viagem, escolha uma das cotas abaixo.</p>
-                
-                <div class="cota-grid">
-                    <div class="cota-card" onclick="abrirModalPix(100)">
-                        <div class="cota-price">R$ 100</div>
-                        <p>Cota Jantar Romântico</p>
-                    </div>
-                    <div class="cota-card" onclick="abrirModalPix(250)">
-                        <div class="cota-price">R$ 250</div>
-                        <p>Cota Passeio Turístico</p>
-                    </div>
-                    <div class="cota-card" onclick="abrirModalPix(500)">
-                        <div class="cota-price">R$ 500</div>
-                        <p>Cota Passagens Aéreas</p>
-                    </div>
-                    <div class="cota-card" onclick="abrirModalPix('outro')">
-                        <div class="cota-price">?</div>
-                        <p>Valor Livre</p>
-                    </div>
+            <h2 class="stitle">Presentes para a Lua de Mel</h2>
+            <p>Escolha uma cota para nos ajudar a realizar esse sonho:</p>
+            
+            <div class="cotas-grid">
+                <div class="cota-card" onclick="abrirCota(100)">
+                    <h4>R$ 100</h4>
+                    <p>Cota Bronze</p>
+                </div>
+                <div class="cota-card" onclick="abrirCota(200)">
+                    <h4>R$ 200</h4>
+                    <p>Cota Prata</p>
+                </div>
+                <div class="cota-card" onclick="abrirCota(500)">
+                    <h4>R$ 500</h4>
+                    <p>Cota Ouro</p>
+                </div>
+                <div class="cota-card" onclick="abrirCota('outro')">
+                    <h4>R$ 500+</h4>
+                    <p>Outro Valor</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div id="pixModal" class="modal-pix">
-        <div class="modal-content">
-            <div id="step-form">
-                <h3 style="font-family:var(--serif); color:var(--mocha);">Deixe seu Recado</h3>
-                <input type="text" id="nome-pix" placeholder="Seu Nome">
-                <div id="valor-livre" class="hidden"><input type="number" id="valor-custom" placeholder="Valor R$"></div>
-                <textarea id="msg-pix" placeholder="Sua mensagem para o mural..."></textarea>
-                <button class="btn-acao" onclick="confirmarPresente()">Gerar PIX</button>
-                <p onclick="fecharModal()" style="cursor:pointer; font-size:0.7rem; margin-top:15px; color:#999;">CANCELAR</p>
+    <section id="mensagens">
+        <h2 class="stitle" style="text-align: center; margin-bottom: 3rem;">Recados dos Convidados</h2>
+        <div class="carousel-container">
+            <div class="message-slide active">
+                <p class="msg-text">"Que a felicidade a dois continue sendo o objetivo principal de suas vidas!"</p>
+                <p class="msg-author">— Família Silva</p>
             </div>
-            <div id="step-qr" class="hidden">
-                <h3 style="font-family:var(--serif); color:var(--gold);">Muito obrigado! ❤️</h3>
-                <img id="qr-code" src="" style="width:200px; margin:20px 0;">
-                <p style="font-size:0.8rem; color:var(--mocha); line-height:1.4;">Chave PIX (CPF): <strong>000.000.000-00</strong><br>Favorecida: Ingrid Sobabe</p>
-                <button class="btn-acao" onclick="fecharModal()">Já realizei o pagamento</button>
+            <div class="message-slide">
+                <p class="msg-text">"Parabéns Ingrid e Marcos! Que a viagem seja inesquecível."</p>
+                <p class="msg-author">— Ana e Pedro</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="pixOverlay" class="pix-overlay">
+        <div class="pix-modal">
+            <h3 style="font-family: var(--serif); margin-bottom: 1rem;">Contribuir com os Noivos</h3>
+            
+            <form id="formPix" action="https://formspree.io/f/mzdydyza" method="POST">
+                <div id="campoOutro" class="hidden">
+                    <label style="font-size: 0.8rem;">Digite um valor (Mínimo R$ 501):</label>
+                    <input type="number" id="valorPersonalizado" name="valor" class="input-valor" placeholder="Ex: 600">
+                </div>
+
+                <input type="hidden" id="valorFinal" name="cota_escolhida">
+                
+                <label style="font-size: 0.8rem;">Deixe sua mensagem aos noivos:</label>
+                <textarea name="mensagem" required placeholder="Escreva aqui seu carinho..."></textarea>
+                
+                <button type="button" onclick="validarEGerar()" class="btn-gerar">Confirmar e Ver QR Code</button>
+            </form>
+
+            <div id="areaQr" class="hidden" style="margin-top: 2rem; border-top: 1px solid #ddd; pt: 1rem;">
+                <p style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">Escaneie para pagar:</p>
+                <img id="imgQr" src="" style="width: 180px; background: white; padding: 5px; border: 1px solid #ccc;">
+                <p style="font-size: 0.8rem; margin-top: 10px;">Titular: Ingrid ou Marcos<br>Chave: 000.000.000-00</p>
+                <button onclick="fecharModal()" style="margin-top: 15px; background: none; border: none; text-decoration: underline; cursor: pointer;">Fechar Janela</button>
             </div>
         </div>
     </div>
 
-    <footer>
-        <span class="fn">Ingrid & Marcos</span>
-        <p>31 de outubro de 2026 · Feito com muito amor ♡</p>
-    </footer>
-
     <script>
-        // 1. CONFIGURAÇÃO DO SUPABASE (Troque pelos seus dados)
-        const SUPABASE_URL = 'SUA_URL_DO_SUPABASE';
-        const SUPABASE_KEY = 'SUA_CHAVE_ANON_DO_SUPABASE';
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let cotaAtual = 0;
 
-        // 2. LOGICA DO CARROSSEL
-        async function carregarMural() {
-            const { data, error } = await _supabase.from('mensagens').select('*').order('created_at', { ascending: false });
-            const container = document.getElementById('mural-mensagens');
-            if(data && data.length > 0) {
-                container.innerHTML = '';
-                data.forEach((m, i) => {
-                    const slide = document.createElement('div');
-                    slide.className = `msg-slide ${i === 0 ? 'active' : ''}`;
-                    slide.innerHTML = `<p class="msg-text">"${m.recado}"</p><p class="msg-author">— ${m.nome}</p>`;
-                    container.appendChild(slide);
-                });
-                iniciarAnimacaoMural();
+        function abrirCota(valor) {
+            cotaAtual = valor;
+            document.getElementById('pixOverlay').style.display = 'flex';
+            document.getElementById('areaQr').classList.add('hidden');
+            
+            if(valor === 'outro') {
+                document.getElementById('campoOutro').classList.remove('hidden');
+            } else {
+                document.getElementById('campoOutro').classList.add('hidden');
+                document.getElementById('valorFinal').value = valor;
             }
         }
 
-        function iniciarAnimacaoMural() {
-            let current = 0;
-            const slides = document.querySelectorAll('.msg-slide');
-            if(slides.length <= 1) return;
-            setInterval(() => {
-                slides[current].classList.remove('active');
-                current = (current + 1) % slides.length;
-                slides[current].classList.add('active');
-            }, 5000);
-        }
+        function validarEGerar() {
+            let valorParaGerar = cotaAtual;
 
-        // 3. LOGICA DO MODAL PIX
-        let valorCota = 0;
-        function abrirModalPix(valor) {
-            valorCota = valor;
-            document.getElementById('pixModal').style.display = 'flex';
-            document.getElementById('valor-livre').classList.toggle('hidden', valor !== 'outro');
+            if(cotaAtual === 'outro') {
+                valorParaGerar = document.getElementById('valorPersonalizado').value;
+                if(valorParaGerar <= 500) {
+                    alert("Para valores personalizados, por favor digite um valor acima de R$ 500.");
+                    return;
+                }
+            }
+
+            // 1. Enviar mensagem para o Formspree
+            const form = document.getElementById('formPix');
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            });
+
+            // 2. Gerar QR Code Visual
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PIX_VALOR_${valorParaGerar}`;
+            document.getElementById('imgQr').src = qrUrl;
+            document.getElementById('areaQr').classList.remove('hidden');
+            document.querySelector('.btn-gerar').classList.add('hidden');
         }
 
         function fecharModal() {
-            document.getElementById('pixModal').style.display = 'none';
-            document.getElementById('step-form').classList.remove('hidden');
-            document.getElementById('step-qr').classList.add('hidden');
+            document.getElementById('pixOverlay').style.display = 'none';
+            document.querySelector('.btn-gerar').classList.remove('hidden');
         }
 
-        async function confirmarPresente() {
-            const nome = document.getElementById('nome-pix').value;
-            const recado = document.getElementById('msg-pix').value;
-            const valorReal = valorCota === 'outro' ? document.getElementById('valor-custom').value : valorCota;
-
-            if(!nome || !recado) return alert("Por favor, preencha nome e recado.");
-
-            // Salva no Supabase
-            const { error } = await _supabase.from('mensagens').insert([{ nome, recado, valor: valorReal }]);
-
-            if(!error) {
-                // Gera um QR Code fake para ilustração (ou substitua pela sua lógica de link de pagamento)
-                document.getElementById('qr-code').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PIX_MARCOS_INGRID_${valorReal}`;
-                document.getElementById('step-form').classList.add('hidden');
-                document.getElementById('step-qr').classList.remove('hidden');
-                carregarMural(); // Atualiza o carrossel
-            }
+        /* ── LÓGICA DO CARROSSEL ── */
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.message-slide');
+        function showNextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
         }
+        setInterval(showNextSlide, 5000);
 
-        // 4. SEUS SCRIPTS ORIGINAIS DE REVEAL E COUNTDOWN (SEM ALTERAÇÃO)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-                else entry.target.classList.remove('visible');
-            });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-        const WEDDING_DATE = new Date('2026-10-31T16:00:00');
-        function tick() {
-            const diff = WEDDING_DATE - Date.now();
-            if (diff <= 0) return;
-            document.getElementById('cd-d').textContent = String(Math.floor(diff / 864e5)).padStart(2, '0');
-            document.getElementById('cd-h').textContent = String(Math.floor((diff % 864e5) / 36e5)).padStart(2, '0');
-            document.getElementById('cd-m').textContent = String(Math.floor((diff % 36e5) / 6e4)).padStart(2, '0');
-            document.getElementById('cd-s').textContent = String(Math.floor((diff % 6e4) / 1e3)).padStart(2, '0');
-        }
-        setInterval(tick, 1000); tick();
-
-        window.onload = carregarMural;
+        /* ── Reveal ── */
+        const obs = new IntersectionObserver(es => {
+            es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+        });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>
