@@ -113,7 +113,7 @@
     height: 100svh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 1fr;   /* ← mantém */
     position: relative;
     overflow: hidden;
 }
@@ -121,8 +121,9 @@
 .hero-photo {
     position: relative;
     overflow: hidden;
-    height: 100%;
-    min-height: 0;
+    height: 100%;          /* ← já estava, mas adicione também: */
+    min-height: 0;         /* ← ESSENCIAL: evita que o item expanda além do grid */
+    align-self: stretch;   /* ← força o item a esticar no eixo do grid */
 }
 
 .hero-photo img {
@@ -210,6 +211,11 @@
         grid-template-rows: 1fr 1fr;
         height: 100vh;
         height: 100svh;
+    }
+
+    .hero-photo {
+        height: 100%;        /* ← adicione aqui também */
+        min-height: 0;
     }
 }
         
