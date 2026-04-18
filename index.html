@@ -1764,84 +1764,74 @@ const GOOGLE_FORM_FIELDS = {
             });
         }
 
-        async function enviarRsvp() {
-            const nome = document.getElementById('nome').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const presenca = document.getElementById('presenca').value;
-            const mensagem = document.getElementById('mensagem').value.trim();
-            const btn = document.getElementById('btn-rsvp');
+       async function enviarRsvp() {
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const presenca = document.getElementById('presenca').value;
+    const mensagem = document.getElementById('mensagem').value.trim();
+    const btn = document.getElementById('btn-rsvp');
 
-            if (!nome || !email || !presenca) {
-                alert('Preencha todos os campos obrigatórios.');
-                return;
-            }
+    if (!nome || !email || !presenca) {
+        alert('Preencha todos os campos obrigatórios.');
+        return;
+    }
 
-            btn.disabled = true;
-            btn.textContent = 'Enviando…';
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
 
-            const payload = {
-                nome,
-                email,
-                presenca,
-                origem: 'casamento'
-            };
+    const payload = { nome, email, presenca };
+    if (mensagem) payload.mensagem = mensagem;
 
-            if (mensagem) payload.mensagem = mensagem;
+    try {
+        // Envia para Google Forms (sempre tenta)
+        const formData = new FormData();
+        formData.append(GOOGLE_FORM_FIELDS.nome, nome);
+        formData.append(GOOGLE_FORM_FIELDS.email, email);
+        formData.append(GOOGLE_FORM_FIELDS.presenca, presenca);
+        if (mensagem) formData.append(GOOGLE_FORM_FIELDS.mensagem, mensagem);
 
-            try {
-                const tarefas = [];
+        fetch(GOOGLE_FORM_ACTION_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: formData
+        });
 
-                if (sb) tarefas.push(enviarParaSupabase(payload));
-                if (googleFormsConfigurado()) tarefas.push(enviarParaGoogleForms(payload));
-
-                if (!tarefas.length) {
-                    alert('Nenhum destino de armazenamento está configurado. Configure o Supabase ou o Google Forms.');
-                    return;
-                }
-
-                const resultados = await Promise.allSettled(tarefas);
-                const algumSucesso = resultados.some(r => r.status === 'fulfilled' && r.value && r.value.ok === true);
-
-                if (!algumSucesso) {
-                    alert('Não foi possível registrar sua confirmação agora. Tente novamente em instantes.');
-                    return;
-                }
-
-                document.getElementById('rsvp-fw').style.display = 'none';
-                document.getElementById('rsvp-success').style.display = 'block';
-
-                const nomeCurto = primeiroNome(nome);
-
-                document.getElementById('thanks-name').textContent = presenca === 'sim'
-                    ? `${nomeCurto}, sua presença foi confirmada`
-                    : `${nomeCurto}, recebemos sua mensagem com carinho`;
-
-                document.getElementById('thanks-copy').textContent = presenca === 'sim'
-                    ? 'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.'
-                    : 'Mesmo de longe, seu carinho também faz parte da nossa história. Obrigado pela lembrança com tanto afeto.';
-
-                const thanksMsg = document.getElementById('thanks-msg-preview');
-                if (mensagem) {
-                    thanksMsg.style.display = 'block';
-                    thanksMsg.textContent = '“' + mensagem + '”';
-                } else {
-                    thanksMsg.style.display = 'none';
-                    thanksMsg.textContent = '';
-                }
-
-                if (mensagem) {
-                    mensagens.unshift({ nome, mensagem, created_at: new Date().toISOString() });
-                    renderCarrossel();
-                }
-            } catch(err) {
-                console.error('enviarRsvp:', err);
-                alert('Ocorreu um erro inesperado.');
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Confirmar Presença';
-            }
+        // Tenta Supabase também mas não bloqueia
+        if (sb) {
+            try { await sb.from('rsvp').insert([payload]); } catch(e) {}
         }
 
+        // Mostra sucesso
+        document.getElementById('rsvp-fw').style.display = 'none';
+        document.getElementById('rsvp-success').style.display = 'block';
+
+        const nomeCurto = primeiroNome(nome);
+        document.getElementById('thanks-name').textContent = presenca === 'sim'
+            ? `${nomeCurto}, sua presença foi confirmada`
+            : `${nomeCurto}, recebemos sua mensagem com carinho`;
+
+        document.getElementById('thanks-copy').textContent = presenca === 'sim'
+            ? 'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.'
+            : 'Mesmo de longe, seu carinho também faz parte da nossa história.';
+
+        const thanksMsg = document.getElementById('thanks-msg-preview');
+        if (mensagem) {
+            thanksMsg.style.display = 'block';
+            thanksMsg.textContent = '"' + mensagem + '"';
+            mensagens.unshift({ nome, mensagem, created_at: new Date().toISOString() });
+            renderCarrossel();
+        } else {
+            thanksMsg.style.display = 'none';
+        }
+
+    } catch(err) {
+        console.error('enviarRsvp:', err);
+        alert('Ocorreu um erro inesperado.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Confirmar Presença';
+    }
+}
         function calcVisiveis() {
             if (window.innerWidth <= 600) return 1;
             if (window.innerWidth <= 900) return 2;
