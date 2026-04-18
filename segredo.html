@@ -1319,16 +1319,16 @@
             3) Troque a URL abaixo pelo final /formResponse
             4) Troque os entry.xxxxx pelos IDs reais dos campos
         */
-        const ENABLE_GOOGLE_FORMS = true;
-        const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/SEU_FORM_ID/formResponse";
-        const GOOGLE_FORM_FIELDS = {
-            nome: "entry.1111111111",
-            email: "entry.2222222222",
-            acompanhantes: "entry.3333333333",
-            presenca: "entry.4444444444",
-            mensagem: "entry.5555555555",
-            origem: "entry.6666666666"
-        };
+       const ENABLE_GOOGLE_FORMS = true;
+const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdsPd2pjQz50aFS7Lqm0VN0XsgguNuKz_1hZ21z8n0aDUW8ZQ/formResponse";
+const GOOGLE_FORM_FIELDS = {
+    nome:          "entry.78735647",
+    email:         "entry.1515748075",
+    acompanhantes: "entry.1824089469",
+    presenca:      "entry.1297207638",
+    mensagem:      "entry.499094343",
+    origem:        ""
+};
 
         let sb;
         try {
@@ -1408,90 +1408,70 @@
             }
         }
 
-        async function enviarRsvp() {
-            const nome = document.getElementById('nome').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const presenca = document.getElementById('presenca').value;
-            const acompanhantes = document.getElementById('acompanhantes').value;
-            const mensagem = document.getElementById('mensagem').value.trim();
-            const btn = document.getElementById('btn-rsvp');
+      async function enviarRsvp() {
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const presenca = document.getElementById('presenca').value;
+    const acompanhantes = document.getElementById('acompanhantes').value;
+    const mensagem = document.getElementById('mensagem').value.trim();
+    const btn = document.getElementById('btn-rsvp');
 
-            if (!nome || !email || !presenca) {
-                alert('Preencha todos os campos obrigatórios.');
-                return;
-            }
+    if (!nome || !email || !presenca) {
+        alert('Preencha todos os campos obrigatórios.');
+        return;
+    }
 
-            btn.disabled = true;
-            btn.textContent = 'Enviando…';
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
 
-            const payload = {
-                nome,
-                email,
-                presenca,
-                acompanhantes: parseInt(acompanhantes || "0", 10),
-                origem: 'recepcao'
-            };
+    try {
+        const formData = new FormData();
+        formData.append(GOOGLE_FORM_FIELDS.nome, nome);
+        formData.append(GOOGLE_FORM_FIELDS.email, email);
+        formData.append(GOOGLE_FORM_FIELDS.acompanhantes, acompanhantes);
+        formData.append(GOOGLE_FORM_FIELDS.presenca, presenca);
+        if (mensagem) formData.append(GOOGLE_FORM_FIELDS.mensagem, mensagem);
 
-            if (mensagem) payload.mensagem = mensagem;
+        fetch(GOOGLE_FORM_ACTION_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: formData
+        });
 
+        if (sb) {
             try {
-                const tarefas = [];
-
-                if (sb) {
-                    tarefas.push(enviarParaSupabase(payload));
-                }
-
-                if (googleFormsConfigurado()) {
-                    tarefas.push(enviarParaGoogleForms(payload));
-                }
-
-                if (!tarefas.length) {
-                    alert('Nenhum destino de armazenamento está configurado. Configure Supabase ou Google Forms.');
-                    return;
-                }
-
-                const resultados = await Promise.allSettled(tarefas);
-
-                const algumSucesso = resultados.some(r =>
-                    r.status === 'fulfilled' && r.value && r.value.ok === true
-                );
-
-                if (!algumSucesso) {
-                    alert('Não foi possível registrar sua confirmação agora. Tente novamente em instantes.');
-                    return;
-                }
-
-                document.getElementById('rsvp-fw').style.display = 'none';
-                document.getElementById('rsvp-success').style.display = 'block';
-
-                const nomeCurto = primeiroNome(nome);
-
-                document.getElementById('thanks-name').textContent = presenca === 'sim'
-                    ? `${nomeCurto}, a festa ficou ainda mais especial!`
-                    : `${nomeCurto}, recebemos sua mensagem com carinho`;
-
-                document.getElementById('thanks-copy').textContent = presenca === 'sim'
-                    ? 'Que bom que você vai estar com a gente! Guarda essa data e chegue animado(a) — vai ser inesquecível. 🎉'
-                    : 'Mesmo de longe, você sempre estará na nossa memória. Obrigado pelo carinho com tanto afeto.';
-
-                const thanksMsg = document.getElementById('thanks-msg-preview');
-                if (mensagem) {
-                    thanksMsg.style.display = 'block';
-                    thanksMsg.textContent = '“' + mensagem + '”';
-                } else {
-                    thanksMsg.style.display = 'none';
-                    thanksMsg.textContent = '';
-                }
-
-            } catch (err) {
-                console.error('enviarRsvp:', err);
-                alert('Ocorreu um erro inesperado.');
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Confirmar Presença na Festa';
-            }
+                await sb.from('rsvp').insert([{ nome, email, presenca, acompanhantes: parseInt(acompanhantes), mensagem: mensagem || null, origem: 'recepcao' }]);
+            } catch(e) {}
         }
 
+        document.getElementById('rsvp-fw').style.display = 'none';
+        document.getElementById('rsvp-success').style.display = 'block';
+
+        const nomeCurto = primeiroNome(nome);
+        document.getElementById('thanks-name').textContent = presenca === 'sim'
+            ? `${nomeCurto}, a festa ficou ainda mais especial!`
+            : `${nomeCurto}, recebemos sua mensagem com carinho`;
+
+        document.getElementById('thanks-copy').textContent = presenca === 'sim'
+            ? 'Que bom que você vai estar com a gente! Vai ser inesquecível. 🎉'
+            : 'Mesmo de longe, você sempre estará na nossa memória.';
+
+        const thanksMsg = document.getElementById('thanks-msg-preview');
+        if (mensagem) {
+            thanksMsg.style.display = 'block';
+            thanksMsg.textContent = '"' + mensagem + '"';
+        } else {
+            thanksMsg.style.display = 'none';
+        }
+
+    } catch(err) {
+        console.error('enviarRsvp:', err);
+        alert('Ocorreu um erro inesperado.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Confirmar Presença na Festa';
+    }
+}
         function corrigirHeroMobile() {
             const hero = document.getElementById('hero');
             const heroImg = document.querySelector('.hero-bg');
