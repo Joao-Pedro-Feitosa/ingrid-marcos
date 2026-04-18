@@ -85,6 +85,13 @@
             gap: 1rem;
             padding: 1rem clamp(1rem, 3vw, 2.5rem);
             background: linear-gradient(180deg, rgba(20,13,10,.86) 0%, rgba(20,13,10,.45) 58%, rgba(20,13,10,0) 100%);
+            transition: background .28s ease, backdrop-filter .28s ease, border-color .28s ease;
+        }
+
+        .top-nav.scrolled {
+            background: rgba(20,13,10,.72);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
         }
 
         .nav-group {
@@ -109,7 +116,7 @@
 
         .top-nav a:hover { color: var(--gold-lt); }
 
-        /* ── MONOGRAMA NAVBAR: I centralizado dentro do M ── */
+        /* ── MONOGRAMA NAVBAR ── */
         .nav-monogram {
             position: relative;
             display: inline-flex;
@@ -122,7 +129,6 @@
             font-family: var(--serif);
         }
 
-        /* M fica atrás */
         .nav-monogram .nav-mono-m {
             position: absolute;
             top: 50%;
@@ -137,7 +143,6 @@
             white-space: nowrap;
         }
 
-        /* I fica na frente, centralizado sobre o M */
         .nav-monogram .nav-mono-i {
             position: absolute;
             top: 50%;
@@ -163,16 +168,45 @@
             text-align: center;
             padding: 9.5rem 1.5rem 4rem;
             overflow: hidden;
-            background: #120d0b;
+            background-color: #120d0b;
+            background-image:
+                linear-gradient(180deg, rgba(15,10,8,.36) 0%, rgba(15,10,8,.30) 25%, rgba(15,10,8,.50) 65%, rgba(15,10,8,.72) 100%),
+                var(--hero-image);
+            background-size: cover;
+            background-position: center 34%;
+            background-repeat: no-repeat;
+            isolation: isolate;
+        }
+
+        /* fallback forte p/ mobile */
+        #hero.hero-cathedral::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image: var(--hero-image);
+            background-size: cover;
+            background-position: center 34%;
+            background-repeat: no-repeat;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            opacity: 1;
         }
 
         .hero-bg {
             position: absolute;
             inset: 0;
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             object-position: center 34%;
             z-index: 0;
+            opacity: .999;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: block;
         }
 
         .hero-overlay {
@@ -199,7 +233,6 @@
             margin-bottom: 1.2rem;
         }
 
-        /* ── MONOGRAMA HERO: I & M com & corretamente entre eles ── */
         .hero-monogram {
             display: flex;
             align-items: center;
@@ -396,16 +429,18 @@
             max-width: 80px;
         }
 
-        /* ── MOLDURA ORNAMENTAL (fundo claro bege/creme) ── */
+        /* ── MOLDURA ORNAMENTAL ── */
         .ornate-surface {
             position: relative;
             isolation: isolate;
             background: linear-gradient(160deg, #fffdf9 0%, #fdf5ec 40%, #f9ede2 100%);
             border-radius: 22px;
             overflow: hidden;
+            box-shadow:
+                0 28px 80px rgba(107,79,66,.11),
+                0 4px 18px rgba(184,154,106,.09);
         }
 
-        /* Borda externa dourada dupla */
         .ornate-surface::before {
             content: "";
             position: absolute;
@@ -415,13 +450,10 @@
             box-shadow:
                 inset 0 0 0 1px rgba(184,154,106,.55),
                 inset 0 0 0 6px rgba(250,247,242,.9),
-                inset 0 0 0 7px rgba(184,154,106,.30),
-                0 28px 80px rgba(107,79,66,.11),
-                0 4px 18px rgba(184,154,106,.09);
+                inset 0 0 0 7px rgba(184,154,106,.30);
             pointer-events: none;
         }
 
-        /* Borda interna elegante */
         .ornate-surface::after {
             content: "";
             position: absolute;
@@ -432,7 +464,20 @@
             pointer-events: none;
         }
 
-        /* Ornamentos de canto (SVG inline via background) */
+        /* imagem ornamental suave */
+        .frame-art {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: var(--frame-image);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center top;
+            opacity: .16;
+            mix-blend-mode: multiply;
+        }
+
         .ornate-surface .frame-corners {
             position: absolute;
             inset: 0;
@@ -454,17 +499,7 @@
         .ornate-surface .frame-corners svg.c-bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
         .ornate-surface .frame-corners svg.c-br { bottom: 8px; right: 8px; transform: scale(-1); }
 
-        /* Ornamento central no topo */
-        .ornate-surface .frame-top-center {
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .ornate-surface>* {
+        .ornate-surface > * {
             position: relative;
             z-index: 2;
         }
@@ -490,7 +525,8 @@
         }
 
         .g-item img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
             transition: transform .6s ease;
@@ -538,7 +574,8 @@
         .cota-card.esgotada::after {
             content: 'ESGOTADA';
             position: absolute;
-            top: 14px; right: -24px;
+            top: 14px;
+            right: -24px;
             background: var(--rose);
             color: white;
             font-size: .58rem;
@@ -550,8 +587,10 @@
 
         .cota-accent {
             position: absolute;
-            top: 0; left: 0;
-            width: 4px; height: 100%;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
             border-radius: 8px 0 0 8px;
         }
 
@@ -609,7 +648,8 @@
         }
 
         .cota-progresso-bg {
-            width: 100%; height: 6px;
+            width: 100%;
+            height: 6px;
             background: var(--blush);
             border-radius: 50px;
             overflow: hidden;
@@ -686,7 +726,8 @@
         }
 
         .pix-qrcode {
-            width: 180px; height: 180px;
+            width: 180px;
+            height: 180px;
             margin: 1rem auto;
             background: #fff;
             padding: 8px;
@@ -790,7 +831,7 @@
             min-height: 90px;
         }
 
-        /* ── PISO CATEDRAL / XADREZ para o card de agradecimento ── */
+        /* ── FUNDO COM PISO REAL NO AGRADECIMENTO ── */
         .thanks-card {
             position: relative;
             min-height: 470px;
@@ -802,38 +843,28 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            background: #ddd3c8;
         }
 
-        /* Piso xadrez/catedral gerado via CSS */
-        .thanks-card-bg {
+        .thanks-card-floor {
             position: absolute;
             inset: 0;
-            background-color: #e8e0d4;
-            background-image:
-                /* Grade principal em perspectiva isométrica (simula piso catedral) */
-                repeating-linear-gradient(
-                    45deg,
-                    rgba(200,188,172,.55) 0px,
-                    rgba(200,188,172,.55) 1px,
-                    transparent 1px,
-                    transparent 28px
-                ),
-                repeating-linear-gradient(
-                    -45deg,
-                    rgba(200,188,172,.55) 0px,
-                    rgba(200,188,172,.55) 1px,
-                    transparent 1px,
-                    transparent 28px
-                ),
-                /* Quadrados alternados para criar o efeito xadrez */
-                repeating-conic-gradient(
-                    #ddd5c7 0% 25%,
-                    #cfc5b6 0% 50%
-                );
-            background-size: auto, auto, 56px 56px;
+            background-image: var(--floor-image);
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            transform: scale(1.04);
+            filter: saturate(.82) contrast(1.04) brightness(.78);
         }
 
-        /* Overlay suave para não competir com o conteúdo */
+        .thanks-card-floor::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(33,24,19,.10) 0%, rgba(33,24,19,.18) 100%);
+        }
+
         .thanks-card-overlay {
             position: absolute;
             inset: 0;
@@ -845,7 +876,7 @@
             content: "";
             position: absolute;
             inset: 16px;
-            border: 1px solid rgba(255,255,255,.42);
+            border: 1px solid rgba(255,255,255,.35);
             border-radius: 15px;
             pointer-events: none;
             z-index: 1;
@@ -864,9 +895,9 @@
             box-shadow:
                 0 18px 50px rgba(58,46,40,.11),
                 inset 0 0 0 1px rgba(255,255,255,.7);
+            overflow: hidden;
         }
 
-        /* Borda ornamental interna da placa */
         .thanks-plaque::before {
             content: "";
             position: absolute;
@@ -882,6 +913,8 @@
             text-transform: uppercase;
             color: var(--gold);
             margin-bottom: .7rem;
+            position: relative;
+            z-index: 1;
         }
 
         #thanks-name {
@@ -892,6 +925,8 @@
             font-style: italic;
             color: var(--mocha);
             margin-bottom: .9rem;
+            position: relative;
+            z-index: 1;
         }
 
         #thanks-copy {
@@ -900,6 +935,8 @@
             line-height: 1.9;
             max-width: 42ch;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .thanks-msg-preview {
@@ -910,6 +947,8 @@
             font-size: 1.05rem;
             font-style: italic;
             color: #7f6458;
+            position: relative;
+            z-index: 1;
         }
 
         /* ── MENSAGENS ── */
@@ -981,7 +1020,8 @@
         }
 
         .car-btn {
-            width: 40px; height: 40px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 1px solid rgba(184,154,106,.35);
             background: transparent;
@@ -999,14 +1039,19 @@
         .car-dots { display: flex; justify-content: center; gap: 6px; margin-top: 1rem; }
 
         .car-dot {
-            width: 6px; height: 6px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: rgba(184,154,106,.3);
             cursor: pointer;
             transition: all .25s;
         }
 
-        .car-dot.active { background: var(--gold); width: 18px; border-radius: 3px; }
+        .car-dot.active {
+            background: var(--gold);
+            width: 18px;
+            border-radius: 3px;
+        }
 
         .msg-empty {
             text-align: center;
@@ -1052,8 +1097,8 @@
             margin-bottom: 10px;
         }
 
-        .acc-25  { background: #c9c0b4; }
-        .acc-50  { background: var(--gold-lt); }
+        .acc-25 { background: #c9c0b4; }
+        .acc-50 { background: var(--gold-lt); }
         .acc-100 { background: var(--gold); }
         .acc-200 { background: var(--rose); }
         .acc-500 { background: var(--mocha); }
@@ -1071,17 +1116,33 @@
                 padding-top: .85rem;
                 padding-bottom: 1rem;
             }
+
             .nav-right, .nav-group { justify-content: center; }
             .nav-monogram { order: -1; }
         }
 
         @media (max-width: 768px) {
             #hero.hero-cathedral {
-                min-height: 96svh;
+                min-height: 100vh;
+                min-height: 100svh;
                 padding-top: 12rem;
                 padding-bottom: 4rem;
+                background-position: center 24%;
+                background-size: cover;
             }
-            .hero-bg { object-position: center 28%; }
+
+            #hero.hero-cathedral::before {
+                background-position: center 24%;
+                background-size: cover;
+            }
+
+            .hero-bg {
+                object-position: center 24%;
+                width: 100%;
+                height: 100%;
+                min-height: 100%;
+            }
+
             .hero-center { padding: 1.5rem .8rem; }
             .hero-script { font-size: clamp(3.2rem, 13vw, 5rem); }
             .hero-date { font-size: .68rem; letter-spacing: .18em; padding: .58rem 1rem; }
@@ -1094,6 +1155,7 @@
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: auto;
             }
+
             .g-tall { grid-row: span 1; }
             .cota-header { flex-direction: column; }
             .cota-valor { text-align: left; }
@@ -1105,7 +1167,26 @@
             .nav-group { gap: .8rem 1rem; }
             .nav-monogram .nav-mono-i { font-size: 4rem; }
             .nav-monogram .nav-mono-m { font-size: 4.1rem; }
+
+            #hero.hero-cathedral {
+                background-position: center 22%;
+            }
+
+            #hero.hero-cathedral::before {
+                background-position: center 22%;
+            }
+
+            .hero-bg {
+                object-position: center 22%;
+            }
+
             .thanks-plaque { padding: 2rem 1.2rem; }
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            #hero.hero-cathedral {
+                min-height: -webkit-fill-available;
+            }
         }
     </style>
 </head>
@@ -1119,7 +1200,6 @@
             <a href="#presentes">Lua de Mel</a>
         </div>
 
-        <!-- NAVBAR: apenas I e M sobrepostos, sem & -->
         <a href="#hero" class="nav-monogram" aria-label="Monograma Ingrid e Marcos">
             <span class="nav-mono-i">I</span>
             <span class="nav-mono-m">M</span>
@@ -1133,13 +1213,21 @@
     </nav>
 
     <section id="hero" class="hero-cathedral">
-        <img class="hero-bg" src="https://sspark.genspark.ai/cfimages?u1=c6PlPPF%2FUlo4VjOzJPRVAK2%2BIZsCl3CnPmEngEvm53FhXkYK4NON1mPSpKu8gvv%2BzWoD%2FrfXN%2B9Gy7Nx5F%2B1vng3U4bi293X7h%2F0VK7VLM6mqcwIYJ%2FwFULaJA00TvZTQPFrtXqx1zePcaiCAkgyj%2FI%2BFnZTg2L%2FJZnn4uC8CmItNUE0jdPk37SanHPBjlWwGajljCzP0BiWrn4E2cfyHPnvNliqPuWHUSgkdweUgTVu%2BCFg7GfNJsZocb%2F5VxE5wdsQAixOhIQ063SpABo8xCj%2FOk1TDzK2QnqgiB39uxmMG4SVjn%2Fa41njvZKeb1nSFL7kRGiTx%2FXAlqGQJOGhj45hrLI%2FIh7S&u2=DC4G8mf2IXPx%2FDGw&width=2560" alt="" loading="eager" fetchpriority="high" />
+        <img
+            class="hero-bg"
+            src="https://sspark.genspark.ai/cfimages?u1=c6PlPPF%2FUlo4VjOzJPRVAK2%2BIZsCl3CnPmEngEvm53FhXkYK4NON1mPSpKu8gvv%2BzWoD%2FrfXN%2B9Gy7Nx5F%2B1vng3U4bi293X7h%2F0VK7VLM6mqcwIYJ%2FwFULaJA00TvZTQPFrtXqx1zePcaiCAkgyj%2FI%2BFnZTg2L%2FJZnn4uC8CmItNUE0jdPk37SanHPBjlWwGajljCzP0BiWrn4E2cfyHPnvNliqPuWHUSgkdweUgTVu%2BCFg7GfNJsZocb%2F5VxE5wdsQAixOhIQ063SpABo8xCj%2FOk1TDzK2QnqgiB39uxmMG4SVjn%2Fa41njvZKeb1nSFL7kRGiTx%2FXAlqGQJOGhj45hrLI%2FIh7S&u2=DC4G8mf2IXPx%2FDGw&width=2560"
+            alt=""
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            referrerpolicy="no-referrer"
+            onerror="this.style.display='none';"
+        />
         <div class="hero-overlay"></div>
 
         <div class="hero-center">
             <p class="hero-kicker">O casamento de</p>
 
-            <!-- HERO: I & M com & corretamente posicionado entre eles -->
             <div class="hero-monogram" aria-hidden="true">
                 <span class="hmono-i">I</span>
                 <span class="hmono-and">&amp;</span>
@@ -1165,9 +1253,9 @@
         <p class="cd-done" id="cd-done">É hoje! 💍</p>
     </div>
 
-    <!-- ── GALERIA com moldura ornamental ── -->
     <section id="galeria" class="sec ornate-surface">
-        <!-- Ornamentos de canto -->
+        <div class="frame-art" aria-hidden="true"></div>
+
         <div class="frame-corners" aria-hidden="true">
             <svg class="c-tl" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
@@ -1232,10 +1320,10 @@
         </div>
     </section>
 
-    <!-- ── PRESENTES / LUA DE MEL com moldura ornamental ── -->
     <div id="presentes" class="fw" style="background:var(--cream)">
         <div class="inner reveal ornate-surface">
-            <!-- Ornamentos de canto -->
+            <div class="frame-art" aria-hidden="true"></div>
+
             <div class="frame-corners" aria-hidden="true">
                 <svg class="c-tl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
                 <svg class="c-tr" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
@@ -1298,7 +1386,6 @@
         <div class="car-dots" id="car-dots"></div>
     </section>
 
-    <!-- ── RSVP com moldura ornamental ── -->
     <section id="rsvp" class="sec">
         <div class="reveal">
             <p class="stag">Presença</p>
@@ -1307,12 +1394,20 @@
         </div>
 
         <div class="rsvp-wrap reveal ornate-surface">
-            <!-- Ornamentos de canto -->
+            <div class="frame-art" aria-hidden="true"></div>
+
             <div class="frame-corners" aria-hidden="true">
                 <svg class="c-tl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
                 <svg class="c-tr" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
                 <svg class="c-bl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
-                <svg class="c-br" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
+                </svg>
+                <svg class="c-br" viewBox="0 0 52 52" fill="none">
+                    <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                    <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                    <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                    <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                    <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+                </svg>
             </div>
 
             <div id="rsvp-fw" style="padding:2.5rem">
@@ -1321,10 +1416,12 @@
                         <label for="nome">Nome Completo</label>
                         <input id="nome" type="text" name="nome" required placeholder="Seu nome" />
                     </div>
+
                     <div class="form-g">
                         <label for="email">E-mail</label>
                         <input id="email" type="email" name="email" required placeholder="seu@email.com" />
                     </div>
+
                     <div class="form-g">
                         <label for="presenca">Vai comparecer?</label>
                         <select id="presenca" name="presenca" required>
@@ -1332,22 +1429,22 @@
                             <option value="nao">Infelizmente não poderei ir</option>
                         </select>
                     </div>
+
                     <div class="form-g">
                         <label for="mensagem">Deixe uma mensagem para os noivos <span style="color:#aaa;font-weight:400">(opcional)</span></label>
                         <textarea id="mensagem" name="mensagem" placeholder="Escreva suas palavras de carinho... Sua mensagem aparecerá no site! 💌" maxlength="300"></textarea>
                         <p style="font-size:.72rem;color:#aaa;text-align:right;margin-top:4px"><span id="char-count">0</span>/300</p>
                     </div>
+
                     <button id="btn-rsvp" type="button" onclick="enviarRsvp()" class="gift-btn" style="width:100%;justify-content:center">
                         Confirmar Presença
                     </button>
                 </div>
             </div>
 
-            <!-- Agradecimento com piso xadrez/catedral -->
             <div id="rsvp-success" style="display:none;padding:2rem">
                 <div class="thanks-card">
-                    <!-- Piso xadrez CSS -->
-                    <div class="thanks-card-bg"></div>
+                    <div class="thanks-card-floor"></div>
                     <div class="thanks-card-overlay"></div>
                     <div class="thanks-plaque">
                         <p class="thanks-kicker">Presença confirmada</p>
@@ -1397,16 +1494,33 @@
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjc3F4cnBqaGl2d2phdXVrYXBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODkzMDIsImV4cCI6MjA5MTg2NTMwMn0.XlooQ1E4ka5O05W_3VWjtjokbUb-ig9RKaU4i4dWDFQ";
         const WEDDING_DATE = new Date('2026-10-31T16:00:00-03:00');
 
+        /*
+            GOOGLE FORMS BACKUP
+            1) Troque a URL abaixo pela URL /formResponse do seu Google Forms
+            2) Troque os entry.xxxxx pelos IDs reais dos campos
+        */
+        const ENABLE_GOOGLE_FORMS = true;
+        const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/SEU_FORM_ID/formResponse";
+        const GOOGLE_FORM_FIELDS = {
+            nome: "entry.1111111111",
+            email: "entry.2222222222",
+            presenca: "entry.3333333333",
+            mensagem: "entry.4444444444",
+            origem: "entry.5555555555"
+        };
+
         let sb;
-        try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
+        try {
+            sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch(e) {}
 
         const COTAS_CONFIG = [
-            { id:'c25',   valor:25,   titulo:'Sopro de Carinho',    descricao:'Um mimo para começar — cada centavo vai direto para a nossa aventura juntos!',                      total:25, acento:'acc-25',   emoji:'🌸' },
-            { id:'c50',   valor:50,   titulo:'Brinde ao Amor',      descricao:'Com esse presente você contribui para uma noite especial durante a nossa lua de mel.',               total:30, acento:'acc-50',   emoji:'🥂' },
-            { id:'c100',  valor:100,  titulo:'Passeio Inesquecível', descricao:'Contribui para um passeio que se tornará memória para a vida toda.',                                total:25, acento:'acc-100',  emoji:'🗺️' },
-            { id:'c200',  valor:200,  titulo:'Jantar Romântico',     descricao:'Ajude a financiar um jantar especial com aquela vista de dar suspiro.',                             total:20, acento:'acc-200',  emoji:'🍷' },
-            { id:'c500',  valor:500,  titulo:'Noite dos Sonhos',     descricao:'Uma hospedagem incrível para uma noite que nunca vamos esquecer.',                                  total:10, acento:'acc-500',  emoji:'🌙' },
-            { id:'c1000', valor:1000, titulo:'Grande Aventura',      descricao:'O presente máximo — patrocine um dia completo de pura lua de mel.',                                total:2,  acento:'acc-1000', emoji:'✈️' }
+            { id:'c25',   valor:25,   titulo:'Sopro de Carinho',     descricao:'Um mimo para começar — cada centavo vai direto para a nossa aventura juntos!', total:25, acento:'acc-25',   emoji:'🌸' },
+            { id:'c50',   valor:50,   titulo:'Brinde ao Amor',       descricao:'Com esse presente você contribui para uma noite especial durante a nossa lua de mel.', total:30, acento:'acc-50',   emoji:'🥂' },
+            { id:'c100',  valor:100,  titulo:'Passeio Inesquecível', descricao:'Contribui para um passeio que se tornará memória para a vida toda.', total:25, acento:'acc-100',  emoji:'🗺️' },
+            { id:'c200',  valor:200,  titulo:'Jantar Romântico',     descricao:'Ajude a financiar um jantar especial com aquela vista de dar suspiro.', total:20, acento:'acc-200',  emoji:'🍷' },
+            { id:'c500',  valor:500,  titulo:'Noite dos Sonhos',     descricao:'Uma hospedagem incrível para uma noite que nunca vamos esquecer.', total:10, acento:'acc-500',  emoji:'🌙' },
+            { id:'c1000', valor:1000, titulo:'Grande Aventura',      descricao:'O presente máximo — patrocine um dia completo de pura lua de mel.', total:2,  acento:'acc-1000', emoji:'✈️' }
         ];
 
         let cotasUsadas = {};
@@ -1418,11 +1532,13 @@
         function renderCotas() {
             const grid = document.getElementById('cotas-grid');
             grid.innerHTML = '';
+
             COTAS_CONFIG.forEach(c => {
                 const usadas = cotasUsadas[c.id] || 0;
                 const restantes = c.total - usadas;
                 const pct = (usadas / c.total) * 100;
                 const esgotada = restantes <= 0;
+
                 const card = document.createElement('div');
                 card.className = 'cota-card reveal' + (esgotada ? ' esgotada' : '');
                 card.innerHTML = `
@@ -1447,18 +1563,28 @@
                     </button>`;
                 grid.appendChild(card);
             });
+
             document.querySelectorAll('.cota-card.reveal').forEach(el => obs.observe(el));
         }
 
         async function carregarCotas() {
-            if (!sb) { renderCotas(); return; }
+            if (!sb) {
+                renderCotas();
+                return;
+            }
+
             try {
                 const { data, error } = await sb.from('presentes').select('cota_id');
                 if (!error && data) {
                     cotasUsadas = {};
-                    data.forEach(r => { if (r.cota_id) cotasUsadas[r.cota_id] = (cotasUsadas[r.cota_id] || 0) + 1; });
+                    data.forEach(r => {
+                        if (r.cota_id) cotasUsadas[r.cota_id] = (cotasUsadas[r.cota_id] || 0) + 1;
+                    });
                 }
-            } catch(e) { console.warn('carregarCotas:', e); }
+            } catch(e) {
+                console.warn('carregarCotas:', e);
+            }
+
             renderCotas();
         }
 
@@ -1473,59 +1599,169 @@
 
         function togglePixModal(show) {
             const overlay = document.getElementById('pixOverlay');
-            if (show) { overlay.classList.add('open'); overlay.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-            else { overlay.classList.remove('open'); }
+            if (show) {
+                overlay.classList.add('open');
+                overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                overlay.classList.remove('open');
+            }
         }
 
         function copiarPix() {
             const chave = document.getElementById('chavePix').innerText.trim();
             const btn = document.getElementById('btnCopiar');
+
             navigator.clipboard.writeText(chave).then(() => {
                 btn.textContent = 'Copiado! ✓';
                 btn.style.cssText += 'background:var(--gold);color:white;';
-                setTimeout(() => { btn.textContent = 'Copiar Chave PIX'; btn.style.background = 'none'; btn.style.color = 'var(--gold)'; }, 3000);
-            }).catch(() => alert('Não foi possível copiar automaticamente.\nChave: ' + chave));
+                setTimeout(() => {
+                    btn.textContent = 'Copiar Chave PIX';
+                    btn.style.background = 'none';
+                    btn.style.color = 'var(--gold)';
+                }, 3000);
+            }).catch(() => {
+                alert('Não foi possível copiar automaticamente.\nChave: ' + chave);
+            });
         }
 
         async function confirmarCota() {
-            if (!cotaSelecionada) { alert('Nenhuma cota foi selecionada.'); return; }
-            if (!sb) { alert('Conexão com o banco não disponível no momento.'); return; }
+            if (!cotaSelecionada) {
+                alert('Nenhuma cota foi selecionada.');
+                return;
+            }
+
+            if (!sb) {
+                alert('Conexão com o banco não disponível no momento.');
+                return;
+            }
+
             const btn = document.getElementById('btnConfirmarCota');
             const cota = COTAS_CONFIG.find(c => c.id === cotaSelecionada);
-            if (!cota) { alert('Cota inválida.'); return; }
-            btn.disabled = true; btn.textContent = 'Registrando…';
+            if (!cota) {
+                alert('Cota inválida.');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Registrando…';
+
             try {
-                const { count, error: countError } = await sb.from('presentes').select('*', { count: 'exact', head: true }).eq('cota_id', cota.id);
-                if (countError) { alert('Não foi possível verificar a disponibilidade da cota.'); return; }
-                if ((count || 0) >= cota.total) { alert('Essa cota já está esgotada.'); togglePixModal(false); await carregarCotas(); return; }
+                const { count, error: countError } = await sb
+                    .from('presentes')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('cota_id', cota.id);
+
+                if (countError) {
+                    alert('Não foi possível verificar a disponibilidade da cota.');
+                    return;
+                }
+
+                if ((count || 0) >= cota.total) {
+                    alert('Essa cota já está esgotada.');
+                    togglePixModal(false);
+                    await carregarCotas();
+                    return;
+                }
+
                 const { error: insertError } = await sb.from('presentes').insert([{ cota_id: cota.id, valor: cota.valor }]);
-                if (insertError) { alert('Não foi possível registrar a cota agora. Tente novamente.'); return; }
+
+                if (insertError) {
+                    alert('Não foi possível registrar a cota agora. Tente novamente.');
+                    return;
+                }
+
                 alert('Cota registrada com sucesso! Muito obrigado pelo presente 💛');
-                cotaSelecionada = null; togglePixModal(false); await carregarCotas();
-            } catch(err) { console.error('confirmarCota:', err); alert('Ocorreu um erro inesperado ao registrar a cota.'); }
-            finally { btn.disabled = false; btn.textContent = 'Já fiz o PIX'; }
+                cotaSelecionada = null;
+                togglePixModal(false);
+                await carregarCotas();
+            } catch(err) {
+                console.error('confirmarCota:', err);
+                alert('Ocorreu um erro inesperado ao registrar a cota.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Já fiz o PIX';
+            }
         }
 
-        function pad(n) { return String(n).padStart(2, '0'); }
+        function pad(n) {
+            return String(n).padStart(2, '0');
+        }
 
         function tick() {
             const diff = WEDDING_DATE.getTime() - Date.now();
+
             if (diff <= 0) {
                 document.getElementById('cd-grid').style.display = 'none';
                 document.getElementById('cd-done').style.display = 'block';
                 return;
             }
+
             document.getElementById('cd-d').textContent = Math.floor(diff / 864e5);
             document.getElementById('cd-h').textContent = pad(Math.floor((diff % 864e5) / 36e5));
             document.getElementById('cd-m').textContent = pad(Math.floor((diff % 36e5) / 6e4));
             document.getElementById('cd-s').textContent = pad(Math.floor((diff % 6e4) / 1e3));
         }
 
-        function primeiroNome(nomeCompleto) { return String(nomeCompleto).trim().split(' ')[0] || 'Querido convidado'; }
+        function primeiroNome(nomeCompleto) {
+            return String(nomeCompleto).trim().split(' ')[0] || 'Querido convidado';
+        }
+
+        function googleFormsConfigurado() {
+            return ENABLE_GOOGLE_FORMS &&
+                GOOGLE_FORM_ACTION_URL &&
+                !GOOGLE_FORM_ACTION_URL.includes('SEU_FORM_ID');
+        }
+
+        async function enviarParaGoogleForms(payload) {
+            if (!googleFormsConfigurado()) {
+                return { ok: false, skipped: true, reason: 'not_configured' };
+            }
+
+            try {
+                const formData = new FormData();
+
+                if (GOOGLE_FORM_FIELDS.nome) formData.append(GOOGLE_FORM_FIELDS.nome, payload.nome || "");
+                if (GOOGLE_FORM_FIELDS.email) formData.append(GOOGLE_FORM_FIELDS.email, payload.email || "");
+                if (GOOGLE_FORM_FIELDS.presenca) formData.append(GOOGLE_FORM_FIELDS.presenca, payload.presenca || "");
+                if (GOOGLE_FORM_FIELDS.mensagem) formData.append(GOOGLE_FORM_FIELDS.mensagem, payload.mensagem || "");
+                if (GOOGLE_FORM_FIELDS.origem) formData.append(GOOGLE_FORM_FIELDS.origem, payload.origem || "casamento");
+
+                await fetch(GOOGLE_FORM_ACTION_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: formData
+                });
+
+                return { ok: true };
+            } catch (error) {
+                console.error("Erro ao enviar para Google Forms:", error);
+                return { ok: false, error };
+            }
+        }
+
+        async function enviarParaSupabase(payload) {
+            if (!sb) {
+                return { ok: false, skipped: true, reason: 'supabase_unavailable' };
+            }
+
+            try {
+                const { error } = await sb.from('rsvp').insert([payload]);
+                if (error) {
+                    console.error("Erro Supabase:", error);
+                    return { ok: false, error };
+                }
+                return { ok: true };
+            } catch (error) {
+                console.error("Erro inesperado Supabase:", error);
+                return { ok: false, error };
+            }
+        }
 
         const mensagemEl = document.getElementById('mensagem');
         if (mensagemEl) {
-            mensagemEl.addEventListener('input', function() { document.getElementById('char-count').textContent = this.value.length; });
+            mensagemEl.addEventListener('input', function() {
+                document.getElementById('char-count').textContent = this.value.length;
+            });
         }
 
         async function enviarRsvp() {
@@ -1534,30 +1770,76 @@
             const presenca = document.getElementById('presenca').value;
             const mensagem = document.getElementById('mensagem').value.trim();
             const btn = document.getElementById('btn-rsvp');
-            if (!nome || !email || !presenca) { alert('Preencha todos os campos obrigatórios.'); return; }
-            btn.disabled = true; btn.textContent = 'Enviando…';
+
+            if (!nome || !email || !presenca) {
+                alert('Preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando…';
+
+            const payload = {
+                nome,
+                email,
+                presenca,
+                origem: 'casamento'
+            };
+
+            if (mensagem) payload.mensagem = mensagem;
+
             try {
-                if (sb) {
-                    const payload = { nome, email, presenca };
-                    if (mensagem) payload.mensagem = mensagem;
-                    const { error } = await sb.from('rsvp').insert([payload]);
-                    if (error) { alert('Erro ao enviar. Tente novamente em instantes.'); return; }
+                const tarefas = [];
+
+                if (sb) tarefas.push(enviarParaSupabase(payload));
+                if (googleFormsConfigurado()) tarefas.push(enviarParaGoogleForms(payload));
+
+                if (!tarefas.length) {
+                    alert('Nenhum destino de armazenamento está configurado. Configure o Supabase ou o Google Forms.');
+                    return;
                 }
+
+                const resultados = await Promise.allSettled(tarefas);
+                const algumSucesso = resultados.some(r => r.status === 'fulfilled' && r.value && r.value.ok === true);
+
+                if (!algumSucesso) {
+                    alert('Não foi possível registrar sua confirmação agora. Tente novamente em instantes.');
+                    return;
+                }
+
                 document.getElementById('rsvp-fw').style.display = 'none';
                 document.getElementById('rsvp-success').style.display = 'block';
+
                 const nomeCurto = primeiroNome(nome);
+
                 document.getElementById('thanks-name').textContent = presenca === 'sim'
                     ? `${nomeCurto}, sua presença foi confirmada`
                     : `${nomeCurto}, recebemos sua mensagem com carinho`;
+
                 document.getElementById('thanks-copy').textContent = presenca === 'sim'
                     ? 'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.'
                     : 'Mesmo de longe, seu carinho também faz parte da nossa história. Obrigado pela lembrança com tanto afeto.';
+
                 const thanksMsg = document.getElementById('thanks-msg-preview');
-                if (mensagem) { thanksMsg.style.display = 'block'; thanksMsg.textContent = '"' + mensagem + '"'; }
-                else { thanksMsg.style.display = 'none'; thanksMsg.textContent = ''; }
-                if (mensagem) { mensagens.unshift({ nome, mensagem, created_at: new Date().toISOString() }); renderCarrossel(); }
-            } catch(err) { console.error('enviarRsvp:', err); alert('Ocorreu um erro inesperado.'); }
-            finally { btn.disabled = false; btn.textContent = 'Confirmar Presença'; }
+                if (mensagem) {
+                    thanksMsg.style.display = 'block';
+                    thanksMsg.textContent = '“' + mensagem + '”';
+                } else {
+                    thanksMsg.style.display = 'none';
+                    thanksMsg.textContent = '';
+                }
+
+                if (mensagem) {
+                    mensagens.unshift({ nome, mensagem, created_at: new Date().toISOString() });
+                    renderCarrossel();
+                }
+            } catch(err) {
+                console.error('enviarRsvp:', err);
+                alert('Ocorreu um erro inesperado.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Confirmar Presença';
+            }
         }
 
         function calcVisiveis() {
@@ -1567,11 +1849,25 @@
         }
 
         async function carregarMensagens() {
-            if (!sb) { renderCarrossel(); return; }
+            if (!sb) {
+                renderCarrossel();
+                return;
+            }
+
             try {
-                const { data, error } = await sb.from('rsvp').select('nome, mensagem, created_at').not('mensagem', 'is', null).neq('mensagem', '').order('created_at', { ascending: false }).limit(50);
+                const { data, error } = await sb
+                    .from('rsvp')
+                    .select('nome, mensagem, created_at')
+                    .not('mensagem', 'is', null)
+                    .neq('mensagem', '')
+                    .order('created_at', { ascending: false })
+                    .limit(50);
+
                 if (!error && data) mensagens = data;
-            } catch(e) { console.warn('carregarMensagens:', e); }
+            } catch(e) {
+                console.warn('carregarMensagens:', e);
+            }
+
             renderCarrossel();
         }
 
@@ -1580,13 +1876,37 @@
             const empty = document.getElementById('msg-empty');
             const controls = document.getElementById('carousel-controls');
             const dotsEl = document.getElementById('car-dots');
-            if (!mensagens.length) { track.innerHTML = ''; empty.style.display = 'block'; controls.style.display = 'none'; dotsEl.innerHTML = ''; return; }
-            empty.style.display = 'none'; controls.style.display = 'flex';
+
+            if (!mensagens.length) {
+                track.innerHTML = '';
+                empty.style.display = 'block';
+                controls.style.display = 'none';
+                dotsEl.innerHTML = '';
+                return;
+            }
+
+            empty.style.display = 'none';
+            controls.style.display = 'flex';
+
             track.innerHTML = mensagens.map(m => {
-                const dataFmt = new Date(m.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-                return `<div class="msg-card"><div class="msg-quote">"</div><p class="msg-texto">${escapeHtml(m.mensagem)}</p><p class="msg-autor">${escapeHtml(m.nome)}</p><p class="msg-data">${dataFmt}</p></div>`;
+                const dataFmt = new Date(m.created_at).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                });
+
+                return `<div class="msg-card">
+                    <div class="msg-quote">"</div>
+                    <p class="msg-texto">${escapeHtml(m.mensagem)}</p>
+                    <p class="msg-autor">${escapeHtml(m.nome)}</p>
+                    <p class="msg-data">${dataFmt}</p>
+                </div>`;
             }).join('');
-            carVisiveis = calcVisiveis(); carPos = 0; atualizarCarrossel(); renderDots();
+
+            carVisiveis = calcVisiveis();
+            carPos = 0;
+            atualizarCarrossel();
+            renderDots();
         }
 
         function atualizarCarrossel() {
@@ -1599,19 +1919,40 @@
         function renderDots() {
             const dotsEl = document.getElementById('car-dots');
             const steps = Math.max(1, mensagens.length - carVisiveis + 1);
+
             dotsEl.innerHTML = Array.from({ length: steps }, (_, i) =>
                 `<div class="car-dot ${i === carPos ? 'active' : ''}" onclick="irParaDot(${i})"></div>`
             ).join('');
         }
 
-        function irParaDot(i) { carPos = i; atualizarCarrossel(); }
-
-        function escapeHtml(str) {
-            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+        function irParaDot(i) {
+            carPos = i;
+            atualizarCarrossel();
         }
 
-        document.getElementById('car-prev').addEventListener('click', () => { if (carPos > 0) { carPos--; atualizarCarrossel(); } });
-        document.getElementById('car-next').addEventListener('click', () => { const max = Math.max(0, mensagens.length - carVisiveis); if (carPos < max) { carPos++; atualizarCarrossel(); } });
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g,'&amp;')
+                .replace(/</g,'&lt;')
+                .replace(/>/g,'&gt;')
+                .replace(/"/g,'&quot;')
+                .replace(/'/g,'&#039;');
+        }
+
+        document.getElementById('car-prev').addEventListener('click', () => {
+            if (carPos > 0) {
+                carPos--;
+                atualizarCarrossel();
+            }
+        });
+
+        document.getElementById('car-next').addEventListener('click', () => {
+            const max = Math.max(0, mensagens.length - carVisiveis);
+            if (carPos < max) {
+                carPos++;
+                atualizarCarrossel();
+            }
+        });
 
         window.addEventListener('resize', () => {
             carVisiveis = calcVisiveis();
@@ -1626,16 +1967,60 @@
             atualizarCarrossel();
         }, 5000);
 
+        function corrigirHeroMobile() {
+            const hero = document.getElementById('hero');
+            const heroImg = document.querySelector('.hero-bg');
+
+            if (!hero) return;
+
+            const aplicarPosicaoMobile = () => {
+                if (window.innerWidth <= 768) {
+                    hero.style.backgroundPosition = 'center 24%';
+                    if (heroImg) heroImg.style.objectPosition = 'center 24%';
+                } else {
+                    hero.style.backgroundPosition = 'center 34%';
+                    if (heroImg) heroImg.style.objectPosition = 'center 34%';
+                }
+            };
+
+            aplicarPosicaoMobile();
+            window.addEventListener('resize', aplicarPosicaoMobile);
+
+            if (heroImg) {
+                heroImg.addEventListener('load', () => {
+                    hero.classList.add('hero-ok');
+                });
+
+                heroImg.addEventListener('error', () => {
+                    heroImg.style.display = 'none';
+                    hero.classList.add('hero-fallback');
+                });
+
+                if (heroImg.complete && heroImg.naturalWidth > 0) {
+                    hero.classList.add('hero-ok');
+                }
+            }
+        }
+
         const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.top-nav');
+            if (!nav) return;
+            nav.classList.toggle('scrolled', window.scrollY > 14);
+        });
 
         tick();
         setInterval(tick, 1000);
         carregarCotas();
         carregarMensagens();
+        corrigirHeroMobile();
     </script>
 </body>
 
