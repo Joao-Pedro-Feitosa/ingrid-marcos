@@ -49,6 +49,15 @@
 
             /* SUBSTITUA pela imagem final/licenciada da Catedral de São Patrício (NY) */
             --hero-image: url('COLE_AQUI_A_IMAGEM_LICENCIADA_DA_ST_PATRICKS_CATHEDRAL_NY');
+            --band-ivory: #fffaf6;
+--band-cream-2: #f8f1ea;
+--band-blush-2: #f2e3dc;
+--band-champagne: #efe3d3;
+--band-dark: #201714;
+--band-line: rgba(184,154,106,.20);
+--band-shadow: 0 18px 60px rgba(58,46,40,.08);
+--section-radius: 30px;
+
         }
 
         html { scroll-behavior: smooth; }
@@ -344,14 +353,60 @@
 
         /* ── SEÇÕES ── */
         .sec {
-            padding: var(--sp) clamp(1.5rem, 6vw, 5rem);
-            max-width: 1080px;
-            margin: 0 auto;
-        }
+    padding: 0;
+    max-width: none;
+    margin: 0;
+}
 
-        .fw {
-            padding: var(--sp) clamp(1.5rem, 6vw, 5rem);
-        }
+       .fw {
+    padding: 0;
+}
+        .section-band {
+    position: relative;
+    padding: clamp(4.5rem, 8vw, 7rem) clamp(1.2rem, 4vw, 2rem);
+    overflow: hidden;
+}
+
+.section-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 18%, rgba(0,0,0,.03) 100%);
+}
+
+.section-shell {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+    border-radius: var(--section-radius);
+    padding: clamp(2.2rem, 4vw, 3.5rem);
+    box-shadow: var(--band-shadow);
+    border: 1px solid var(--band-line);
+}
+
+.band-ivory {
+    background: linear-gradient(180deg, #fffdfa 0%, var(--band-ivory) 100%);
+}
+
+.band-cream {
+    background: linear-gradient(180deg, #fbf6f0 0%, var(--band-cream-2) 100%);
+}
+
+.band-blush {
+    background: linear-gradient(180deg, #f7ece7 0%, var(--band-blush-2) 100%);
+}
+
+.band-champagne {
+    background: linear-gradient(180deg, #f6eee4 0%, var(--band-champagne) 100%);
+}
+
+.band-dark {
+    background:
+        linear-gradient(180deg, rgba(24,18,15,.96) 0%, rgba(29,22,18,.98) 100%);
+}
+
 
         .fw .inner {
             max-width: 1080px;
@@ -359,27 +414,39 @@
         }
 
         .stag {
-            font-family: var(--menu);
-            font-size: .69rem;
-            letter-spacing: .22em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: .75rem;
-            position: relative;
-            z-index: 2;
-        }
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    font-family: var(--menu);
+    font-size: .68rem;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .95rem;
+    position: relative;
+    z-index: 2;
+}
+
+.stag::before {
+    content: "";
+    width: 34px;
+    height: 1px;
+    background: rgba(184,154,106,.55);
+}
+
 
         .stitle {
-            font-family: var(--serif);
-            font-size: clamp(2.2rem, 4.5vw, 3.25rem);
-            font-weight: 300;
-            font-style: italic;
-            color: var(--mocha);
-            line-height: 1.15;
-            margin-bottom: 1.1rem;
-            position: relative;
-            z-index: 2;
-        }
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4.8vw, 3.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--mocha);
+    line-height: 1.12;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 2;
+}
+
 
         .sbody {
             font-size: .93rem;
@@ -1303,6 +1370,38 @@
         .acc-500 { background: var(--mocha); }
         .acc-1000 { background: var(--ink); }
 
+        #galeria .section-shell,
+#presentes .section-shell,
+#manual .manual-wrap,
+#rsvp .rsvp-wrap,
+#local .section-shell {
+    background:
+        linear-gradient(160deg, rgba(255,255,255,.92) 0%, rgba(252,247,242,.96) 100%);
+}
+
+#mensagens-section .section-shell {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.section-band + .section-band {
+    border-top: 1px solid rgba(184,154,106,.10);
+}
+
+.gallery-grid {
+    margin-top: 2.4rem;
+}
+
+.manual-grid {
+    margin-top: 2.4rem;
+}
+
+.venue-grid,
+.cotas-grid {
+    margin-top: 2.4rem;
+}
+
+
         /* ── RESPONSIVO ── */
         @media (max-width: 900px) {
             .msg-card { flex: 0 0 calc(50% - 0.75rem); }
@@ -1451,7 +1550,8 @@
         <p class="cd-done" id="cd-done">É hoje! 💍</p>
     </div>
 
-    <section id="galeria" class="sec ornate-surface">
+   <section id="galeria" class="section-band band-ivory">
+    <div class="section-shell ornate-surface">
         <div class="frame-art" aria-hidden="true"></div>
 
         <div class="frame-corners" aria-hidden="true">
@@ -1516,10 +1616,11 @@
                 <img src="Downloads/casamento/img/foto 5.jpg" alt="Casal 5" loading="lazy" />
             </div>
         </div>
+        </div>
     </section>
 
-    <div id="presentes" class="fw" style="background:var(--cream)">
-        <div class="inner reveal ornate-surface">
+    <section id="presentes" class="section-band band-champagne">
+    <div class="section-shell inner reveal ornate-surface">
             <div class="frame-art" aria-hidden="true"></div>
 
             <div class="frame-corners" aria-hidden="true">
@@ -1574,7 +1675,8 @@
         </div>
     </div>
 
-    <section id="mensagens-section">
+    <section id="mensagens-section" class="section-band band-dark">
+    <div class="section-shell" style="background:rgba(255,255,255,.02); border-color:rgba(184,154,106,.16);">
         <div class="msg-header reveal">
             <p class="stag">Palavras de Carinho</p>
             <h2 class="stitle" style="color:rgba(255,255,255,.92)">Mensagens dos Convidados</h2>
@@ -1591,9 +1693,11 @@
             <button class="car-btn" id="car-next" aria-label="Próximo">&#8594;</button>
         </div>
         <div class="car-dots" id="car-dots"></div>
+    </div>
     </section>
 
-    <section id="manual" class="sec">
+    <section id="manual" class="section-band band-blush">
+
     <div class="manual-wrap ornate-surface reveal">
         <div class="frame-art" aria-hidden="true"></div>
 
@@ -1668,7 +1772,9 @@
     </div>
 </section>
 
-<section id="rsvp" class="sec">
+<section id="local" class="section-band band-blush">
+    <div class="section-shell inner">
+
     <div class="reveal">
         <p class="stag">Presença</p>
         <h2 class="stitle">Confirme sua participação</h2>
@@ -1726,6 +1832,8 @@
                     <select id="presenca" name="presenca" required>
     <option value="sim">Sim, estarei presente!</option>
     <option value="nao">Infelizmente não poderei ir</option>
+</select>
+                </div>
 </select>
 
                 </div>
