@@ -36,6 +36,7 @@
             --ink: #2e231e;
             --white: #ffffff;
             --ivory: #fffaf7;
+            
 
             --serif: 'Cormorant Garamond', Georgia, serif;
             --script: 'Luxurious Script', cursive;
@@ -46,6 +47,8 @@
             --frame-bg: linear-gradient(180deg, rgba(255, 252, 249, .96), rgba(246, 238, 232, .96));
             --frame-image: url('https://www.genspark.ai/api/files/s/bqCNv7su');
             --floor-image: url('https://www.genspark.ai/api/files/s/OcxzKtaJ');
+            --presentes-bg: url('https://www.genspark.ai/api/files/s/LdhxrXi8');
+
 
             /* SUBSTITUA pela imagem final/licenciada da Catedral de São Patrício (NY) */
             --hero-image: url('https://amerikaneked.com/wp-content/uploads/2023/07/shutterstock_2462028509.jpg');
@@ -393,6 +396,10 @@
 .band-ivory {
     background: linear-gradient(180deg, #fffdfa 0%, var(--band-ivory) 100%);
 }
+        .band-presentes {
+    background: linear-gradient(180deg, #f6ece7 0%, #efdfd9 100%);
+}
+
 
 .band-cream {
     background: linear-gradient(180deg, #fbf6f0 0%, var(--band-cream-2) 100%);
@@ -1404,13 +1411,106 @@
 .cotas-grid {
     margin-top: 2.4rem;
 }
+#presentes {
+    padding-top: clamp(5rem, 8vw, 7rem);
+    padding-bottom: clamp(5rem, 8vw, 7rem);
+}
+
+#presentes .presentes-frame {
+    position: relative;
+    max-width: 1240px;
+    margin: 0 auto;
+    background-image: var(--presentes-bg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    padding: clamp(2rem, 3vw, 3rem);
+}
+
+#presentes .presentes-content {
+    max-width: 920px;
+    margin: 0 auto;
+    padding:
+        clamp(4.5rem, 9vw, 6.8rem)
+        clamp(2rem, 8vw, 5rem)
+        clamp(4rem, 7vw, 5.2rem);
+    text-align: center;
+}
+
+#presentes .stag {
+    justify-content: center;
+}
+
+#presentes .stitle {
+    text-align: center;
+}
+
+#presentes .orn {
+    justify-content: center;
+    margin: 1.3rem 0 2rem;
+}
+
+#presentes .orn-l {
+    max-width: 110px;
+    background: linear-gradient(to right, transparent, rgba(184,154,106,.45), transparent);
+}
+
+#presentes .cotas-intro {
+    max-width: 62ch;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+    color: #6e5b53;
+}
+
+#presentes .cotas-grid {
+    margin-top: 2.2rem;
+}
+
+#presentes .cota-card {
+    background: rgba(255, 251, 247, .72);
+    border: 1px solid rgba(184,154,106,.22);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(107,79,66,.08);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+#presentes .cota-card:hover {
+    box-shadow: 0 14px 36px rgba(184,154,106,.16);
+    transform: translateY(-3px);
+}
+
+#presentes .cota-btn {
+    background: rgba(255,255,255,.35);
+}
+
+#presentes .cota-btn:hover {
+    background: var(--gold);
+    color: var(--white);
+}
+
+#presentes .cota-desc {
+    color: #7a655c;
+}
+
+#presentes .cota-progresso-bg {
+    background: rgba(201,137,122,.16);
+}
 
 
         /* ── RESPONSIVO ── */
         @media (max-width: 900px) {
             .msg-card { flex: 0 0 calc(50% - 0.75rem); }
             .manual-grid { grid-template-columns: 1fr 1fr; }
+            #presentes .presentes-content {
+    padding:
+        clamp(3.8rem, 8vw, 5rem)
+        clamp(1.6rem, 5vw, 2.4rem)
+        clamp(3.4rem, 6vw, 4.4rem);
+}
+
         }
+        
 
         @media (max-width: 860px) {
             .top-nav {
@@ -1457,6 +1557,18 @@
             .gallery-grid {
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: auto;
+                #presentes .presentes-frame {
+    padding: 1.1rem;
+}
+
+#presentes .presentes-content {
+    padding: 2.8rem 1rem 2.4rem;
+}
+
+#presentes .cotas-intro {
+    max-width: 100%;
+}
+
             }
 
             .g-tall { grid-row: span 1; }
@@ -1623,26 +1735,22 @@
         </div>
     </section>
 
-    <section id="presentes" class="section-band band-champagne">
-    <div class="section-shell inner reveal ornate-surface">
-            <div class="frame-art" aria-hidden="true"></div>
-
-            <div class="frame-corners" aria-hidden="true">
-                <svg class="c-tl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
-                <svg class="c-tr" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
-                <svg class="c-bl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
-                <svg class="c-br" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
-            </div>
-
+   <section id="presentes" class="section-band band-presentes">
+    <div class="presentes-frame reveal">
+        <div class="presentes-content">
             <p class="stag">Lua de Mel</p>
             <h2 class="stitle">Ajude os Noivos</h2>
-            <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
+            <div class="orn">
+                <span class="orn-d"></span>
+                <span class="orn-l"></span>
+            </div>
             <p class="cotas-intro">
                 Nossa maior alegria é compartilhar este dia com você. Se desejar nos presentear, escolha uma das cotas abaixo para contribuir com nossa <strong>Lua de Mel</strong>. Cada valor representa um pedacinho desta aventura que faremos juntos!
             </p>
             <div class="cotas-grid" id="cotas-grid"></div>
         </div>
     </div>
+</section>
 
     <div class="fw" style="background:var(--cream); padding-top:0; padding-bottom: var(--sp);">
         <div class="inner">
@@ -1991,32 +2099,6 @@ const PIX_FORM_FIELDS = {
         PIX_FORM_FIELDS.nome &&
         PIX_FORM_FIELDS.valor;
 }
-
-    async function enviarPixParaGoogleForms(payload) {
-    if (!pixFormConfigurado()) {
-        return { ok: false, skipped: true, reason: 'not_configured' };
-    }
-
-    try {
-        const formData = new FormData();
-
-        if (PIX_FORM_FIELDS.nome) formData.append(PIX_FORM_FIELDS.nome, payload.nome || "");
-        if (PIX_FORM_FIELDS.cota) formData.append(PIX_FORM_FIELDS.cota, payload.cota || "");
-        if (PIX_FORM_FIELDS.valor) formData.append(PIX_FORM_FIELDS.valor, payload.valor || "");
-
-        await fetch(PIX_FORM_ACTION_URL, {
-            method: "POST",
-            mode: "no-cors",
-            body: formData
-        });
-
-        return { ok: true };
-    } catch (error) {
-        console.error("Erro ao enviar confirmação PIX:", error);
-        return { ok: false, error };
-    }
-}
-
 
     async function enviarPixParaGoogleForms(payload) {
         if (!pixFormConfigurado()) {
