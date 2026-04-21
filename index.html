@@ -1410,29 +1410,37 @@
     margin-top: 2.4rem;
 }
 #presentes {
-    padding: clamp(4.5rem, 8vw, 6.5rem) 1rem clamp(5rem, 8vw, 7rem);
+    position: relative;
+    padding: 0;
+    min-height: 1200px;
+    background-image: var(--presentes-bg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #presentes .presentes-frame {
     position: relative;
-    width: min(100%, 760px);
-    margin: 0 auto;
-    min-height: 1280px;
-    background-image: var(--presentes-bg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100% 100%;
-    filter: drop-shadow(0 20px 50px rgba(107,79,66,.12));
+    width: 100%;
+    max-width: 100%;
+    min-height: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #presentes .presentes-content {
     position: relative;
     z-index: 1;
-    max-width: 100%;
+    width: min(100%, 980px);
+    margin: 0 auto;
     padding:
-        clamp(5.3rem, 8vw, 6.4rem)
-        clamp(2.2rem, 6vw, 3.2rem)
-        clamp(5rem, 7vw, 5.8rem);
+        clamp(6rem, 10vw, 8rem)
+        clamp(2rem, 6vw, 4rem)
+        clamp(5rem, 8vw, 6rem);
     text-align: center;
 }
 
@@ -1457,11 +1465,11 @@
 }
 
 #presentes .cotas-intro {
-    max-width: 52ch;
-    margin: 0 auto 2.2rem;
+    max-width: 60ch;
+    margin: 0 auto 2.4rem;
     text-align: center;
     color: #735f57;
-    font-size: .9rem;
+    font-size: .92rem;
     line-height: 1.9;
 }
 
@@ -1469,11 +1477,11 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
-    margin-top: 1.8rem;
+    margin-top: 2rem;
 }
 
 #presentes .cota-card {
-    background: rgba(255, 252, 248, .76);
+    background: rgba(255, 252, 248, .78);
     border: 1px solid rgba(184,154,106,.18);
     border-radius: 12px;
     padding: 1.35rem;
@@ -1530,23 +1538,29 @@
 
 
 
+
         /* ── RESPONSIVO ── */
         @media (max-width: 900px) {
     .msg-card { flex: 0 0 calc(50% - 0.75rem); }
     .manual-grid { grid-template-columns: 1fr 1fr; }
 
-    #presentes .presentes-frame {
-        width: min(100%, 680px);
-        min-height: 1160px;
-    }
+   #presentes {
+    min-height: 1080px;
+    background-size: cover;
+}
 
-    #presentes .presentes-content {
-        padding: 4.8rem 1.8rem 4.6rem;
-    }
+#presentes .presentes-frame {
+    min-height: 1080px;
+}
 
-    #presentes .cotas-grid {
-        gap: .95rem;
-    }
+#presentes .presentes-content {
+    width: min(100%, 860px);
+    padding: 5rem 1.8rem 4.8rem;
+}
+
+#presentes .cotas-grid {
+    gap: .95rem;
+}
 }
 
         
@@ -1602,14 +1616,19 @@
     .cota-header { flex-direction: column; }
     .cota-valor { text-align: left; }
 
-    #presentes .presentes-frame {
-        width: min(100%, 560px);
+    #presentes {
         min-height: auto;
-        background-size: 100% 100%;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    #presentes .presentes-frame {
+        min-height: auto;
     }
 
     #presentes .presentes-content {
-        padding: 3.6rem 1.2rem 3.2rem;
+        width: 100%;
+        padding: 4rem 1rem 3.2rem;
     }
 
     #presentes .cotas-grid {
@@ -1622,6 +1641,7 @@
         font-size: .86rem;
     }
 }
+
 
 
         @media (max-width: 640px) {
