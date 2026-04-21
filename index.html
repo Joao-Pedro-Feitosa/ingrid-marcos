@@ -1537,6 +1537,51 @@
 }
 
 
+/* ── PRESENTES: remover camadas brancas/genéricas ── */
+#presentes.section-band,
+#presentes.band-presentes {
+    background: transparent !important;
+}
+
+#presentes.section-band::before {
+    display: none !important;
+}
+
+#presentes .presentes-frame {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-height: 1200px;
+    margin: 0;
+    background: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#presentes .presentes-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--presentes-bg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    z-index: 0;
+}
+
+#presentes .presentes-content {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 980px);
+    margin: 0 auto;
+    padding:
+        clamp(6rem, 10vw, 8rem)
+        clamp(2rem, 6vw, 4rem)
+        clamp(5rem, 8vw, 6rem);
+    text-align: center;
+}
 
 
         /* ── RESPONSIVO ── */
@@ -1803,7 +1848,8 @@
         </div>
     </section>
 
-   <section id="presentes" class="section-band band-presentes">
+   <section id="presentes" class="section-band">
+
     <div class="presentes-frame reveal">
         <div class="presentes-content">
             <p class="stag">Lua de Mel</p>
