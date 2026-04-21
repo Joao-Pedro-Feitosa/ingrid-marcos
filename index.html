@@ -11,9 +11,10 @@
     <meta property="og:description" content="Junte-se a nós neste dia especial. Confirme sua presença!" />
     <meta property="og:image" content="https://sspark.genspark.ai/cfimages?u1=c6PlPPF%2FUlo4VjOzJPRVAK2%2BIZsCl3CnPmEngEvm53FhXkYK4NON1mPSpKu8gvv%2BzWoD%2FrfXN%2B9Gy7Nx5F%2B1vng3U4bi293X7h%2F0VK7VLM6mqcwIYJ%2FwFULaJA00TvZTQPFrtXqx1zePcaiCAkgyj%2FI%2BFnZTg2L%2FJZnn4uC8CmItNUE0jdPk37SanHPBjlWwGajljCzP0BiWrn4E2cfyHPnvNliqPuWHUSgkdweUgTVu%2BCFg7GfNJsZocb%2F5VxE5wdsQAixOhIQ063SpABo8xCj%2FOk1TDzK2QnqgiB39uxmMG4SVjn%2Fa41njvZKeb1nSFL7kRGiTx%2FXAlqGQJOGhj45hrLI%2FIh7S&u2=DC4G8mf2IXPx%2FDGw&width=2560" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='32' fill='%23b89a6a'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='20' fill='white'>IM</text></svg>" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=Luxurious+Script&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
 
     <style>
         *,
@@ -35,14 +36,19 @@
             --ink: #2e231e;
             --white: #ffffff;
             --ivory: #fffaf7;
+
             --serif: 'Cormorant Garamond', Georgia, serif;
-            --script: 'Great Vibes', cursive;
+            --script: 'Luxurious Script', cursive;
+            --menu: 'Cormorant SC', Georgia, serif;
             --sans: 'Jost', sans-serif;
+
             --sp: clamp(4rem, 8vw, 7rem);
             --frame-bg: linear-gradient(180deg, rgba(255, 252, 249, .96), rgba(246, 238, 232, .96));
             --frame-image: url('https://www.genspark.ai/api/files/s/bqCNv7su');
             --floor-image: url('https://www.genspark.ai/api/files/s/OcxzKtaJ');
-            --hero-image: url('https://sspark.genspark.ai/cfimages?u1=c6PlPPF%2FUlo4VjOzJPRVAK2%2BIZsCl3CnPmEngEvm53FhXkYK4NON1mPSpKu8gvv%2BzWoD%2FrfXN%2B9Gy7Nx5F%2B1vng3U4bi293X7h%2F0VK7VLM6mqcwIYJ%2FwFULaJA00TvZTQPFrtXqx1zePcaiCAkgyj%2FI%2BFnZTg2L%2FJZnn4uC8CmItNUE0jdPk37SanHPBjlWwGajljCzP0BiWrn4E2cfyHPnvNliqPuWHUSgkdweUgTVu%2BCFg7GfNJsZocb%2F5VxE5wdsQAixOhIQ063SpABo8xCj%2FOk1TDzK2QnqgiB39uxmMG4SVjn%2Fa41njvZKeb1nSFL7kRGiTx%2FXAlqGQJOGhj45hrLI%2FIh7S&u2=DC4G8mf2IXPx%2FDGw&width=2560');
+
+            /* SUBSTITUA pela imagem final/licenciada da Catedral de São Patrício (NY) */
+            --hero-image: url('COLE_AQUI_A_IMAGEM_LICENCIADA_DA_ST_PATRICKS_CATHEDRAL_NY');
         }
 
         html { scroll-behavior: smooth; }
@@ -76,39 +82,47 @@
 
         /* ── NAV ── */
         .top-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 120;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem clamp(1rem, 3vw, 2.5rem);
-            background: linear-gradient(180deg, rgba(20,13,10,.86) 0%, rgba(20,13,10,.45) 58%, rgba(20,13,10,0) 100%);
-            transition: background .28s ease, backdrop-filter .28s ease, border-color .28s ease;
-        }
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 120;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: .2rem;
+    padding: .65rem clamp(1rem, 2.4vw, 2.1rem) .42rem;
+    background: linear-gradient(180deg, rgba(20,13,10,.84) 0%, rgba(20,13,10,.48) 58%, rgba(20,13,10,0) 100%);
+    transition: background .28s ease, backdrop-filter .28s ease, border-color .28s ease;
+}
+
 
         .top-nav.scrolled {
-            background: rgba(20,13,10,.72);
+            background: rgba(20,13,10,.74);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,.06);
+            border-bottom: 1px solid rgba(255,255,255,.08);
         }
 
         .nav-group {
-            display: flex;
-            gap: clamp(.8rem, 2vw, 2rem);
-            align-items: center;
-            flex-wrap: wrap;
-        }
+    display: flex;
+    gap: clamp(.45rem, .8vw, .85rem);
+    align-items: center;
+    flex-wrap: wrap;
+}
 
-        .nav-right { justify-content: flex-end; }
+.nav-left {
+    justify-content: flex-end;
+}
+
+.nav-right {
+    justify-content: flex-start;
+}
 
         .top-nav a {
-            font-size: .68rem;
+            font-family: var(--menu);
+            font-size: .82rem;
             font-weight: 500;
-            letter-spacing: .22em;
+            letter-spacing: .16em;
             text-transform: uppercase;
-            color: rgba(255,248,244,.95);
+            color: rgba(255,248,244,.96);
             text-decoration: none;
             transition: color .25s ease, opacity .25s ease;
             text-shadow: 0 2px 10px rgba(0,0,0,.35);
@@ -116,46 +130,51 @@
 
         .top-nav a:hover { color: var(--gold-lt); }
 
-        /* ── MONOGRAMA NAVBAR ── */
-        .nav-monogram {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 62px;
-            height: 72px;
-            flex-shrink: 0;
-            text-decoration: none;
-            font-family: var(--serif);
-        }
+       .nav-monogram {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 118px;
+    height: 112px;
+    flex-shrink: 0;
+    text-decoration: none;
+    font-family: var(--script);
+    margin-top: -4px;
+}
 
-        .nav-monogram .nav-mono-m {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4.8rem;
-            font-weight: 400;
-            line-height: .85;
-            color: rgba(255,255,255,.95);
-            z-index: 1;
-            text-shadow: 0 0 18px rgba(255,255,255,.06);
-            white-space: nowrap;
-        }
 
-        .nav-monogram .nav-mono-i {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4.8rem;
-            font-weight: 400;
-            line-height: .85;
-            color: var(--pearl-rose);
-            z-index: 2;
-            text-shadow: 0 0 20px rgba(216,188,196,.3);
-            white-space: nowrap;
-        }
+
+       .nav-monogram .nav-mono-i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-62%, -54%) rotate(-5deg);
+    font-family: var(--script);
+    font-size: 6.1rem;
+    font-weight: 400;
+    line-height: .82;
+    color: var(--pearl-rose);
+    z-index: 2;
+    text-shadow: 0 4px 26px rgba(0,0,0,.38), 0 0 30px rgba(216,188,196,.12);
+    white-space: nowrap;
+}
+
+.nav-monogram .nav-mono-m {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-36%, -48%);
+    font-family: var(--script);
+    font-size: 4.95rem;
+    font-weight: 400;
+    line-height: .82;
+    color: var(--white);
+    z-index: 1;
+    text-shadow: 0 4px 26px rgba(0,0,0,.42);
+    white-space: nowrap;
+}
+
 
         /* ── HERO ── */
         #hero.hero-cathedral {
@@ -170,15 +189,14 @@
             overflow: hidden;
             background-color: #120d0b;
             background-image:
-                linear-gradient(180deg, rgba(15,10,8,.36) 0%, rgba(15,10,8,.30) 25%, rgba(15,10,8,.50) 65%, rgba(15,10,8,.72) 100%),
+                linear-gradient(180deg, rgba(15,10,8,.34) 0%, rgba(15,10,8,.28) 25%, rgba(15,10,8,.48) 65%, rgba(15,10,8,.74) 100%),
                 var(--hero-image);
             background-size: cover;
-            background-position: center 34%;
+            background-position: center 36%;
             background-repeat: no-repeat;
             isolation: isolate;
         }
 
-        /* fallback forte p/ mobile */
         #hero.hero-cathedral::before {
             content: "";
             position: absolute;
@@ -186,7 +204,7 @@
             z-index: 0;
             background-image: var(--hero-image);
             background-size: cover;
-            background-position: center 34%;
+            background-position: center 36%;
             background-repeat: no-repeat;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
@@ -199,7 +217,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 34%;
+            object-position: center 36%;
             z-index: 0;
             opacity: .999;
             transform: translateZ(0);
@@ -214,86 +232,50 @@
             inset: 0;
             z-index: 1;
             background:
-                linear-gradient(180deg, rgba(15,10,8,.36) 0%, rgba(15,10,8,.30) 25%, rgba(15,10,8,.50) 65%, rgba(15,10,8,.72) 100%),
+                linear-gradient(180deg, rgba(15,10,8,.34) 0%, rgba(15,10,8,.28) 25%, rgba(15,10,8,.48) 65%, rgba(15,10,8,.74) 100%),
                 radial-gradient(circle at center, rgba(255,255,255,.04), transparent 36%);
         }
 
         .hero-center {
             position: relative;
             z-index: 2;
-            max-width: 1100px;
-            padding: 2rem;
+            max-width: 980px;
+            padding: 2rem 1.5rem;
         }
 
         .hero-kicker {
-            font-size: .78rem;
-            letter-spacing: .30em;
+            font-family: var(--menu);
+            font-size: .8rem;
+            letter-spacing: .24em;
             text-transform: uppercase;
             color: rgba(255,255,255,.9);
-            margin-bottom: 1.2rem;
-        }
-
-        .hero-monogram {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-            margin: 0 auto 1rem;
-            font-family: var(--serif);
-            font-weight: 400;
-            line-height: .85;
-        }
-
-        .hero-monogram .hmono-i {
-            font-size: clamp(5rem, 12vw, 9rem);
-            color: var(--pearl-rose);
-            text-shadow: 0 0 26px rgba(216,188,196,.18);
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-monogram .hmono-and {
-            font-size: clamp(3.2rem, 7vw, 5.5rem);
-            color: var(--gold-lt);
-            text-shadow: 0 0 20px rgba(216,193,154,.22);
-            position: relative;
-            z-index: 2;
-            margin: 0 clamp(.2rem, 1vw, .6rem);
-            padding-bottom: .4em;
-            font-style: italic;
-        }
-
-        .hero-monogram .hmono-m {
-            font-size: clamp(5rem, 12vw, 9rem);
-            color: rgba(255,255,255,.98);
-            text-shadow: 0 0 24px rgba(255,255,255,.08);
-            position: relative;
-            z-index: 1;
+            margin-bottom: .45rem;
         }
 
         .hero-script {
             font-family: var(--script);
-            font-size: clamp(4.2rem, 9.5vw, 8rem);
+            font-size: clamp(5rem, 11vw, 8.3rem);
             font-weight: 400;
             color: var(--white);
-            line-height: .95;
+            line-height: .84;
             text-shadow: 0 4px 26px rgba(0,0,0,.42);
         }
 
         .hero-script .hs-ingrid {
             color: var(--pearl-rose);
-            text-shadow: 0 4px 26px rgba(0,0,0,.38), 0 0 30px rgba(216,188,196,.18);
+            text-shadow: 0 4px 26px rgba(0,0,0,.38), 0 0 30px rgba(216,188,196,.12);
         }
 
         .hero-date {
-            margin-top: 1.4rem;
-            font-size: .78rem;
-            letter-spacing: .24em;
+            margin-top: .95rem;
+            font-family: var(--menu);
+            font-size: .74rem;
+            letter-spacing: .22em;
             text-transform: uppercase;
             color: var(--gold-lt);
             background: rgba(0,0,0,.18);
             display: inline-block;
-            padding: .62rem 1.4rem;
+            padding: .68rem 1.35rem;
             border: 1px solid rgba(216,193,154,.34);
             border-radius: 999px;
         }
@@ -306,8 +288,9 @@
         }
 
         .cd-label {
-            font-size: .64rem;
-            letter-spacing: .25em;
+            font-family: var(--menu);
+            font-size: .68rem;
+            letter-spacing: .24em;
             text-transform: uppercase;
             color: var(--gold-lt);
             margin-bottom: 1.4rem;
@@ -376,7 +359,8 @@
         }
 
         .stag {
-            font-size: .67rem;
+            font-family: var(--menu);
+            font-size: .69rem;
             letter-spacing: .22em;
             text-transform: uppercase;
             color: var(--gold);
@@ -387,7 +371,7 @@
 
         .stitle {
             font-family: var(--serif);
-            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-size: clamp(2.2rem, 4.5vw, 3.25rem);
             font-weight: 300;
             font-style: italic;
             color: var(--mocha);
@@ -464,7 +448,6 @@
             pointer-events: none;
         }
 
-        /* imagem ornamental suave */
         .frame-art {
             position: absolute;
             inset: 0;
@@ -474,7 +457,7 @@
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center top;
-            opacity: .16;
+            opacity: .22;
             mix-blend-mode: multiply;
         }
 
@@ -506,7 +489,8 @@
 
         #galeria.ornate-surface,
         .rsvp-wrap.ornate-surface,
-        #presentes .inner.ornate-surface {
+        #presentes .inner.ornate-surface,
+        #manual .manual-wrap.ornate-surface {
             padding: clamp(2.5rem, 4vw, 3.5rem) clamp(2.2rem, 4vw, 3.2rem);
         }
 
@@ -785,6 +769,43 @@
             box-shadow: 0 8px 28px rgba(107,79,66,.3);
         }
 
+        .pix-name-field {
+            margin-top: 1.2rem;
+            margin-bottom: .4rem;
+            text-align: left;
+        }
+
+        .pix-name-field label {
+            font-size: .82rem;
+            color: var(--mocha);
+            font-weight: 500;
+        }
+
+        .pix-name-field input {
+            width: 100%;
+            padding: .85rem;
+            border: 1px solid rgba(184,154,106,.28);
+            border-radius: 4px;
+            background: rgba(255,255,255,.92);
+            font-family: var(--sans);
+            outline: none;
+            font-size: .92rem;
+            color: var(--ink);
+        }
+
+        .pix-name-field input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(184,154,106,.12);
+        }
+
+        .pix-helper {
+            font-size: .72rem;
+            line-height: 1.6;
+            color: #8b7368;
+            margin-top: .6rem;
+            text-align: left;
+        }
+
         /* ── RSVP ── */
         .rsvp-wrap {
             border-radius: 22px;
@@ -831,7 +852,7 @@
             min-height: 90px;
         }
 
-        /* ── FUNDO COM PISO REAL NO AGRADECIMENTO ── */
+        /* ── FUNDO COM PISO ── */
         .thanks-card {
             position: relative;
             min-height: 470px;
@@ -854,7 +875,8 @@
             background-position: center center;
             background-repeat: no-repeat;
             transform: scale(1.04);
-            filter: saturate(.82) contrast(1.04) brightness(.78);
+            filter: saturate(.92) contrast(1.03) brightness(.92);
+            opacity: .96;
         }
 
         .thanks-card-floor::after {
@@ -862,14 +884,14 @@
             position: absolute;
             inset: 0;
             background:
-                linear-gradient(180deg, rgba(33,24,19,.10) 0%, rgba(33,24,19,.18) 100%);
+                linear-gradient(180deg, rgba(33,24,19,.06) 0%, rgba(33,24,19,.12) 100%);
         }
 
         .thanks-card-overlay {
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse at center, rgba(255,252,248,.78) 0%, rgba(250,245,238,.88) 100%);
+                radial-gradient(ellipse at center, rgba(255,252,248,.46) 0%, rgba(250,245,238,.58) 58%, rgba(245,236,227,.68) 100%);
         }
 
         .thanks-card::after {
@@ -908,6 +930,7 @@
         }
 
         .thanks-kicker {
+            font-family: var(--menu);
             font-size: .72rem;
             letter-spacing: .24em;
             text-transform: uppercase;
@@ -1062,6 +1085,89 @@
             font-size: 1.1rem;
         }
 
+        /* ── MANUAL ── */
+        #manual {
+            padding-top: 0;
+        }
+
+        .manual-note {
+            font-size: .74rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: #8f776c;
+            margin-top: .3rem;
+        }
+
+        .manual-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .manual-card {
+            position: relative;
+            padding: 2rem 1.55rem 1.5rem;
+            background: rgba(255,255,255,.84);
+            border: 1px solid rgba(184,154,106,.22);
+            border-radius: 18px;
+            box-shadow: 0 18px 48px rgba(107,79,66,.08);
+            overflow: hidden;
+        }
+
+        .manual-card::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(184,154,106,.16);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .manual-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(184,154,106,.38);
+            background: rgba(255,250,245,.96);
+            color: var(--gold);
+            font-family: var(--menu);
+            font-size: .9rem;
+            letter-spacing: .16em;
+            margin-bottom: 1rem;
+        }
+
+        .manual-card-title {
+            font-family: var(--serif);
+            font-size: 1.7rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--mocha);
+            margin-bottom: .7rem;
+        }
+
+        .manual-card-copy,
+        .manual-list {
+            font-size: .92rem;
+            line-height: 1.9;
+            color: #6b5a52;
+        }
+
+        .manual-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: .55rem;
+        }
+
+        .manual-list strong {
+            color: var(--mocha);
+            font-weight: 600;
+        }
+
         /* ── LOCAL ── */
         .venue-grid {
             display: grid;
@@ -1080,21 +1186,114 @@
 
         .map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-        footer {
+        /* ── FOOTER ── */
+        footer.site-footer {
+            position: relative;
+            overflow: hidden;
             text-align: center;
-            padding: 4rem 2rem;
-            background: var(--ink);
-            color: rgba(255,255,255,.38);
-            font-size: .74rem;
+            padding: 5rem 1.5rem 4rem;
+            background-color: #120d0b;
+            background-image:
+                linear-gradient(180deg, rgba(15,10,8,.56) 0%, rgba(15,10,8,.70) 100%),
+                var(--hero-image);
+            background-size: cover;
+            background-position: center 36%;
+            color: rgba(255,255,255,.72);
         }
 
-        footer .fn {
-            font-family: var(--serif);
-            font-style: italic;
-            font-size: 1.4rem;
+        footer.site-footer::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,.04), transparent 35%);
+            pointer-events: none;
+        }
+
+        .footer-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+      .footer-monogram {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 112px;
+    height: 108px;
+    margin-bottom: 1.2rem;
+    text-decoration: none;
+    font-family: var(--script);
+}
+
+.footer-mono-i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-62%, -54%) rotate(-5deg);
+    font-family: var(--script);
+    font-size: 6.2rem;
+    font-weight: 400;
+    line-height: .82;
+    color: var(--pearl-rose);
+    z-index: 2;
+    text-shadow: 0 4px 26px rgba(0,0,0,.38), 0 0 30px rgba(216,188,196,.12);
+}
+
+.footer-mono-m {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-36%, -48%);
+    font-family: var(--script);
+    font-size: 5.1rem;
+    font-weight: 400;
+    line-height: .82;
+    color: var(--white);
+    z-index: 1;
+    text-shadow: 0 4px 26px rgba(0,0,0,.42);
+}
+
+
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.1rem;
+            flex-wrap: wrap;
+            margin: 0 auto 1.3rem;
+        }
+
+        .footer-nav a {
+            font-family: var(--menu);
+            font-size: .78rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: rgba(255,248,244,.88);
+            transition: color .25s ease;
+        }
+
+        .footer-nav a:hover {
             color: var(--gold-lt);
-            display: block;
-            margin-bottom: 10px;
+        }
+
+        .footer-couple {
+            font-family: var(--script);
+            font-size: 3rem;
+            line-height: .9;
+            color: rgba(255,255,255,.96);
+            margin-bottom: .65rem;
+        }
+
+        .footer-date {
+            font-family: var(--menu);
+            font-size: .7rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--gold-lt);
         }
 
         .acc-25 { background: #c9c0b4; }
@@ -1107,14 +1306,15 @@
         /* ── RESPONSIVO ── */
         @media (max-width: 900px) {
             .msg-card { flex: 0 0 calc(50% - 0.75rem); }
+            .manual-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 860px) {
             .top-nav {
                 grid-template-columns: 1fr;
                 justify-items: center;
-                padding-top: .85rem;
-                padding-bottom: 1rem;
+                padding-top: .65rem;
+                padding-bottom: .8rem;
             }
 
             .nav-right, .nav-group { justify-content: center; }
@@ -1127,24 +1327,24 @@
                 min-height: 100svh;
                 padding-top: 12rem;
                 padding-bottom: 4rem;
-                background-position: center 24%;
+                background-position: center 26%;
                 background-size: cover;
             }
 
             #hero.hero-cathedral::before {
-                background-position: center 24%;
+                background-position: center 26%;
                 background-size: cover;
             }
 
             .hero-bg {
-                object-position: center 24%;
+                object-position: center 26%;
                 width: 100%;
                 height: 100%;
                 min-height: 100%;
             }
 
             .hero-center { padding: 1.5rem .8rem; }
-            .hero-script { font-size: clamp(3.2rem, 13vw, 5rem); }
+            .hero-script { font-size: clamp(3.8rem, 13vw, 5.6rem); }
             .hero-date { font-size: .68rem; letter-spacing: .18em; padding: .58rem 1rem; }
             .venue-grid { grid-template-columns: 1fr; }
             .thanks-card { min-height: 430px; }
@@ -1161,12 +1361,17 @@
             .cota-valor { text-align: left; }
         }
 
+        @media (max-width: 640px) {
+            .manual-grid { grid-template-columns: 1fr; }
+            .footer-nav { flex-direction: column; gap: .65rem; }
+            .top-nav a { font-size: .72rem; letter-spacing: .13em; }
+        }
+
         @media (max-width: 600px) {
             .msg-card { flex: 0 0 85%; }
-            .top-nav a { font-size: .60rem; letter-spacing: .16em; }
-            .nav-group { gap: .8rem 1rem; }
-            .nav-monogram .nav-mono-i { font-size: 4rem; }
-            .nav-monogram .nav-mono-m { font-size: 4.1rem; }
+            .nav-group { gap: .7rem .9rem; }
+            .nav-monogram .nav-mono-i { font-size: 4.1rem; }
+            .nav-monogram .nav-mono-m { font-size: 4.35rem; }
 
             #hero.hero-cathedral {
                 background-position: center 22%;
@@ -1215,7 +1420,7 @@
     <section id="hero" class="hero-cathedral">
         <img
             class="hero-bg"
-            src="https://sspark.genspark.ai/cfimages?u1=c6PlPPF%2FUlo4VjOzJPRVAK2%2BIZsCl3CnPmEngEvm53FhXkYK4NON1mPSpKu8gvv%2BzWoD%2FrfXN%2B9Gy7Nx5F%2B1vng3U4bi293X7h%2F0VK7VLM6mqcwIYJ%2FwFULaJA00TvZTQPFrtXqx1zePcaiCAkgyj%2FI%2BFnZTg2L%2FJZnn4uC8CmItNUE0jdPk37SanHPBjlWwGajljCzP0BiWrn4E2cfyHPnvNliqPuWHUSgkdweUgTVu%2BCFg7GfNJsZocb%2F5VxE5wdsQAixOhIQ063SpABo8xCj%2FOk1TDzK2QnqgiB39uxmMG4SVjn%2Fa41njvZKeb1nSFL7kRGiTx%2FXAlqGQJOGhj45hrLI%2FIh7S&u2=DC4G8mf2IXPx%2FDGw&width=2560"
+            src="COLE_AQUI_A_IMAGEM_LICENCIADA_DA_ST_PATRICKS_CATHEDRAL_NY"
             alt=""
             loading="eager"
             fetchpriority="high"
@@ -1227,13 +1432,6 @@
 
         <div class="hero-center">
             <p class="hero-kicker">O casamento de</p>
-
-            <div class="hero-monogram" aria-hidden="true">
-                <span class="hmono-i">I</span>
-                <span class="hmono-and">&amp;</span>
-                <span class="hmono-m">M</span>
-            </div>
-
             <h1 class="hero-script"><span class="hs-ingrid">Ingrid</span> &amp; Marcos</h1>
             <p class="hero-date">31 de Outubro de 2026 • Petrópolis, RJ</p>
         </div>
@@ -1348,14 +1546,23 @@
                     <h3 style="font-family:var(--serif);font-size:1.6rem;color:var(--mocha)">Presente para os Noivos</h3>
                     <p class="pix-modal-cota-nome" id="pix-cota-nome"></p>
                     <p class="pix-modal-valor" id="pix-modal-valor"></p>
+
                     <div class="pix-qrcode">
                         <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021126330014BR.GOV.BCB.PIX0114066553061755204000053039865802BR5913IngridMarcos6009Petropolis62070503***6304E67E" alt="QR Code Pix" />
                     </div>
+
                     <div class="pix-copy-box">
                         <p style="font-size:.75rem;color:#888"><strong>Titular:</strong> Ingrid Sobabe ou Marcos Paulo</p>
                         <p id="chavePix" style="font-family:monospace;font-size:.9rem;margin-top:5px;color:var(--mocha)">066.553.061-75</p>
                         <button class="copy-btn" id="btnCopiar" onclick="copiarPix()" type="button">Copiar Chave PIX</button>
                     </div>
+
+                    <div class="form-g pix-name-field">
+                        <label for="pixNome">Nome para confirmação do PIX</label>
+                        <input id="pixNome" type="text" placeholder="Seu nome completo" required />
+                    </div>
+                    <p class="pix-helper">Informe o nome de quem realizou o pagamento para registrar a confirmação corretamente.</p>
+
                     <button class="gift-btn" id="btnConfirmarCota" style="width:100%;justify-content:center" onclick="confirmarCota()" type="button">
                         Já fiz o PIX
                     </button>
@@ -1386,632 +1593,815 @@
         <div class="car-dots" id="car-dots"></div>
     </section>
 
-    <section id="rsvp" class="sec">
-        <div class="reveal">
-            <p class="stag">Presença</p>
-            <h2 class="stitle">Confirme sua participação</h2>
+    <section id="manual" class="sec">
+    <div class="manual-wrap ornate-surface reveal">
+        <div class="frame-art" aria-hidden="true"></div>
+
+        <div class="frame-corners" aria-hidden="true">
+            <svg class="c-tl" viewBox="0 0 52 52" fill="none">
+                <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+            </svg>
+            <svg class="c-tr" viewBox="0 0 52 52" fill="none">
+                <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+            </svg>
+            <svg class="c-bl" viewBox="0 0 52 52" fill="none">
+                <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+            </svg>
+            <svg class="c-br" viewBox="0 0 52 52" fill="none">
+                <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+            </svg>
+        </div>
+
+        <div>
+            <p class="stag">Manual do Casamento</p>
+            <h2 class="stitle">Informações para o grande dia</h2>
             <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
-        </div>
+            <p class="manual-note">Você pode editar os textos abaixo com os detalhes finais, sem alterar a estrutura visual.</p>
 
-        <div class="rsvp-wrap reveal ornate-surface">
-            <div class="frame-art" aria-hidden="true"></div>
-
-            <div class="frame-corners" aria-hidden="true">
-                <svg class="c-tl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
-                <svg class="c-tr" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
-                <svg class="c-bl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/><path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/></svg>
-                </svg>
-                <svg class="c-br" viewBox="0 0 52 52" fill="none">
-                    <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
-                    <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
-                    <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
-                    <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
-                    <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
-                </svg>
-            </div>
-
-            <div id="rsvp-fw" style="padding:2.5rem">
-                <div id="rsvp-form">
-                    <div class="form-g">
-                        <label for="nome">Nome Completo</label>
-                        <input id="nome" type="text" name="nome" required placeholder="Seu nome" />
-                    </div>
-
-                    <div class="form-g">
-                        <label for="email">E-mail</label>
-                        <input id="email" type="email" name="email" required placeholder="seu@email.com" />
-                    </div>
-
-                    <div class="form-g">
-                        <label for="presenca">Vai comparecer?</label>
-                       <select id="presenca" name="presenca" required>
-    <option value="Sim">Sim, estarei presente!</option>
-    <option value="Não">Infelizmente não poderei ir</option>
-</select>
-                    </div>
-
-                    <div class="form-g">
-                        <label for="mensagem">Deixe uma mensagem para os noivos <span style="color:#aaa;font-weight:400">(opcional)</span></label>
-                        <textarea id="mensagem" name="mensagem" placeholder="Escreva suas palavras de carinho... Sua mensagem aparecerá no site! 💌" maxlength="300"></textarea>
-                        <p style="font-size:.72rem;color:#aaa;text-align:right;margin-top:4px"><span id="char-count">0</span>/300</p>
-                    </div>
-
-                    <button id="btn-rsvp" type="button" onclick="enviarRsvp()" class="gift-btn" style="width:100%;justify-content:center">
-                        Confirmar Presença
-                    </button>
-                </div>
-            </div>
-
-            <div id="rsvp-success" style="display:none;padding:2rem">
-                <div class="thanks-card">
-                    <div class="thanks-card-floor"></div>
-                    <div class="thanks-card-overlay"></div>
-                    <div class="thanks-plaque">
-                        <p class="thanks-kicker">Presença confirmada</p>
-                        <h3 id="thanks-name">Que alegria ter você conosco</h3>
-                        <p id="thanks-copy">
-                            Recebemos sua confirmação e ficamos muito felizes em compartilhar esse dia com você.
-                        </p>
-                        <p id="thanks-msg-preview" class="thanks-msg-preview" style="display:none"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="local" class="fw" style="background:var(--blush)">
-        <div class="inner">
-            <div class="reveal">
-                <p class="stag">Localização</p>
-                <h2 class="stitle">Onde tudo acontecerá</h2>
-                <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
-            </div>
-            <div class="venue-grid reveal">
-                <div>
-                    <p style="font-weight:600;font-size:1.05rem;color:var(--mocha);margin-bottom:8px">Catedral São Pedro de Alcântara</p>
-                    <p style="font-size:.9rem;color:#6b5a52;line-height:1.8">
-                        Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ
+            <div class="manual-grid">
+                <article class="manual-card">
+                    <span class="manual-badge">D</span>
+                    <h3 class="manual-card-title">Dress Code</h3>
+                    <p class="manual-card-copy">
+                        Traje social / passeio completo. Sugerimos uma paleta elegante e clássica, inspirada em tons neutros, terrosos, rosé, dourado suave e preto.
                     </p>
-                    <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="gift-btn" style="margin-top:1.5rem;font-size:.7rem">
-                        Abrir no Google Maps
-                    </a>
+                </article>
+
+                <article class="manual-card">
+                    <span class="manual-badge">H</span>
+                    <h3 class="manual-card-title">Horários</h3>
+                    <ul class="manual-list">
+                        <li><strong>Data:</strong> 31 de outubro de 2026</li>
+                        <li><strong>Chegada sugerida:</strong> 30 minutos antes</li>
+                        <li><strong>Cerimônia:</strong> a confirmar</li>
+                        <li><strong>Recepção:</strong> logo após a cerimônia</li>
+                    </ul>
+                </article>
+
+                <article class="manual-card">
+                    <span class="manual-badge">G</span>
+                    <h3 class="manual-card-title">Gentilezas</h3>
+                    <ul class="manual-list">
+                        <li>Em caso de dúvidas, entre em contato com os noivos.</li>
+                        <li>Recomendamos atenção ao horário para que ninguém perca a entrada da cerimônia.</li>
+                        <li>Se desejar nos presentear, a confirmação via PIX está disponível na seção Lua de Mel.</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="rsvp" class="sec">
+    <div class="reveal">
+        <p class="stag">Presença</p>
+        <h2 class="stitle">Confirme sua participação</h2>
+        <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
+    </div>
+
+    <div class="rsvp-wrap reveal ornate-surface">
+        <div class="frame-art" aria-hidden="true"></div>
+
+        <div class="frame-corners" aria-hidden="true">
+            <svg class="c-tl" viewBox="0 0 52 52" fill="none">
+                <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+            </svg>
+            <svg class="c-tr" viewBox="0 0 52 52" fill="none">
+                <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+            </svg>
+            <svg class="c-bl" viewBox="0 0 52 52" fill="none">
+                <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+            </svg>
+            <svg class="c-br" viewBox="0 0 52 52" fill="none">
+                <path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/>
+                <path d="M4 48 L4 28 Q4 16 16 10 L48 4" stroke="#b89a6a" stroke-width=".5" fill="none" opacity=".5"/>
+                <circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/>
+                <circle cx="4" cy="4" r="1.2" fill="#b89a6a"/>
+                <path d="M10 4 L10 2 M4 10 L2 10" stroke="#b89a6a" stroke-width=".8"/>
+            </svg>
+        </div>
+
+        <div id="rsvp-fw" style="padding:2.5rem">
+            <div id="rsvp-form">
+                <div class="form-g">
+                    <label for="nome">Nome Completo</label>
+                    <input id="nome" type="text" name="nome" required placeholder="Seu nome" />
                 </div>
-                <div class="map-wrap">
-                    <iframe title="Catedral São Pedro de Alcântara" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.08!2d-43.1794!3d-22.5053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9978286a41e7ef%3A0x9de4a4ab0cbfaeac!2sCatedral%20S%C3%A3o%20Pedro%20de%20Alc%C3%A2ntara!5e0!3m2!1spt-BR!2sbr!4v1714000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                <div class="form-g">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email" name="email" required placeholder="seu@email.com" />
+                </div>
+
+                <div class="form-g">
+                    <label for="presenca">Vai comparecer?</label>
+                    <select id="presenca" name="presenca" required>
+                        <option value="Sim">Sim, estarei presente!</option>
+                        <option value="Não">Infelizmente não poderei ir</option>
+                    </select>
+                </div>
+
+                <div class="form-g">
+                    <label for="mensagem">Deixe uma mensagem para os noivos <span style="color:#aaa;font-weight:400">(opcional)</span></label>
+                    <textarea id="mensagem" name="mensagem" placeholder="Escreva suas palavras de carinho... Sua mensagem aparecerá no site! 💌" maxlength="300"></textarea>
+                    <p style="font-size:.72rem;color:#aaa;text-align:right;margin-top:4px"><span id="char-count">0</span>/300</p>
+                </div>
+
+                <button id="btn-rsvp" type="button" onclick="enviarRsvp()" class="gift-btn" style="width:100%;justify-content:center">
+                    Confirmar Presença
+                </button>
+            </div>
+        </div>
+
+        <div id="rsvp-success" style="display:none;padding:2rem">
+            <div class="thanks-card">
+                <div class="thanks-card-floor"></div>
+                <div class="thanks-card-overlay"></div>
+                <div class="thanks-plaque">
+                    <p class="thanks-kicker">Presença confirmada</p>
+                    <h3 id="thanks-name">Que alegria ter você conosco</h3>
+                    <p id="thanks-copy">
+                        Recebemos sua confirmação e ficamos muito felizes em compartilhar esse dia com você.
+                    </p>
+                    <p id="thanks-msg-preview" class="thanks-msg-preview" style="display:none"></p>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <footer>
-        <span class="fn">Ingrid &amp; Marcos</span>
-        <p>31 de Outubro de 2026 &bull; Feito com muito amor</p>
-    </footer>
+<div id="local" class="fw" style="background:var(--blush)">
+    <div class="inner">
+        <div class="reveal">
+            <p class="stag">Localização</p>
+            <h2 class="stitle">Onde tudo acontecerá</h2>
+            <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const SUPABASE_URL = "https://scsqxrpjhivwjauukaph.supabase.co";
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjc3F4cnBqaGl2d2phdXVrYXBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODkzMDIsImV4cCI6MjA5MTg2NTMwMn0.XlooQ1E4ka5O05W_3VWjtjokbUb-ig9RKaU4i4dWDFQ";
-        const WEDDING_DATE = new Date('2026-10-31T16:00:00-03:00');
+        <div class="venue-grid reveal">
+            <div>
+                <p style="font-weight:600;font-size:1.05rem;color:var(--mocha);margin-bottom:8px">Catedral São Pedro de Alcântara</p>
+                <p style="font-size:.9rem;color:#6b5a52;line-height:1.8">
+                    Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ
+                </p>
+                <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="gift-btn" style="margin-top:1.5rem;font-size:.7rem">
+                    Abrir no Google Maps
+                </a>
+            </div>
 
-        /*
-            GOOGLE FORMS BACKUP
-            1) Troque a URL abaixo pela URL /formResponse do seu Google Forms
-            2) Troque os entry.xxxxx pelos IDs reais dos campos
-        */
-       const ENABLE_GOOGLE_FORMS = true;
-const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdxQwWrNXcQlSf8HMZ6EyZS0DFGFdnE94djywPz_xUVncwzCQ/formResponse";
-const GOOGLE_FORM_FIELDS = {
-    nome:     "entry.550444657",
-    email:    "entry.1203154043",
-    presenca: "entry.898813209",
-    mensagem: "entry.1491635248",
-    origem:   ""
-};
+            <div class="map-wrap">
+                <iframe title="Catedral São Pedro de Alcântara" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.08!2d-43.1794!3d-22.5053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9978286a41e7ef%3A0x9de4a4ab0cbfaeac!2sCatedral%20S%C3%A3o%20Pedro%20de%20Alc%C3%A2ntara!5e0!3m2!1spt-BR!2sbr!4v1714000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
 
-        let sb;
+<footer class="site-footer">
+    <div class="footer-inner">
+        <a href="#hero" class="footer-monogram" aria-label="Monograma Ingrid e Marcos">
+            <span class="footer-mono-i">I</span>
+            <span class="footer-mono-m">M</span>
+        </a>
+
+        <nav class="footer-nav" aria-label="Navegação do rodapé">
+            <a href="#hero">Início</a>
+            <a href="#galeria">Fotos</a>
+            <a href="#presentes">Lua de Mel</a>
+            <a href="#manual">Manual</a>
+            <a href="#rsvp">Presença</a>
+            <a href="#local">Local</a>
+        </nav>
+
+        <p class="footer-couple">Ingrid &amp; Marcos</p>
+        <p class="footer-date">31 de Outubro de 2026 • Feito com muito amor</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const SUPABASE_URL = "https://scsqxrpjhivwjauukaph.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjc3F4cnBqaGl2d2phdXVrYXBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODkzMDIsImV4cCI6MjA5MTg2NTMwMn0.XlooQ1E4ka5O05W_3VWjtjokbUb-ig9RKaU4i4dWDFQ";
+    const WEDDING_DATE = new Date('2026-10-31T16:00:00-03:00');
+
+    const ENABLE_GOOGLE_FORMS = true;
+    const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdxQwWrNXcQlSf8HMZ6EyZS0DFGFdnE94djywPz_xUVncwzCQ/formResponse";
+    const GOOGLE_FORM_FIELDS = {
+        nome: "entry.550444657",
+        email: "entry.1203154043",
+        presenca: "entry.898813209",
+        mensagem: "entry.1491635248",
+        origem: ""
+    };
+
+    /* CONFIGURE O FORMULÁRIO DO PIX AQUI */
+    const PIX_FORM_ACTION_URL = "COLE_AQUI_O_LINK_FORM_RESPONSE_DO_GOOGLE_FORMS_DO_PIX";
+    const PIX_FORM_FIELDS = {
+        nome: "entry.xxxxxxxxxx",
+        cota: "entry.xxxxxxxxxx",
+        valor: "entry.xxxxxxxxxx"
+    };
+
+    let sb;
+    try {
+        sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    } catch (e) {}
+
+    const COTAS_CONFIG = [
+        { id:'c25',   valor:25,   titulo:'Sopro de Carinho',     descricao:'Um mimo para começar — cada centavo vai direto para a nossa aventura juntos!', total:25, acento:'acc-25',   emoji:'🌸' },
+        { id:'c50',   valor:50,   titulo:'Brinde ao Amor',       descricao:'Com esse presente você contribui para uma noite especial durante a nossa lua de mel.', total:30, acento:'acc-50',   emoji:'🥂' },
+        { id:'c100',  valor:100,  titulo:'Passeio Inesquecível', descricao:'Contribui para um passeio que se tornará memória para a vida toda.', total:25, acento:'acc-100',  emoji:'🗺️' },
+        { id:'c200',  valor:200,  titulo:'Jantar Romântico',     descricao:'Ajude a financiar um jantar especial com aquela vista de dar suspiro.', total:20, acento:'acc-200',  emoji:'🍷' },
+        { id:'c500',  valor:500,  titulo:'Noite dos Sonhos',     descricao:'Uma hospedagem incrível para uma noite que nunca vamos esquecer.', total:10, acento:'acc-500',  emoji:'🌙' },
+        { id:'c1000', valor:1000, titulo:'Grande Aventura',      descricao:'O presente máximo — patrocine um dia completo de pura lua de mel.', total:2,  acento:'acc-1000', emoji:'✈️' }
+    ];
+
+    let cotasUsadas = {};
+    let cotaSelecionada = null;
+    let mensagens = [];
+    let carPos = 0;
+    let carVisiveis = 3;
+
+    function pad(n) {
+        return String(n).padStart(2, '0');
+    }
+
+    function primeiroNome(nomeCompleto) {
+        return String(nomeCompleto).trim().split(' ')[0] || 'Querido convidado';
+    }
+
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g,'&amp;')
+            .replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;')
+            .replace(/"/g,'&quot;')
+            .replace(/'/g,'&#039;');
+    }
+
+    function googleFormsConfigurado() {
+        return ENABLE_GOOGLE_FORMS &&
+            GOOGLE_FORM_ACTION_URL &&
+            !GOOGLE_FORM_ACTION_URL.includes('SEU_FORM_ID');
+    }
+
+    function pixFormConfigurado() {
+        return PIX_FORM_ACTION_URL &&
+            !PIX_FORM_ACTION_URL.includes('COLE_AQUI') &&
+            PIX_FORM_FIELDS.nome &&
+            PIX_FORM_FIELDS.cota &&
+            PIX_FORM_FIELDS.valor;
+    }
+
+    async function enviarParaGoogleForms(payload) {
+        if (!googleFormsConfigurado()) {
+            return { ok: false, skipped: true, reason: 'not_configured' };
+        }
+
         try {
-            sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        } catch(e) {}
+            const formData = new FormData();
 
-        const COTAS_CONFIG = [
-            { id:'c25',   valor:25,   titulo:'Sopro de Carinho',     descricao:'Um mimo para começar — cada centavo vai direto para a nossa aventura juntos!', total:25, acento:'acc-25',   emoji:'🌸' },
-            { id:'c50',   valor:50,   titulo:'Brinde ao Amor',       descricao:'Com esse presente você contribui para uma noite especial durante a nossa lua de mel.', total:30, acento:'acc-50',   emoji:'🥂' },
-            { id:'c100',  valor:100,  titulo:'Passeio Inesquecível', descricao:'Contribui para um passeio que se tornará memória para a vida toda.', total:25, acento:'acc-100',  emoji:'🗺️' },
-            { id:'c200',  valor:200,  titulo:'Jantar Romântico',     descricao:'Ajude a financiar um jantar especial com aquela vista de dar suspiro.', total:20, acento:'acc-200',  emoji:'🍷' },
-            { id:'c500',  valor:500,  titulo:'Noite dos Sonhos',     descricao:'Uma hospedagem incrível para uma noite que nunca vamos esquecer.', total:10, acento:'acc-500',  emoji:'🌙' },
-            { id:'c1000', valor:1000, titulo:'Grande Aventura',      descricao:'O presente máximo — patrocine um dia completo de pura lua de mel.', total:2,  acento:'acc-1000', emoji:'✈️' }
-        ];
+            if (GOOGLE_FORM_FIELDS.nome) formData.append(GOOGLE_FORM_FIELDS.nome, payload.nome || "");
+            if (GOOGLE_FORM_FIELDS.email) formData.append(GOOGLE_FORM_FIELDS.email, payload.email || "");
+            if (GOOGLE_FORM_FIELDS.presenca) formData.append(GOOGLE_FORM_FIELDS.presenca, payload.presenca || "");
+            if (GOOGLE_FORM_FIELDS.mensagem) formData.append(GOOGLE_FORM_FIELDS.mensagem, payload.mensagem || "");
+            if (GOOGLE_FORM_FIELDS.origem) formData.append(GOOGLE_FORM_FIELDS.origem, payload.origem || "casamento");
 
-        let cotasUsadas = {};
-        let cotaSelecionada = null;
-        let mensagens = [];
-        let carPos = 0;
-        let carVisiveis = 3;
-
-        function renderCotas() {
-            const grid = document.getElementById('cotas-grid');
-            grid.innerHTML = '';
-
-            COTAS_CONFIG.forEach(c => {
-                const usadas = cotasUsadas[c.id] || 0;
-                const restantes = c.total - usadas;
-                const pct = (usadas / c.total) * 100;
-                const esgotada = restantes <= 0;
-
-                const card = document.createElement('div');
-                card.className = 'cota-card reveal' + (esgotada ? ' esgotada' : '');
-                card.innerHTML = `
-                    <div class="cota-accent ${c.acento}"></div>
-                    <div class="cota-header">
-                        <div>
-                            <div style="font-size:1.4rem;margin-bottom:.3rem">${c.emoji}</div>
-                            <div class="cota-titulo">${c.titulo}</div>
-                        </div>
-                        <div class="cota-valor">R$ ${c.valor.toLocaleString('pt-BR')}<span>por cota</span></div>
-                    </div>
-                    <p class="cota-desc">${c.descricao}</p>
-                    <div class="cota-progresso-wrap">
-                        <div class="cota-progresso-label">
-                            <span>${usadas} de ${c.total} cotas escolhidas</span>
-                            <span>${restantes} restante${restantes !== 1 ? 's' : ''}</span>
-                        </div>
-                        <div class="cota-progresso-bg"><div class="cota-progresso-fill" style="width:${pct}%"></div></div>
-                    </div>
-                    <button class="cota-btn" onclick="abrirCota('${c.id}')" ${esgotada ? 'disabled' : ''} type="button">
-                        ${esgotada ? 'Todas as cotas escolhidas' : 'Presentear com R$ ' + c.valor.toLocaleString('pt-BR')}
-                    </button>`;
-                grid.appendChild(card);
+            await fetch(GOOGLE_FORM_ACTION_URL, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
             });
 
+            return { ok: true };
+        } catch (error) {
+            console.error("Erro ao enviar para Google Forms:", error);
+            return { ok: false, error };
+        }
+    }
+
+    async function enviarPixParaGoogleForms(payload) {
+        if (!pixFormConfigurado()) {
+            return { ok: false, skipped: true, reason: 'not_configured' };
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append(PIX_FORM_FIELDS.nome, payload.nome || "");
+            formData.append(PIX_FORM_FIELDS.cota, payload.cota || "");
+            formData.append(PIX_FORM_FIELDS.valor, payload.valor || "");
+
+            await fetch(PIX_FORM_ACTION_URL, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            });
+
+            return { ok: true };
+        } catch (error) {
+            console.error("Erro ao enviar confirmação PIX:", error);
+            return { ok: false, error };
+        }
+    }
+
+    async function enviarParaSupabase(payload) {
+        if (!sb) {
+            return { ok: false, skipped: true, reason: 'supabase_unavailable' };
+        }
+
+        try {
+            const { error } = await sb.from('rsvp').insert([payload]);
+            if (error) {
+                console.error("Erro Supabase:", error);
+                return { ok: false, error };
+            }
+            return { ok: true };
+        } catch (error) {
+            console.error("Erro inesperado Supabase:", error);
+            return { ok: false, error };
+        }
+    }
+
+    function renderCotas() {
+        const grid = document.getElementById('cotas-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+
+        COTAS_CONFIG.forEach(c => {
+            const usadas = cotasUsadas[c.id] || 0;
+            const restantes = c.total - usadas;
+            const pct = (usadas / c.total) * 100;
+            const esgotada = restantes <= 0;
+
+            const card = document.createElement('div');
+            card.className = 'cota-card reveal' + (esgotada ? ' esgotada' : '');
+            card.innerHTML = `
+                <div class="cota-accent ${c.acento}"></div>
+                <div class="cota-header">
+                    <div>
+                        <div style="font-size:1.4rem;margin-bottom:.3rem">${c.emoji}</div>
+                        <div class="cota-titulo">${c.titulo}</div>
+                    </div>
+                    <div class="cota-valor">R$ ${c.valor.toLocaleString('pt-BR')}<span>por cota</span></div>
+                </div>
+                <p class="cota-desc">${c.descricao}</p>
+                <div class="cota-progresso-wrap">
+                    <div class="cota-progresso-label">
+                        <span>${usadas} de ${c.total} cotas escolhidas</span>
+                        <span>${restantes} restante${restantes !== 1 ? 's' : ''}</span>
+                    </div>
+                    <div class="cota-progresso-bg"><div class="cota-progresso-fill" style="width:${pct}%"></div></div>
+                </div>
+                <button class="cota-btn" onclick="abrirCota('${c.id}')" ${esgotada ? 'disabled' : ''} type="button">
+                    ${esgotada ? 'Todas as cotas escolhidas' : 'Presentear com R$ ' + c.valor.toLocaleString('pt-BR')}
+                </button>`;
+            grid.appendChild(card);
+        });
+
+        if (typeof obs !== 'undefined') {
             document.querySelectorAll('.cota-card.reveal').forEach(el => obs.observe(el));
         }
+    }
 
-        async function carregarCotas() {
-            if (!sb) {
-                renderCotas();
-                return;
-            }
-
-            try {
-                const { data, error } = await sb.from('presentes').select('cota_id');
-                if (!error && data) {
-                    cotasUsadas = {};
-                    data.forEach(r => {
-                        if (r.cota_id) cotasUsadas[r.cota_id] = (cotasUsadas[r.cota_id] || 0) + 1;
-                    });
-                }
-            } catch(e) {
-                console.warn('carregarCotas:', e);
-            }
-
+    async function carregarCotas() {
+        if (!sb) {
             renderCotas();
+            return;
         }
 
-        function abrirCota(cotaId) {
-            const c = COTAS_CONFIG.find(x => x.id === cotaId);
-            if (!c) return;
-            cotaSelecionada = cotaId;
-            document.getElementById('pix-cota-nome').textContent = c.emoji + ' ' + c.titulo;
-            document.getElementById('pix-modal-valor').textContent = 'R$ ' + c.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-            togglePixModal(true);
-        }
-
-        function togglePixModal(show) {
-            const overlay = document.getElementById('pixOverlay');
-            if (show) {
-                overlay.classList.add('open');
-                overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                overlay.classList.remove('open');
+        try {
+            const { data, error } = await sb.from('presentes').select('cota_id');
+            if (!error && data) {
+                cotasUsadas = {};
+                data.forEach(r => {
+                    if (r.cota_id) cotasUsadas[r.cota_id] = (cotasUsadas[r.cota_id] || 0) + 1;
+                });
             }
+        } catch (e) {
+            console.warn('carregarCotas:', e);
         }
 
-        function copiarPix() {
-            const chave = document.getElementById('chavePix').innerText.trim();
-            const btn = document.getElementById('btnCopiar');
+        renderCotas();
+    }
 
-            navigator.clipboard.writeText(chave).then(() => {
-                btn.textContent = 'Copiado! ✓';
-                btn.style.cssText += 'background:var(--gold);color:white;';
-                setTimeout(() => {
-                    btn.textContent = 'Copiar Chave PIX';
-                    btn.style.background = 'none';
-                    btn.style.color = 'var(--gold)';
-                }, 3000);
-            }).catch(() => {
-                alert('Não foi possível copiar automaticamente.\nChave: ' + chave);
-            });
+    function abrirCota(cotaId) {
+        const c = COTAS_CONFIG.find(x => x.id === cotaId);
+        if (!c) return;
+        cotaSelecionada = cotaId;
+        document.getElementById('pix-cota-nome').textContent = c.emoji + ' ' + c.titulo;
+        document.getElementById('pix-modal-valor').textContent = 'R$ ' + c.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+        togglePixModal(true);
+    }
+
+    function togglePixModal(show) {
+        const overlay = document.getElementById('pixOverlay');
+        if (!overlay) return;
+
+        if (show) {
+            overlay.classList.add('open');
+            overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            overlay.classList.remove('open');
+        }
+    }
+
+    function copiarPix() {
+        const chave = document.getElementById('chavePix').innerText.trim();
+        const btn = document.getElementById('btnCopiar');
+
+        if (!navigator.clipboard) {
+            alert('Não foi possível copiar automaticamente.\nChave: ' + chave);
+            return;
         }
 
-        async function confirmarCota() {
-            if (!cotaSelecionada) {
-                alert('Nenhuma cota foi selecionada.');
+        navigator.clipboard.writeText(chave).then(() => {
+            btn.textContent = 'Copiado! ✓';
+            btn.style.cssText += 'background:var(--gold);color:white;';
+            setTimeout(() => {
+                btn.textContent = 'Copiar Chave PIX';
+                btn.style.background = 'none';
+                btn.style.color = 'var(--gold)';
+            }, 3000);
+        }).catch(() => {
+            alert('Não foi possível copiar automaticamente.\nChave: ' + chave);
+        });
+    }
+
+    async function confirmarCota() {
+        if (!cotaSelecionada) {
+            alert('Nenhuma cota foi selecionada.');
+            return;
+        }
+
+        const nomePix = document.getElementById('pixNome').value.trim();
+        if (!nomePix) {
+            alert('Informe seu nome para confirmar o PIX.');
+            document.getElementById('pixNome').focus();
+            return;
+        }
+
+        if (!pixFormConfigurado()) {
+            alert('Configure o link e os campos do Google Forms da confirmação PIX antes de publicar.');
+            return;
+        }
+
+        if (!sb) {
+            alert('Conexão com o banco não disponível no momento.');
+            return;
+        }
+
+        const btn = document.getElementById('btnConfirmarCota');
+        const cota = COTAS_CONFIG.find(c => c.id === cotaSelecionada);
+
+        if (!cota) {
+            alert('Cota inválida.');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Confirmando…';
+
+        try {
+            const { count, error: countError } = await sb
+                .from('presentes')
+                .select('*', { count: 'exact', head: true })
+                .eq('cota_id', cota.id);
+
+            if (countError) {
+                alert('Não foi possível verificar a disponibilidade da cota.');
                 return;
             }
 
-            if (!sb) {
-                alert('Conexão com o banco não disponível no momento.');
-                return;
-            }
-
-            const btn = document.getElementById('btnConfirmarCota');
-            const cota = COTAS_CONFIG.find(c => c.id === cotaSelecionada);
-            if (!cota) {
-                alert('Cota inválida.');
-                return;
-            }
-
-            btn.disabled = true;
-            btn.textContent = 'Registrando…';
-
-            try {
-                const { count, error: countError } = await sb
-                    .from('presentes')
-                    .select('*', { count: 'exact', head: true })
-                    .eq('cota_id', cota.id);
-
-                if (countError) {
-                    alert('Não foi possível verificar a disponibilidade da cota.');
-                    return;
-                }
-
-                if ((count || 0) >= cota.total) {
-                    alert('Essa cota já está esgotada.');
-                    togglePixModal(false);
-                    await carregarCotas();
-                    return;
-                }
-
-                const { error: insertError } = await sb.from('presentes').insert([{ cota_id: cota.id, valor: cota.valor }]);
-
-                if (insertError) {
-                    alert('Não foi possível registrar a cota agora. Tente novamente.');
-                    return;
-                }
-
-                alert('Cota registrada com sucesso! Muito obrigado pelo presente 💛');
-                cotaSelecionada = null;
+            if ((count || 0) >= cota.total) {
+                alert('Essa cota já está esgotada.');
                 togglePixModal(false);
                 await carregarCotas();
-            } catch(err) {
-                console.error('confirmarCota:', err);
-                alert('Ocorreu um erro inesperado ao registrar a cota.');
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Já fiz o PIX';
-            }
-        }
-
-        function pad(n) {
-            return String(n).padStart(2, '0');
-        }
-
-        function tick() {
-            const diff = WEDDING_DATE.getTime() - Date.now();
-
-            if (diff <= 0) {
-                document.getElementById('cd-grid').style.display = 'none';
-                document.getElementById('cd-done').style.display = 'block';
                 return;
             }
 
-            document.getElementById('cd-d').textContent = Math.floor(diff / 864e5);
-            document.getElementById('cd-h').textContent = pad(Math.floor((diff % 864e5) / 36e5));
-            document.getElementById('cd-m').textContent = pad(Math.floor((diff % 36e5) / 6e4));
-            document.getElementById('cd-s').textContent = pad(Math.floor((diff % 6e4) / 1e3));
-        }
-
-        function primeiroNome(nomeCompleto) {
-            return String(nomeCompleto).trim().split(' ')[0] || 'Querido convidado';
-        }
-
-        function googleFormsConfigurado() {
-            return ENABLE_GOOGLE_FORMS &&
-                GOOGLE_FORM_ACTION_URL &&
-                !GOOGLE_FORM_ACTION_URL.includes('SEU_FORM_ID');
-        }
-
-        async function enviarParaGoogleForms(payload) {
-            if (!googleFormsConfigurado()) {
-                return { ok: false, skipped: true, reason: 'not_configured' };
-            }
-
-            try {
-                const formData = new FormData();
-
-                if (GOOGLE_FORM_FIELDS.nome) formData.append(GOOGLE_FORM_FIELDS.nome, payload.nome || "");
-                if (GOOGLE_FORM_FIELDS.email) formData.append(GOOGLE_FORM_FIELDS.email, payload.email || "");
-                if (GOOGLE_FORM_FIELDS.presenca) formData.append(GOOGLE_FORM_FIELDS.presenca, payload.presenca || "");
-                if (GOOGLE_FORM_FIELDS.mensagem) formData.append(GOOGLE_FORM_FIELDS.mensagem, payload.mensagem || "");
-                if (GOOGLE_FORM_FIELDS.origem) formData.append(GOOGLE_FORM_FIELDS.origem, payload.origem || "casamento");
-
-                await fetch(GOOGLE_FORM_ACTION_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: formData
-                });
-
-                return { ok: true };
-            } catch (error) {
-                console.error("Erro ao enviar para Google Forms:", error);
-                return { ok: false, error };
-            }
-        }
-
-        async function enviarParaSupabase(payload) {
-            if (!sb) {
-                return { ok: false, skipped: true, reason: 'supabase_unavailable' };
-            }
-
-            try {
-                const { error } = await sb.from('rsvp').insert([payload]);
-                if (error) {
-                    console.error("Erro Supabase:", error);
-                    return { ok: false, error };
-                }
-                return { ok: true };
-            } catch (error) {
-                console.error("Erro inesperado Supabase:", error);
-                return { ok: false, error };
-            }
-        }
-
-        const mensagemEl = document.getElementById('mensagem');
-        if (mensagemEl) {
-            mensagemEl.addEventListener('input', function() {
-                document.getElementById('char-count').textContent = this.value.length;
+            const formResult = await enviarPixParaGoogleForms({
+                nome: nomePix,
+                cota: cota.titulo,
+                valor: `R$ ${cota.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
             });
+
+            if (!formResult.ok) {
+                alert('Não foi possível enviar a confirmação para o Google Forms.');
+                return;
+            }
+
+            const { error: insertError } = await sb
+                .from('presentes')
+                .insert([{ cota_id: cota.id, valor: cota.valor }]);
+
+            if (insertError) {
+                alert('A confirmação foi enviada ao formulário, mas não foi possível registrar a cota no banco agora.');
+                return;
+            }
+
+            alert('Confirmação enviada com sucesso! Muito obrigado pelo presente 💛');
+            cotaSelecionada = null;
+            document.getElementById('pixNome').value = '';
+            togglePixModal(false);
+            await carregarCotas();
+        } catch (err) {
+            console.error('confirmarCota:', err);
+            alert('Ocorreu um erro inesperado ao registrar a confirmação do PIX.');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Já fiz o PIX';
         }
-
-       async function enviarRsvp() {
-    const nome = document.getElementById('nome').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const presenca = document.getElementById('presenca').value;
-    const mensagem = document.getElementById('mensagem').value.trim();
-    const btn = document.getElementById('btn-rsvp');
-
-    if (!nome || !email || !presenca) {
-        alert('Preencha todos os campos obrigatórios.');
-        return;
     }
 
-    btn.disabled = true;
-    btn.textContent = 'Enviando…';
+    function tick() {
+        const diff = WEDDING_DATE.getTime() - Date.now();
 
-    const payload = { nome, email, presenca };
-    if (mensagem) payload.mensagem = mensagem;
+        if (diff <= 0) {
+            document.getElementById('cd-grid').style.display = 'none';
+            document.getElementById('cd-done').style.display = 'block';
+            return;
+        }
 
-    try {
-        // Envia para Google Forms (sempre tenta)
-        const formData = new FormData();
-        formData.append(GOOGLE_FORM_FIELDS.nome, nome);
-        formData.append(GOOGLE_FORM_FIELDS.email, email);
-        formData.append(GOOGLE_FORM_FIELDS.presenca, presenca);
-        if (mensagem) formData.append(GOOGLE_FORM_FIELDS.mensagem, mensagem);
+        document.getElementById('cd-d').textContent = Math.floor(diff / 864e5);
+        document.getElementById('cd-h').textContent = pad(Math.floor((diff % 864e5) / 36e5));
+        document.getElementById('cd-m').textContent = pad(Math.floor((diff % 36e5) / 6e4));
+        document.getElementById('cd-s').textContent = pad(Math.floor((diff % 6e4) / 1e3));
+    }
 
-        fetch(GOOGLE_FORM_ACTION_URL, {
-            method: "POST",
-            mode: "no-cors",
-            body: formData
+    const mensagemEl = document.getElementById('mensagem');
+    if (mensagemEl) {
+        mensagemEl.addEventListener('input', function() {
+            document.getElementById('char-count').textContent = this.value.length;
         });
-
-        // Tenta Supabase também mas não bloqueia
-        if (sb) {
-            try { await sb.from('rsvp').insert([payload]); } catch(e) {}
-        }
-
-        // Mostra sucesso
-        document.getElementById('rsvp-fw').style.display = 'none';
-        document.getElementById('rsvp-success').style.display = 'block';
-
-        const nomeCurto = primeiroNome(nome);
-        document.getElementById('thanks-name').textContent = presenca === 'sim'
-            ? `${nomeCurto}, sua presença foi confirmada`
-            : `${nomeCurto}, recebemos sua mensagem com carinho`;
-
-        document.getElementById('thanks-copy').textContent = presenca === 'sim'
-            ? 'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.'
-            : 'Mesmo de longe, seu carinho também faz parte da nossa história.';
-
-        const thanksMsg = document.getElementById('thanks-msg-preview');
-        if (mensagem) {
-            thanksMsg.style.display = 'block';
-            thanksMsg.textContent = '"' + mensagem + '"';
-            mensagens.unshift({ nome, mensagem, created_at: new Date().toISOString() });
-            renderCarrossel();
-        } else {
-            thanksMsg.style.display = 'none';
-        }
-
-    } catch(err) {
-        console.error('enviarRsvp:', err);
-        alert('Ocorreu um erro inesperado.');
-    } finally {
-        btn.disabled = false;
-        btn.textContent = 'Confirmar Presença';
     }
-}
-        function calcVisiveis() {
-            if (window.innerWidth <= 600) return 1;
-            if (window.innerWidth <= 900) return 2;
-            return 3;
+
+    async function enviarRsvp() {
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const presenca = document.getElementById('presenca').value;
+        const mensagem = document.getElementById('mensagem').value.trim();
+        const btn = document.getElementById('btn-rsvp');
+
+        if (!nome || !email || !presenca) {
+            alert('Preencha todos os campos obrigatórios.');
+            return;
         }
 
-        async function carregarMensagens() {
-            if (!sb) {
+        btn.disabled = true;
+        btn.textContent = 'Enviando…';
+
+        const payload = { nome, email, presenca };
+        if (mensagem) payload.mensagem = mensagem;
+
+        try {
+            await enviarParaGoogleForms({
+                nome,
+                email,
+                presenca,
+                mensagem,
+                origem: 'casamento'
+            });
+
+            await enviarParaSupabase(payload);
+
+            document.getElementById('rsvp-fw').style.display = 'none';
+            document.getElementById('rsvp-success').style.display = 'block';
+
+            const nomeCurto = primeiroNome(nome);
+            const confirmouPresenca = String(presenca).toLowerCase() === 'sim';
+
+            document.getElementById('thanks-name').textContent = confirmouPresenca
+                ? `${nomeCurto}, sua presença foi confirmada`
+                : `${nomeCurto}, recebemos sua mensagem com carinho`;
+
+            document.getElementById('thanks-copy').textContent = confirmouPresenca
+                ? 'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.'
+                : 'Mesmo de longe, seu carinho também faz parte da nossa história.';
+
+            const thanksMsg = document.getElementById('thanks-msg-preview');
+            if (mensagem) {
+                thanksMsg.style.display = 'block';
+                thanksMsg.textContent = '"' + mensagem + '"';
+                mensagens.unshift({ nome, mensagem, created_at: new Date().toISOString() });
                 renderCarrossel();
-                return;
+            } else {
+                thanksMsg.style.display = 'none';
             }
 
-            try {
-                const { data, error } = await sb
-                    .from('rsvp')
-                    .select('nome, mensagem, created_at')
-                    .not('mensagem', 'is', null)
-                    .neq('mensagem', '')
-                    .order('created_at', { ascending: false })
-                    .limit(50);
+        } catch (err) {
+            console.error('enviarRsvp:', err);
+            alert('Ocorreu um erro inesperado.');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Confirmar Presença';
+        }
+    }
 
-                if (!error && data) mensagens = data;
-            } catch(e) {
-                console.warn('carregarMensagens:', e);
-            }
+    function calcVisiveis() {
+        if (window.innerWidth <= 600) return 1;
+        if (window.innerWidth <= 900) return 2;
+        return 3;
+    }
 
+    async function carregarMensagens() {
+        if (!sb) {
             renderCarrossel();
+            return;
         }
 
-        function renderCarrossel() {
-            const track = document.getElementById('carousel-track');
-            const empty = document.getElementById('msg-empty');
-            const controls = document.getElementById('carousel-controls');
-            const dotsEl = document.getElementById('car-dots');
+        try {
+            const { data, error } = await sb
+                .from('rsvp')
+                .select('nome, mensagem, created_at')
+                .not('mensagem', 'is', null)
+                .neq('mensagem', '')
+                .order('created_at', { ascending: false })
+                .limit(50);
 
-            if (!mensagens.length) {
-                track.innerHTML = '';
-                empty.style.display = 'block';
-                controls.style.display = 'none';
-                dotsEl.innerHTML = '';
-                return;
-            }
-
-            empty.style.display = 'none';
-            controls.style.display = 'flex';
-
-            track.innerHTML = mensagens.map(m => {
-                const dataFmt = new Date(m.created_at).toLocaleDateString('pt-BR', {
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric'
-                });
-
-                return `<div class="msg-card">
-                    <div class="msg-quote">"</div>
-                    <p class="msg-texto">${escapeHtml(m.mensagem)}</p>
-                    <p class="msg-autor">${escapeHtml(m.nome)}</p>
-                    <p class="msg-data">${dataFmt}</p>
-                </div>`;
-            }).join('');
-
-            carVisiveis = calcVisiveis();
-            carPos = 0;
-            atualizarCarrossel();
-            renderDots();
+            if (!error && data) mensagens = data;
+        } catch (e) {
+            console.warn('carregarMensagens:', e);
         }
 
-        function atualizarCarrossel() {
-            const track = document.getElementById('carousel-track');
-            const cardWidth = track.children[0] ? track.children[0].offsetWidth || 260 : 260;
-            track.style.transform = `translateX(-${carPos * (cardWidth + 24)}px)`;
-            renderDots();
+        renderCarrossel();
+    }
+
+    function renderCarrossel() {
+        const track = document.getElementById('carousel-track');
+        const empty = document.getElementById('msg-empty');
+        const controls = document.getElementById('carousel-controls');
+        const dotsEl = document.getElementById('car-dots');
+
+        if (!track || !empty || !controls || !dotsEl) return;
+
+        if (!mensagens.length) {
+            track.innerHTML = '';
+            empty.style.display = 'block';
+            controls.style.display = 'none';
+            dotsEl.innerHTML = '';
+            return;
         }
 
-        function renderDots() {
-            const dotsEl = document.getElementById('car-dots');
-            const steps = Math.max(1, mensagens.length - carVisiveis + 1);
+        empty.style.display = 'none';
+        controls.style.display = 'flex';
 
-            dotsEl.innerHTML = Array.from({ length: steps }, (_, i) =>
-                `<div class="car-dot ${i === carPos ? 'active' : ''}" onclick="irParaDot(${i})"></div>`
-            ).join('');
-        }
-
-        function irParaDot(i) {
-            carPos = i;
-            atualizarCarrossel();
-        }
-
-        function escapeHtml(str) {
-            return String(str)
-                .replace(/&/g,'&amp;')
-                .replace(/</g,'&lt;')
-                .replace(/>/g,'&gt;')
-                .replace(/"/g,'&quot;')
-                .replace(/'/g,'&#039;');
-        }
-
-        document.getElementById('car-prev').addEventListener('click', () => {
-            if (carPos > 0) {
-                carPos--;
-                atualizarCarrossel();
-            }
-        });
-
-        document.getElementById('car-next').addEventListener('click', () => {
-            const max = Math.max(0, mensagens.length - carVisiveis);
-            if (carPos < max) {
-                carPos++;
-                atualizarCarrossel();
-            }
-        });
-
-        window.addEventListener('resize', () => {
-            carVisiveis = calcVisiveis();
-            carPos = Math.min(carPos, Math.max(0, mensagens.length - carVisiveis));
-            atualizarCarrossel();
-        });
-
-        setInterval(() => {
-            if (!mensagens.length) return;
-            const max = Math.max(0, mensagens.length - carVisiveis);
-            carPos = carPos >= max ? 0 : carPos + 1;
-            atualizarCarrossel();
-        }, 5000);
-
-        function corrigirHeroMobile() {
-            const hero = document.getElementById('hero');
-            const heroImg = document.querySelector('.hero-bg');
-
-            if (!hero) return;
-
-            const aplicarPosicaoMobile = () => {
-                if (window.innerWidth <= 768) {
-                    hero.style.backgroundPosition = 'center 24%';
-                    if (heroImg) heroImg.style.objectPosition = 'center 24%';
-                } else {
-                    hero.style.backgroundPosition = 'center 34%';
-                    if (heroImg) heroImg.style.objectPosition = 'center 34%';
-                }
-            };
-
-            aplicarPosicaoMobile();
-            window.addEventListener('resize', aplicarPosicaoMobile);
-
-            if (heroImg) {
-                heroImg.addEventListener('load', () => {
-                    hero.classList.add('hero-ok');
-                });
-
-                heroImg.addEventListener('error', () => {
-                    heroImg.style.display = 'none';
-                    hero.classList.add('hero-fallback');
-                });
-
-                if (heroImg.complete && heroImg.naturalWidth > 0) {
-                    hero.classList.add('hero-ok');
-                }
-            }
-        }
-
-        const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (e.isIntersecting) e.target.classList.add('visible');
+        track.innerHTML = mensagens.map(m => {
+            const dataFmt = new Date(m.created_at).toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
             });
-        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+            return `<div class="msg-card">
+                <div class="msg-quote">"</div>
+                <p class="msg-texto">${escapeHtml(m.mensagem)}</p>
+                <p class="msg-autor">${escapeHtml(m.nome)}</p>
+                <p class="msg-data">${dataFmt}</p>
+            </div>`;
+        }).join('');
 
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.top-nav');
-            if (!nav) return;
-            nav.classList.toggle('scrolled', window.scrollY > 14);
+        carVisiveis = calcVisiveis();
+        carPos = 0;
+        atualizarCarrossel();
+        renderDots();
+    }
+
+    function atualizarCarrossel() {
+        const track = document.getElementById('carousel-track');
+        if (!track) return;
+        const cardWidth = track.children[0] ? track.children[0].offsetWidth || 260 : 260;
+        track.style.transform = `translateX(-${carPos * (cardWidth + 24)}px)`;
+        renderDots();
+    }
+
+    function renderDots() {
+        const dotsEl = document.getElementById('car-dots');
+        if (!dotsEl) return;
+        const steps = Math.max(1, mensagens.length - carVisiveis + 1);
+
+        dotsEl.innerHTML = Array.from({ length: steps }, (_, i) =>
+            `<div class="car-dot ${i === carPos ? 'active' : ''}" onclick="irParaDot(${i})"></div>`
+        ).join('');
+    }
+
+    function irParaDot(i) {
+        carPos = i;
+        atualizarCarrossel();
+    }
+
+    document.getElementById('car-prev').addEventListener('click', () => {
+        if (carPos > 0) {
+            carPos--;
+            atualizarCarrossel();
+        }
+    });
+
+    document.getElementById('car-next').addEventListener('click', () => {
+        const max = Math.max(0, mensagens.length - carVisiveis);
+        if (carPos < max) {
+            carPos++;
+            atualizarCarrossel();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        carVisiveis = calcVisiveis();
+        carPos = Math.min(carPos, Math.max(0, mensagens.length - carVisiveis));
+        atualizarCarrossel();
+    });
+
+    setInterval(() => {
+        if (!mensagens.length) return;
+        const max = Math.max(0, mensagens.length - carVisiveis);
+        carPos = carPos >= max ? 0 : carPos + 1;
+        atualizarCarrossel();
+    }, 5000);
+
+    function corrigirHeroMobile() {
+        const hero = document.getElementById('hero');
+        const heroImg = document.querySelector('.hero-bg');
+
+        if (!hero) return;
+
+        const aplicarPosicaoMobile = () => {
+            if (window.innerWidth <= 600) {
+                hero.style.backgroundPosition = 'center 22%';
+                if (heroImg) heroImg.style.objectPosition = 'center 22%';
+            } else if (window.innerWidth <= 768) {
+                hero.style.backgroundPosition = 'center 26%';
+                if (heroImg) heroImg.style.objectPosition = 'center 26%';
+            } else {
+                hero.style.backgroundPosition = 'center 36%';
+                if (heroImg) heroImg.style.objectPosition = 'center 36%';
+            }
+        };
+
+        aplicarPosicaoMobile();
+        window.addEventListener('resize', aplicarPosicaoMobile);
+
+        if (heroImg) {
+            heroImg.addEventListener('load', () => {
+                hero.classList.add('hero-ok');
+            });
+
+            heroImg.addEventListener('error', () => {
+                heroImg.style.display = 'none';
+                hero.classList.add('hero-fallback');
+            });
+
+            if (heroImg.complete && heroImg.naturalWidth > 0) {
+                hero.classList.add('hero-ok');
+            }
+        }
+    }
+
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('visible');
         });
+    }, { threshold: 0.1 });
 
-        tick();
-        setInterval(tick, 1000);
-        carregarCotas();
-        carregarMensagens();
-        corrigirHeroMobile();
-    </script>
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.top-nav');
+        if (!nav) return;
+        nav.classList.toggle('scrolled', window.scrollY > 14);
+    });
+
+    tick();
+    setInterval(tick, 1000);
+    carregarCotas();
+    carregarMensagens();
+    corrigirHeroMobile();
+</script>
 </body>
-
 </html>
