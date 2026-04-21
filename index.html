@@ -1724,9 +1724,10 @@
                 <div class="form-g">
                     <label for="presenca">Vai comparecer?</label>
                     <select id="presenca" name="presenca" required>
-                        <option value="Sim">Sim, estarei presente!</option>
-                        <option value="Não">Infelizmente não poderei ir</option>
-                    </select>
+    <option value="sim">Sim, estarei presente!</option>
+    <option value="nao">Infelizmente não poderei ir</option>
+</select>
+
                 </div>
 
                 <div class="form-g">
@@ -1822,12 +1823,12 @@
     };
 
     /* CONFIGURE O FORMULÁRIO DO PIX AQUI */
-    const PIX_FORM_ACTION_URL = "COLE_AQUI_O_LINK_FORM_RESPONSE_DO_GOOGLE_FORMS_DO_PIX";
-    const PIX_FORM_FIELDS = {
-        nome: "entry.xxxxxxxxxx",
-        cota: "entry.xxxxxxxxxx",
-        valor: "entry.xxxxxxxxxx"
-    };
+   const PIX_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdXLpB-poYvwodTlvDa8_4MAU5Ti8AV9yB8nlWVuRui-o7FxA/formResponse";
+const PIX_FORM_FIELDS = {
+    nome: "entry.91308880",
+    cota: "", // deixe vazio por enquanto, porque no link enviado não apareceu um campo de cota
+    valor: "entry.1815091321"
+};
 
     let sb;
     try {
@@ -1872,40 +1873,38 @@
             !GOOGLE_FORM_ACTION_URL.includes('SEU_FORM_ID');
     }
 
-    function pixFormConfigurado() {
-        return PIX_FORM_ACTION_URL &&
-            !PIX_FORM_ACTION_URL.includes('COLE_AQUI') &&
-            PIX_FORM_FIELDS.nome &&
-            PIX_FORM_FIELDS.cota &&
-            PIX_FORM_FIELDS.valor;
+   function pixFormConfigurado() {
+    return PIX_FORM_ACTION_URL &&
+        !PIX_FORM_ACTION_URL.includes('COLE_AQUI') &&
+        PIX_FORM_FIELDS.nome &&
+        PIX_FORM_FIELDS.valor;
+}
+
+    async function enviarPixParaGoogleForms(payload) {
+    if (!pixFormConfigurado()) {
+        return { ok: false, skipped: true, reason: 'not_configured' };
     }
 
-    async function enviarParaGoogleForms(payload) {
-        if (!googleFormsConfigurado()) {
-            return { ok: false, skipped: true, reason: 'not_configured' };
-        }
+    try {
+        const formData = new FormData();
 
-        try {
-            const formData = new FormData();
+        if (PIX_FORM_FIELDS.nome) formData.append(PIX_FORM_FIELDS.nome, payload.nome || "");
+        if (PIX_FORM_FIELDS.cota) formData.append(PIX_FORM_FIELDS.cota, payload.cota || "");
+        if (PIX_FORM_FIELDS.valor) formData.append(PIX_FORM_FIELDS.valor, payload.valor || "");
 
-            if (GOOGLE_FORM_FIELDS.nome) formData.append(GOOGLE_FORM_FIELDS.nome, payload.nome || "");
-            if (GOOGLE_FORM_FIELDS.email) formData.append(GOOGLE_FORM_FIELDS.email, payload.email || "");
-            if (GOOGLE_FORM_FIELDS.presenca) formData.append(GOOGLE_FORM_FIELDS.presenca, payload.presenca || "");
-            if (GOOGLE_FORM_FIELDS.mensagem) formData.append(GOOGLE_FORM_FIELDS.mensagem, payload.mensagem || "");
-            if (GOOGLE_FORM_FIELDS.origem) formData.append(GOOGLE_FORM_FIELDS.origem, payload.origem || "casamento");
+        await fetch(PIX_FORM_ACTION_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: formData
+        });
 
-            await fetch(GOOGLE_FORM_ACTION_URL, {
-                method: "POST",
-                mode: "no-cors",
-                body: formData
-            });
-
-            return { ok: true };
-        } catch (error) {
-            console.error("Erro ao enviar para Google Forms:", error);
-            return { ok: false, error };
-        }
+        return { ok: true };
+    } catch (error) {
+        console.error("Erro ao enviar confirmação PIX:", error);
+        return { ok: false, error };
     }
+}
+
 
     async function enviarPixParaGoogleForms(payload) {
         if (!pixFormConfigurado()) {
@@ -2055,91 +2054,83 @@
         });
     }
 
-    async function confirmarCota() {
-        if (!cotaSelecionada) {
-            alert('Nenhuma cota foi selecionada.');
-            return;
-        }
-
-        const nomePix = document.getElementById('pixNome').value.trim();
-        if (!nomePix) {
-            alert('Informe seu nome para confirmar o PIX.');
-            document.getElementById('pixNome').focus();
-            return;
-        }
-
-        if (!pixFormConfigurado()) {
-            alert('Configure o link e os campos do Google Forms da confirmação PIX antes de publicar.');
-            return;
-        }
-
-        if (!sb) {
-            alert('Conexão com o banco não disponível no momento.');
-            return;
-        }
-
-        const btn = document.getElementById('btnConfirmarCota');
-        const cota = COTAS_CONFIG.find(c => c.id === cotaSelecionada);
-
-        if (!cota) {
-            alert('Cota inválida.');
-            return;
-        }
-
-        btn.disabled = true;
-        btn.textContent = 'Confirmando…';
-
-        try {
-            const { count, error: countError } = await sb
-                .from('presentes')
-                .select('*', { count: 'exact', head: true })
-                .eq('cota_id', cota.id);
-
-            if (countError) {
-                alert('Não foi possível verificar a disponibilidade da cota.');
-                return;
-            }
-
-            if ((count || 0) >= cota.total) {
-                alert('Essa cota já está esgotada.');
-                togglePixModal(false);
-                await carregarCotas();
-                return;
-            }
-
-            const formResult = await enviarPixParaGoogleForms({
-                nome: nomePix,
-                cota: cota.titulo,
-                valor: `R$ ${cota.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
-            });
-
-            if (!formResult.ok) {
-                alert('Não foi possível enviar a confirmação para o Google Forms.');
-                return;
-            }
-
-            const { error: insertError } = await sb
-                .from('presentes')
-                .insert([{ cota_id: cota.id, valor: cota.valor }]);
-
-            if (insertError) {
-                alert('A confirmação foi enviada ao formulário, mas não foi possível registrar a cota no banco agora.');
-                return;
-            }
-
-            alert('Confirmação enviada com sucesso! Muito obrigado pelo presente 💛');
-            cotaSelecionada = null;
-            document.getElementById('pixNome').value = '';
-            togglePixModal(false);
-            await carregarCotas();
-        } catch (err) {
-            console.error('confirmarCota:', err);
-            alert('Ocorreu um erro inesperado ao registrar a confirmação do PIX.');
-        } finally {
-            btn.disabled = false;
-            btn.textContent = 'Já fiz o PIX';
-        }
+   async function confirmarCota() {
+    if (!cotaSelecionada) {
+        alert('Nenhuma cota foi selecionada.');
+        return;
     }
+
+    const nomePix = document.getElementById('pixNome').value.trim();
+    if (!nomePix) {
+        alert('Informe seu nome para confirmar o PIX.');
+        document.getElementById('pixNome').focus();
+        return;
+    }
+
+    if (!pixFormConfigurado()) {
+        alert('Configure o Google Forms da confirmação PIX antes de publicar.');
+        return;
+    }
+
+    if (!sb) {
+        alert('Conexão com o banco não disponível no momento.');
+        return;
+    }
+
+    const btn = document.getElementById('btnConfirmarCota');
+    const cota = COTAS_CONFIG.find(c => c.id === cotaSelecionada);
+
+    if (!cota) {
+        alert('Cota inválida.');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Confirmando…';
+
+    try {
+        const formResult = await enviarPixParaGoogleForms({
+            nome: nomePix,
+            cota: cota.titulo,
+            valor: String(cota.valor)
+        });
+
+        if (!formResult.ok) {
+            alert('Não foi possível enviar a confirmação para o Google Forms.');
+            return;
+        }
+
+        const { data, error } = await sb.rpc('registrar_presente', {
+            p_cota_id: cota.id,
+            p_valor: cota.valor
+        });
+
+        if (error) {
+            console.error('Erro RPC registrar_presente:', error);
+            alert('A confirmação foi enviada ao formulário, mas houve erro ao registrar a cota no banco.');
+            return;
+        }
+
+        if (!data?.ok) {
+            alert(data?.message || 'Não foi possível registrar a cota.');
+            await carregarCotas();
+            return;
+        }
+
+        alert('Confirmação enviada com sucesso! Muito obrigado pelo presente 💛');
+        cotaSelecionada = null;
+        document.getElementById('pixNome').value = '';
+        togglePixModal(false);
+        await carregarCotas();
+    } catch (err) {
+        console.error('confirmarCota:', err);
+        alert('Ocorreu um erro inesperado ao registrar a confirmação do PIX.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Já fiz o PIX';
+    }
+}
+
 
     function tick() {
         const diff = WEDDING_DATE.getTime() - Date.now();
@@ -2164,66 +2155,72 @@
     }
 
     async function enviarRsvp() {
-        const nome = document.getElementById('nome').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const presenca = document.getElementById('presenca').value;
-        const mensagem = document.getElementById('mensagem').value.trim();
-        const btn = document.getElementById('btn-rsvp');
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const presenca = document.getElementById('presenca').value;
+    const mensagem = document.getElementById('mensagem').value.trim();
+    const btn = document.getElementById('btn-rsvp');
 
-        if (!nome || !email || !presenca) {
-            alert('Preencha todos os campos obrigatórios.');
-            return;
-        }
-
-        btn.disabled = true;
-        btn.textContent = 'Enviando…';
-
-        const payload = { nome, email, presenca };
-        if (mensagem) payload.mensagem = mensagem;
-
-        try {
-            await enviarParaGoogleForms({
-                nome,
-                email,
-                presenca,
-                mensagem,
-                origem: 'casamento'
-            });
-
-            await enviarParaSupabase(payload);
-
-            document.getElementById('rsvp-fw').style.display = 'none';
-            document.getElementById('rsvp-success').style.display = 'block';
-
-            const nomeCurto = primeiroNome(nome);
-            const confirmouPresenca = String(presenca).toLowerCase() === 'sim';
-
-            document.getElementById('thanks-name').textContent = confirmouPresenca
-                ? `${nomeCurto}, sua presença foi confirmada`
-                : `${nomeCurto}, recebemos sua mensagem com carinho`;
-
-            document.getElementById('thanks-copy').textContent = confirmouPresenca
-                ? 'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.'
-                : 'Mesmo de longe, seu carinho também faz parte da nossa história.';
-
-            const thanksMsg = document.getElementById('thanks-msg-preview');
-            if (mensagem) {
-                thanksMsg.style.display = 'block';
-                thanksMsg.textContent = '"' + mensagem + '"';
-                mensagens.unshift({ nome, mensagem, created_at: new Date().toISOString() });
-                renderCarrossel();
-            } else {
-                thanksMsg.style.display = 'none';
-            }
-
-        } catch (err) {
-            console.error('enviarRsvp:', err);
-            alert('Ocorreu um erro inesperado.');
-        } finally {
-            btn.disabled = false;
-            btn.textContent = 'Confirmar Presença';
-        }
+    if (!nome || !email || !presenca) {
+        alert('Preencha todos os campos obrigatórios.');
+        return;
     }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    const payload = { nome, email, presenca };
+    if (mensagem) payload.mensagem = mensagem;
+
+    const presencaLabel = presenca === 'sim' ? 'Sim' : 'Não';
+
+    try {
+        await enviarParaGoogleForms({
+            nome,
+            email,
+            presenca: presencaLabel,
+            mensagem,
+            origem: 'casamento'
+        });
+
+        const supabaseResult = await enviarParaSupabase(payload);
+
+        if (!supabaseResult.ok && !supabaseResult.skipped) {
+            throw new Error('Falha ao salvar RSVP no Supabase');
+        }
+
+        document.getElementById('rsvp-fw').style.display = 'none';
+        document.getElementById('rsvp-success').style.display = 'block';
+
+        const nomeCurto = primeiroNome(nome);
+        const confirmouPresenca = presenca === 'sim';
+
+        document.getElementById('thanks-name').textContent = confirmouPresenca
+            ? `${nomeCurto}, sua presença foi confirmada`
+            : `${nomeCurto}, recebemos sua mensagem com carinho`;
+
+        document.getElementById('thanks-copy').textContent = confirmouPresenca
+            ? 'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.'
+            : 'Mesmo de longe, seu carinho também faz parte da nossa história.';
+
+        const thanksMsg = document.getElementById('thanks-msg-preview');
+        if (mensagem) {
+            thanksMsg.style.display = 'block';
+            thanksMsg.textContent = '"' + mensagem + '"';
+            mensagens.unshift({ nome, mensagem, created_at: new Date().toISOString() });
+            renderCarrossel();
+        } else {
+            thanksMsg.style.display = 'none';
+        }
+
+    } catch (err) {
+        console.error('enviarRsvp:', err);
+        alert('Ocorreu um erro ao salvar sua confirmação.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Confirmar Presença';
+    }
+}
 
     function calcVisiveis() {
         if (window.innerWidth <= 600) return 1;
