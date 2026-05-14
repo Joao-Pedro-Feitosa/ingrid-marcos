@@ -708,12 +708,13 @@
 
         /* MANUAL */
         .manual-note { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: #8f776c; margin-top: .3rem; }
-        .manual-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; margin-top: 2rem; }
-        .manual-card { position: relative; padding: 2rem 1.55rem 1.5rem; background: rgba(255,255,255,.84); border: 1px solid rgba(184,154,106,.22); border-radius: 18px; box-shadow: 0 18px 48px rgba(107,79,66,.08); overflow: hidden; }
-        .manual-card::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(184,154,106,.16); border-radius: 12px; pointer-events: none; }
-        .manual-badge { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(184,154,106,.38); background: rgba(255,250,245,.96); color: var(--gold); font-family: var(--menu); font-size: .9rem; letter-spacing: .16em; margin-bottom: 1rem; }
-        .manual-card-title { font-family: var(--serif); font-size: 1.7rem; font-weight: 400; font-style: italic; color: var(--mocha); margin-bottom: .7rem; }
-        .manual-card-copy, .manual-list { font-size: .92rem; line-height: 1.9; color: #6b5a52; }
+        .manual-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 0; border-top: 1px solid rgba(184,154,106,.18); }
+        .manual-card { position: relative; padding: 2.5rem 2rem; background: transparent; border: none; border-right: 1px solid rgba(184,154,106,.18); border-radius: 0; box-shadow: none; overflow: hidden; }
+        .manual-card:last-child { border-right: none; }
+        .manual-card::before { display: none; }
+        .manual-badge { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(184,154,106,.38); background: rgba(255,250,245,.96); color: var(--gold); font-family: var(--menu); font-size: .85rem; letter-spacing: .16em; margin-bottom: 1rem; }
+        .manual-card-title { font-family: var(--serif); font-size: 1.7rem; font-weight: 400; font-style: italic; color: var(--mocha); margin-bottom: .9rem; }
+        .manual-card-copy, .manual-list { font-size: .9rem; line-height: 1.95; color: #5a4438; }
         .manual-list { list-style: none; padding: 0; display: grid; gap: .55rem; }
         .manual-list strong { color: var(--mocha); font-weight: 600; }
 
@@ -723,18 +724,29 @@
         .map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
 
         /* PRESENTES */
-        #presentes { position: relative; padding: 0; min-height: 1200px; background-image: var(--presentes-bg); background-repeat: no-repeat; background-position: center; background-size: cover; display: flex; align-items: center; justify-content: center; }
-        #presentes .presentes-frame { position: relative; width: 100%; max-width: 100%; min-height: 1200px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        #presentes .presentes-frame::before { content: ""; position: absolute; inset: 0; background-image: var(--presentes-bg); background-repeat: no-repeat; background-position: center; background-size: cover; z-index: 0; }
-        #presentes .presentes-content { position: relative; z-index: 1; width: min(100%, 980px); margin: 0 auto; padding: clamp(6rem, 10vw, 8rem) clamp(2rem, 6vw, 4rem) clamp(5rem, 8vw, 6rem); text-align: center; }
-        #presentes .stag { justify-content: center; margin-bottom: .8rem; }
-        #presentes .stitle { text-align: center; margin-bottom: 1rem; }
+        #presentes { position: relative; padding: 0; background-image: var(--presentes-bg); background-repeat: no-repeat; background-position: center; background-size: cover; display: flex; align-items: center; justify-content: center; }
+        #presentes .presentes-frame { position: relative; width: 100%; max-width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #presentes .presentes-frame::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30,18,14,.72) 0%, rgba(25,14,10,.78) 100%); z-index: 0; }
+        #presentes .presentes-content { position: relative; z-index: 1; width: 100%; margin: 0 auto; padding: clamp(5rem, 9vw, 7rem) clamp(2rem, 6vw, 5rem); text-align: center; }
+        #presentes .stag { justify-content: center; margin-bottom: .8rem; color: var(--gold-lt); }
+        #presentes .stag::before { background: rgba(216,193,154,.5); }
+        #presentes .stitle { text-align: center; margin-bottom: 1rem; color: rgba(255,255,255,.95); }
         #presentes .orn { justify-content: center; margin: 1.1rem 0 1.8rem; }
-        #presentes .orn-l { max-width: 120px; background: linear-gradient(to right, transparent, rgba(184,154,106,.42), transparent); }
-        #presentes .cotas-intro { max-width: 60ch; margin: 0 auto 2.4rem; text-align: center; color: #735f57; font-size: .92rem; line-height: 1.9; }
+        #presentes .orn-d { background: var(--gold-lt); }
+        #presentes .orn-l { max-width: 120px; background: linear-gradient(to right, transparent, rgba(216,193,154,.45), transparent); }
+        #presentes .cotas-intro { max-width: 60ch; margin: 0 auto 2.4rem; text-align: center; color: rgba(255,255,255,.72); font-size: .92rem; line-height: 1.9; }
+        #presentes .cotas-intro strong { color: var(--gold-lt); }
         #presentes .cotas-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
-        #presentes .cota-card { background: rgba(255,252,248,.78); border: 1px solid rgba(184,154,106,.18); border-radius: 12px; padding: 1.35rem; box-shadow: 0 8px 24px rgba(107,79,66,.08); backdrop-filter: blur(4px); }
-        #presentes .cota-card:hover { box-shadow: 0 14px 30px rgba(184,154,106,.14); transform: translateY(-3px); }
+        #presentes .cota-card { background: rgba(20,12,9,.65); border: 1px solid rgba(184,154,106,.3); border-radius: 0; padding: 1.6rem; box-shadow: none; backdrop-filter: blur(8px); }
+        #presentes .cota-card:hover { background: rgba(20,12,9,.8); transform: translateY(-3px); }
+        #presentes .cota-titulo { color: rgba(255,255,255,.92); }
+        #presentes .cota-valor { color: var(--gold-lt); }
+        #presentes .cota-valor span { color: rgba(255,255,255,.4); }
+        #presentes .cota-desc { color: rgba(255,255,255,.58); }
+        #presentes .cota-progresso-label { color: rgba(255,255,255,.6); }
+        #presentes .cota-progresso-bg { background: rgba(255,255,255,.12); }
+        #presentes .cota-btn { color: var(--gold-lt); border-color: rgba(184,154,106,.5); }
+        #presentes .cota-btn:hover { background: var(--gold); color: white; border-color: var(--gold); }
         #presentes.section-band::before { display: none !important; }
 
         /* FOOTER */
@@ -761,9 +773,9 @@
         @media (max-width: 900px) {
             .msg-card { flex: 0 0 calc(50% - 0.75rem); }
             .manual-grid { grid-template-columns: 1fr 1fr; }
+            .manual-card { border-right: none; border-bottom: 1px solid rgba(184,154,106,.18); }
+            .manual-card:last-child { border-bottom: none; }
             .dresscode-grid { grid-template-columns: 1fr; }
-            #presentes { min-height: 1080px; }
-            #presentes .presentes-frame { min-height: 1080px; }
             #presentes .presentes-content { width: min(100%, 860px); padding: 5rem 1.8rem 4.8rem; }
         }
         @media (max-width: 860px) {
@@ -783,8 +795,6 @@
             .g-tall { grid-row: span 1; }
             .cota-header { flex-direction: column; }
             .cota-valor { text-align: left; }
-            #presentes { min-height: auto; }
-            #presentes .presentes-frame { min-height: auto; }
             #presentes .presentes-content { width: 100%; padding: 4rem 1rem 3.2rem; }
             #presentes .cotas-grid { grid-template-columns: 1fr; }
             .rsvp-btn-group { grid-template-columns: 1fr; }
@@ -1064,49 +1074,40 @@
 
     <!-- MANUAL -->
     <section id="manual" class="section-band band-blush">
-        <div class="manual-wrap ornate-surface reveal">
-            <div class="frame-art" aria-hidden="true"></div>
-            <div class="frame-corners" aria-hidden="true">
-                <svg class="c-tl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                <svg class="c-tr" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                <svg class="c-bl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                <svg class="c-br" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-            </div>
-            <div>
-                <p class="stag">Manual do Casamento</p>
-                <h2 class="stitle">Informações para o grande dia</h2>
-                <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
-                <div class="manual-grid">
-                    <article class="manual-card">
-                        <span class="manual-badge">H</span>
-                        <h3 class="manual-card-title">Horários</h3>
-                        <ul class="manual-list">
-                            <li><strong>Data:</strong> 31 de outubro de 2026</li>
-                            <li><strong>Chegada sugerida:</strong> 30 minutos antes</li>
-                            <li><strong>Cerimônia:</strong> a confirmar</li>
-                            <li><strong>Recepção:</strong> logo após a cerimônia</li>
-                        </ul>
-                    </article>
-                    <article class="manual-card">
-                        <span class="manual-badge">G</span>
-                        <h3 class="manual-card-title">Gentilezas</h3>
-                        <ul class="manual-list">
-                            <li>Em caso de dúvidas, entre em contato com os noivos.</li>
-                            <li>Atenção ao horário para não perder a entrada da cerimônia.</li>
-                            <li>Se desejar nos presentear, a confirmação via PIX está na seção Lua de Mel.</li>
-                        </ul>
-                    </article>
-                    <article class="manual-card">
-                        <span class="manual-badge">📍</span>
-                        <h3 class="manual-card-title">Local</h3>
-                        <ul class="manual-list">
-                            <li><strong>Cerimônia:</strong> Catedral São Pedro de Alcântara</li>
-                            <li>Rua São Pedro de Alcântara, 60 — Centro</li>
-                            <li>Petrópolis, RJ</li>
-                        </ul>
-                    </article>
-                </div>
-            </div>
+        <div style="padding: clamp(3.5rem, 7vw, 5.5rem) clamp(2rem, 6vw, 5rem) 2rem;">
+            <p class="stag reveal">Manual do Casamento</p>
+            <h2 class="stitle reveal">Informações para o grande dia</h2>
+            <div class="orn reveal"><span class="orn-d"></span><span class="orn-l"></span></div>
+        </div>
+        <div class="manual-grid reveal d1">
+            <article class="manual-card">
+                <span class="manual-badge">H</span>
+                <h3 class="manual-card-title">Horários</h3>
+                <ul class="manual-list">
+                    <li><strong>Data:</strong> 31 de outubro de 2026</li>
+                    <li><strong>Chegada sugerida:</strong> 30 minutos antes</li>
+                    <li><strong>Cerimônia:</strong> a confirmar</li>
+                    <li><strong>Recepção:</strong> logo após a cerimônia</li>
+                </ul>
+            </article>
+            <article class="manual-card">
+                <span class="manual-badge">G</span>
+                <h3 class="manual-card-title">Gentilezas</h3>
+                <ul class="manual-list">
+                    <li>Em caso de dúvidas, entre em contato com os noivos.</li>
+                    <li>Atenção ao horário para não perder a entrada da cerimônia.</li>
+                    <li>Se desejar nos presentear, a confirmação via PIX está na seção Lua de Mel.</li>
+                </ul>
+            </article>
+            <article class="manual-card">
+                <span class="manual-badge">📍</span>
+                <h3 class="manual-card-title">Local</h3>
+                <ul class="manual-list">
+                    <li><strong>Cerimônia:</strong> Catedral São Pedro de Alcântara</li>
+                    <li>Rua São Pedro de Alcântara, 60 — Centro</li>
+                    <li>Petrópolis, RJ</li>
+                </ul>
+            </article>
         </div>
     </section>
 
