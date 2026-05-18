@@ -737,16 +737,20 @@
         #presentes .cotas-intro { max-width: 60ch; margin: 0 auto 2.4rem; text-align: center; color: #5a3520; font-size: .92rem; line-height: 1.9; }
         #presentes .cotas-intro strong { color: #4a2e1e; }
         #presentes .cotas-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
-        #presentes .cota-card { background: rgba(255,250,246,.82); border: 1px solid rgba(122,79,46,.22); border-radius: 0; padding: 1.6rem; box-shadow: none; backdrop-filter: blur(4px); }
-        #presentes .cota-card:hover { background: rgba(255,250,246,.95); transform: translateY(-3px); }
-        #presentes .cota-titulo { color: #4a2e1e; }
-        #presentes .cota-valor { color: #7a4f2e; }
-        #presentes .cota-valor span { color: #9a7058; }
-        #presentes .cota-desc { color: #6a4030; }
-        #presentes .cota-progresso-label { color: #5a3520; }
-        #presentes .cota-progresso-bg { background: rgba(122,79,46,.15); }
-        #presentes .cota-btn { color: #7a4f2e; border-color: rgba(122,79,46,.5); }
-        #presentes .cota-btn:hover { background: #7a4f2e; color: white; border-color: #7a4f2e; }
+        #presentes .cota-card { border: none; border-radius: 0; padding: 1.6rem; box-shadow: none; backdrop-filter: none; }
+        #presentes .cota-card:nth-child(odd) { background: #7a4f2e; }
+        #presentes .cota-card:nth-child(even) { background: #4a2e1e; }
+        #presentes .cota-card:hover { transform: translateY(-3px); filter: brightness(1.04); }
+        #presentes .cota-accent { display: none; }
+        #presentes .cota-titulo,
+        #presentes .cota-valor,
+        #presentes .cota-valor span,
+        #presentes .cota-progresso-label { color: #fff7f1; }
+        #presentes .cota-desc { color: rgba(255,247,241,.88); }
+        #presentes .cota-progresso-bg { background: rgba(255,255,255,.18); }
+        #presentes .cota-progresso-fill { background: linear-gradient(90deg, rgba(255,255,255,.68), rgba(255,255,255,.95)); }
+        #presentes .cota-btn { background: rgba(255,255,255,.14); color: #fff7f1; border: none; }
+        #presentes .cota-btn:hover { background: #fff7f1; color: #4a2e1e; border-color: transparent; }
         #presentes.section-band::before { display: none !important; }
 
         /* FOOTER */
@@ -762,12 +766,8 @@
         .footer-couple { font-family: var(--script); font-size: 3rem; line-height: .9; color: rgba(255,255,255,.96); margin-bottom: .65rem; }
         .footer-date { font-family: var(--menu); font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); }
 
-        .acc-25 { background: #c9c0b4; }
-        .acc-50 { background: var(--gold-lt); }
-        .acc-100 { background: var(--gold); }
-        .acc-200 { background: var(--rose); }
-        .acc-500 { background: var(--mocha); }
-        .acc-1000 { background: var(--ink); }
+        .acc-claro { background: #7a4f2e; }
+        .acc-escuro { background: #4a2e1e; }
 
         /* RESPONSIVO */
         @media (max-width: 900px) {
@@ -1275,12 +1275,12 @@
         try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
 
         const COTAS_CONFIG = [
-            { id:'c25',   valor:25,   titulo:'Sopro de Carinho',     descricao:'Um mimo para começar — cada centavo vai direto para a nossa aventura juntos!', total:25, acento:'acc-25',   emoji:'🌸' },
-            { id:'c50',   valor:50,   titulo:'Brinde ao Amor',       descricao:'Com esse presente você contribui para uma noite especial durante a nossa lua de mel.', total:30, acento:'acc-50',   emoji:'🥂' },
-            { id:'c100',  valor:100,  titulo:'Passeio Inesquecível', descricao:'Contribui para um passeio que se tornará memória para a vida toda.', total:25, acento:'acc-100',  emoji:'🗺️' },
-            { id:'c200',  valor:200,  titulo:'Jantar Romântico',     descricao:'Ajude a financiar um jantar especial com aquela vista de dar suspiro.', total:20, acento:'acc-200',  emoji:'🍷' },
-            { id:'c500',  valor:500,  titulo:'Noite dos Sonhos',     descricao:'Uma hospedagem incrível para uma noite que nunca vamos esquecer.', total:10, acento:'acc-500',  emoji:'🌙' },
-            { id:'c1000', valor:1000, titulo:'Grande Aventura',      descricao:'O presente máximo — patrocine um dia completo de pura lua de mel.', total:2,  acento:'acc-1000', emoji:'✈️' }
+            { id:'c50',   valor:50,   titulo:'Sopro de Carinho',     descricao:'Uma lembrança carinhosa para começar a nossa lua de mel com leveza.', total:100, acento:'acc-claro',  emoji:'🌸' },
+            { id:'c150',  valor:150,  titulo:'Brinde ao Amor',       descricao:'Ajude a brindar esta nova fase com um momento especial a dois.', total:20,  acento:'acc-escuro', emoji:'🥂' },
+            { id:'c200',  valor:200,  titulo:'Passeio Inesquecível', descricao:'Contribua para um passeio marcante que ficará para sempre na memória.', total:10,  acento:'acc-claro',  emoji:'🗺️' },
+            { id:'c350',  valor:350,  titulo:'Jantar Romântico',     descricao:'Um presente para um jantar inesquecível em nossa viagem.', total:6,   acento:'acc-escuro', emoji:'🍷' },
+            { id:'c500',  valor:500,  titulo:'Noite dos Sonhos',     descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.', total:3,   acento:'acc-claro',  emoji:'🌙' },
+            { id:'c1000', valor:1000, titulo:'Grande Aventura',      descricao:'O presente máximo para viver um grande capítulo da nossa aventura.', total:2,   acento:'acc-escuro', emoji:'✈️' }
         ];
 
         let cotasUsadas = {};
@@ -1643,5 +1643,6 @@
         carregarCotas();
         carregarMensagens();
     </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
