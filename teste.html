@@ -737,20 +737,16 @@
         #presentes .cotas-intro { max-width: 60ch; margin: 0 auto 2.4rem; text-align: center; color: #5a3520; font-size: .92rem; line-height: 1.9; }
         #presentes .cotas-intro strong { color: #4a2e1e; }
         #presentes .cotas-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
-        #presentes .cota-card { border: none; border-radius: 0; padding: 1.6rem; box-shadow: none; backdrop-filter: none; }
-        #presentes .cota-card:nth-child(odd) { background: #7a4f2e; }
-        #presentes .cota-card:nth-child(even) { background: #4a2e1e; }
-        #presentes .cota-card:hover { transform: translateY(-3px); filter: brightness(1.04); }
-        #presentes .cota-accent { display: none; }
-        #presentes .cota-titulo,
-        #presentes .cota-valor,
-        #presentes .cota-valor span,
-        #presentes .cota-progresso-label { color: #fff7f1; }
-        #presentes .cota-desc { color: rgba(255,247,241,.88); }
-        #presentes .cota-progresso-bg { background: rgba(255,255,255,.18); }
-        #presentes .cota-progresso-fill { background: linear-gradient(90deg, rgba(255,255,255,.68), rgba(255,255,255,.95)); }
-        #presentes .cota-btn { background: rgba(255,255,255,.14); color: #fff7f1; border: none; }
-        #presentes .cota-btn:hover { background: #fff7f1; color: #4a2e1e; border-color: transparent; }
+        #presentes .cota-card { background: rgba(255,250,246,.82); border: 1px solid rgba(122,79,46,.22); border-radius: 0; padding: 1.6rem; box-shadow: none; backdrop-filter: blur(4px); }
+        #presentes .cota-card:hover { background: rgba(255,250,246,.95); transform: translateY(-3px); }
+        #presentes .cota-titulo { color: #4a2e1e; }
+        #presentes .cota-valor { color: #7a4f2e; }
+        #presentes .cota-valor span { color: #9a7058; }
+        #presentes .cota-desc { color: #6a4030; }
+        #presentes .cota-progresso-label { color: #5a3520; }
+        #presentes .cota-progresso-bg { background: rgba(122,79,46,.15); }
+        #presentes .cota-btn { color: #7a4f2e; border-color: rgba(122,79,46,.5); }
+        #presentes .cota-btn:hover { background: #7a4f2e; color: white; border-color: #7a4f2e; }
         #presentes.section-band::before { display: none !important; }
 
         /* FOOTER */
@@ -766,8 +762,12 @@
         .footer-couple { font-family: var(--script); font-size: 3rem; line-height: .9; color: rgba(255,255,255,.96); margin-bottom: .65rem; }
         .footer-date { font-family: var(--menu); font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); }
 
-        .acc-claro { background: #7a4f2e; }
-        .acc-escuro { background: #4a2e1e; }
+        .acc-25 { background: #c9c0b4; }
+        .acc-50 { background: var(--gold-lt); }
+        .acc-100 { background: var(--gold); }
+        .acc-200 { background: var(--rose); }
+        .acc-500 { background: var(--mocha); }
+        .acc-1000 { background: var(--ink); }
 
         /* RESPONSIVO */
         @media (max-width: 900px) {
@@ -811,6 +811,503 @@
         @supports (-webkit-touch-callout: none) {
             #hero.hero-cathedral { min-height: -webkit-fill-available; }
         }
+
+
+        /* =========================================================
+           REORGANIZAÇÃO FINAL — minimalista, blocos alternados,
+           marrom mais claro, sem ornates/corners e com melhor leitura
+        ========================================================= */
+        :root {
+            --cream: #f6eee7;
+            --blush: #efe3d8;
+            --rose: #c9a897;
+            --pearl-rose: #ead9ce;
+            --gold: #b79179;
+            --gold-lt: #dbc8bb;
+            --mocha: #5b4035;
+            --ink: #4a3128;
+            --white: #fffaf6;
+            --ivory: #fbf6f1;
+            --band-ivory: #f6eee7;
+            --band-cream-2: #f4e9df;
+            --band-blush-2: #efe3d8;
+            --band-champagne: #f6eee7;
+            --band-dark: #5b4035;
+            --band-line: rgba(91,64,53,.12);
+            --band-shadow: none;
+        }
+
+        body { background: var(--cream); color: var(--ink); }
+        .top-nav {
+            background: linear-gradient(180deg, rgba(74,49,40,.92) 0%, rgba(74,49,40,.68) 60%, rgba(74,49,40,0) 100%);
+        }
+        .top-nav.scrolled {
+            background: rgba(74,49,40,.92);
+            border-bottom: none;
+        }
+        .top-nav a:hover,
+        .footer-nav a:hover { color: var(--white); }
+
+        #hero.hero-cathedral {
+            background-color: #4a3128;
+            background-image: linear-gradient(180deg, rgba(74,49,40,.28) 0%, rgba(74,49,40,.18) 24%, rgba(74,49,40,.34) 58%, rgba(74,49,40,.62) 100%), var(--hero-image);
+        }
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(74,49,40,.28) 0%, rgba(74,49,40,.16) 28%, rgba(74,49,40,.30) 62%, rgba(74,49,40,.56) 100%);
+        }
+        .hero-date {
+            background: rgba(255,250,246,.14);
+            border: none;
+            color: #fffaf6;
+            padding: .8rem 1.6rem;
+        }
+
+        #countdown,
+        #historia,
+        #presentes,
+        #manual,
+        #local {
+            background: #f6eee7 !important;
+            color: #4a3128;
+        }
+
+        #save-the-date,
+        #dresscode,
+        #mensagens-section,
+        #rsvp,
+        footer.site-footer {
+            background: #5b4035 !important;
+            color: #fffaf6;
+        }
+
+        #countdown {
+            padding: 2.6rem clamp(1.5rem, 6vw, 5rem);
+        }
+        #countdown .cd-label,
+        #countdown .cd-num,
+        #countdown .cd-sep,
+        #countdown .cd-done {
+            color: #4a3128;
+        }
+        #countdown .cd-lbl { color: rgba(74,49,40,.65); }
+
+        .section-band::before,
+        .std-card::before,
+        .ornate-surface::before,
+        .ornate-surface::after,
+        .frame-art,
+        .frame-corners,
+        .std-border,
+        .std-border::before,
+        .std-corners,
+        .pix-divider,
+        .orn,
+        .stag::before {
+            display: none !important;
+            content: none !important;
+        }
+
+        .ornate-surface,
+        .std-card,
+        .thanks-card,
+        .thanks-plaque,
+        .msg-card,
+        .manual-card,
+        .map-wrap,
+        .pix-modal,
+        .pix-copy-box,
+        .pix-qrcode,
+        .form-g input,
+        .form-g select,
+        .form-g textarea,
+        .acomp-name-input,
+        .rsvp-presenca-btn,
+        .gift-btn,
+        .copy-btn,
+        .car-btn,
+        .qty-btn,
+        .cota-card,
+        .cota-btn,
+        .palette-note,
+        .manual-badge,
+        .hero-date,
+        .std-date-badge {
+            box-shadow: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+        }
+
+        .stag {
+            color: var(--gold);
+            margin-bottom: .85rem;
+        }
+        .stitle {
+            color: inherit;
+            margin-bottom: 1.1rem;
+        }
+
+        #historia .section-shell,
+        #presentes .presentes-content,
+        #local .inner,
+        #manual > div:first-child,
+        #rsvp .section-shell,
+        #mensagens-section .section-shell {
+            background: transparent !important;
+        }
+
+        #save-the-date .std-card {
+            background: #5b4035;
+            padding: clamp(4rem, 8vw, 6.2rem) clamp(1.8rem, 7vw, 6rem);
+        }
+        #save-the-date .std-eyebrow,
+        #save-the-date .std-location,
+        #save-the-date .std-date-month {
+            color: rgba(255,250,246,.85);
+        }
+        #save-the-date .std-main-text,
+        #save-the-date .std-main-text *,
+        #save-the-date .std-names-sub,
+        #save-the-date .std-date-day,
+        #save-the-date .std-location strong {
+            color: #fffaf6 !important;
+            text-shadow: none;
+        }
+        #save-the-date .std-main-text {
+            font-size: clamp(4.2rem, 11vw, 7.4rem);
+            line-height: .92;
+            margin-bottom: 1rem;
+        }
+        #save-the-date .std-the {
+            font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+            margin-bottom: -.2rem;
+            letter-spacing: .1em;
+        }
+        #save-the-date .std-names-sub {
+            margin-top: .35rem;
+            font-size: clamp(2.7rem, 6vw, 4.2rem);
+        }
+        #save-the-date .std-date-badge {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: min(360px, 92vw);
+            margin: 2.2rem auto 0;
+            padding: 1.25rem 3rem 1.05rem;
+            background: rgba(255,250,246,.12);
+            gap: .45rem;
+        }
+        #save-the-date .std-date-day {
+            font-size: clamp(2.8rem, 6vw, 4rem);
+            line-height: 1;
+        }
+        #save-the-date .std-date-month {
+            font-size: .78rem;
+            letter-spacing: .26em;
+            line-height: 1.5;
+            text-align: center;
+        }
+        #save-the-date .std-location {
+            margin-top: 1.6rem;
+            line-height: 1.9;
+        }
+
+        #historia .section-shell,
+        #manual,
+        #local {
+            background: #f6eee7 !important;
+            color: #4a3128 !important;
+        }
+        #historia .historia-text,
+        #historia .historia-text p,
+        #dresscode .dresscode-desc,
+        #dresscode .dresscode-tips li,
+        #manual .manual-card-copy,
+        #manual .manual-list,
+        #local p,
+        #rsvp label,
+        #rsvp .rsvp-presenca-label,
+        #rsvp .rsvp-btn-sub,
+        #rsvp .acomp-qty-label,
+        #rsvp .acomp-help,
+        #rsvp #thanks-copy,
+        #rsvp .thanks-msg-preview,
+        .cotas-intro,
+        .cota-desc,
+        .cota-progresso-label,
+        .pix-titular,
+        .pix-helper {
+            color: rgba(74,49,40,.82) !important;
+        }
+
+        #dresscode .section-shell,
+        #rsvp .section-shell,
+        footer.site-footer,
+        #mensagens-section .section-shell {
+            background: transparent !important;
+            color: #fffaf6 !important;
+        }
+        #dresscode .stag,
+        #dresscode .stitle,
+        #dresscode .dresscode-desc,
+        #dresscode .dresscode-tips li,
+        #rsvp .stag,
+        #rsvp .stitle,
+        #rsvp .form-g label,
+        #rsvp .rsvp-presenca-label,
+        #rsvp .rsvp-btn-title,
+        #rsvp .rsvp-btn-sub,
+        #rsvp .acomp-title,
+        #rsvp .acomp-qty-label,
+        #rsvp #thanks-name,
+        #rsvp .thanks-kicker,
+        footer .footer-nav a,
+        footer .footer-couple,
+        footer .footer-date,
+        #mensagens-section .stag,
+        #mensagens-section .stitle,
+        #mensagens-section .msg-texto,
+        #mensagens-section .msg-autor,
+        #mensagens-section .msg-data,
+        #mensagens-section .msg-empty {
+            color: #fffaf6 !important;
+        }
+
+        #dresscode .dresscode-grid {
+            grid-template-columns: 1fr;
+            gap: 0;
+            margin-top: 1.2rem;
+            max-width: 760px;
+        }
+        #dresscode .dresscode-text-col {
+            max-width: 760px;
+        }
+        #dresscode .dresscode-desc {
+            margin-bottom: 1.2rem;
+        }
+        #dresscode .dresscode-tips li::before {
+            background: rgba(255,250,246,.55);
+        }
+        #dresscode .dresscode-palette-col,
+        #dresscode .palette-swatches,
+        #dresscode .palette-avoid,
+        #dresscode .dresscode-palette-title,
+        #dresscode .palette-note {
+            display: none !important;
+        }
+
+        #presentes {
+            background-image: none !important;
+            padding: 0;
+        }
+        #presentes .presentes-frame::before {
+            display: none !important;
+        }
+        #presentes .presentes-content {
+            padding: clamp(4.2rem, 8vw, 6rem) clamp(1.4rem, 5vw, 4rem);
+            max-width: 1160px;
+        }
+        #presentes .stag,
+        #presentes .stitle,
+        #presentes .cotas-intro,
+        #presentes .cotas-intro strong {
+            color: #4a3128 !important;
+        }
+        #presentes .cotas-intro {
+            max-width: 58ch;
+            margin: 0 auto 2.4rem;
+            text-align: center;
+        }
+        #presentes .cotas-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.6rem;
+            margin-top: 2.2rem;
+            align-items: stretch;
+        }
+        #presentes .cota-card {
+            background: #fbf7f3;
+            padding: 1.8rem;
+            min-height: 100%;
+        }
+        #presentes .cota-card:hover {
+            transform: translateY(-2px);
+            box-shadow: none;
+        }
+        #presentes .cota-accent,
+        #presentes .acc-25,
+        #presentes .acc-50,
+        #presentes .acc-100,
+        #presentes .acc-200,
+        #presentes .acc-500,
+        #presentes .acc-1000,
+        #presentes .acc-claro,
+        #presentes .acc-escuro {
+            display: none !important;
+        }
+        #presentes .cota-titulo,
+        #presentes .cota-valor,
+        #presentes .cota-valor span,
+        #presentes .cota-desc,
+        #presentes .cota-progresso-label {
+            color: #4a3128 !important;
+        }
+        #presentes .cota-progresso-wrap {
+            margin: 1.1rem 0 1.3rem;
+        }
+        #presentes .cota-progresso-bg {
+            background: rgba(91,64,53,.12);
+            height: 7px;
+        }
+        #presentes .cota-progresso-fill {
+            background: #b79179;
+        }
+        #presentes .cota-btn {
+            background: #5b4035;
+            color: #fffaf6;
+            padding: .85rem 1.4rem;
+            letter-spacing: .14em;
+        }
+        #presentes .cota-btn:hover {
+            background: #4a3128;
+            color: #fffaf6;
+        }
+
+        #mensagens-section .msg-card {
+            background: rgba(255,250,246,.08);
+        }
+        #mensagens-section .car-btn,
+        #mensagens-section .car-dot.active {
+            background: rgba(255,250,246,.18);
+            color: #fffaf6;
+        }
+
+        #manual .manual-grid {
+            gap: 1.2rem;
+            border-top: none;
+            padding: 0 clamp(2rem, 6vw, 5rem) clamp(3rem, 7vw, 4rem);
+            background: transparent;
+        }
+        #manual .manual-card {
+            background: #fbf7f3;
+            padding: 2rem 1.8rem;
+            border-right: none;
+        }
+        #manual .manual-badge {
+            background: transparent;
+            width: auto;
+            height: auto;
+            padding: 0;
+            margin-bottom: .8rem;
+            color: #5b4035;
+        }
+        #manual .manual-card-title,
+        #manual .manual-list,
+        #manual .manual-list strong {
+            color: #4a3128 !important;
+        }
+
+        #rsvp .rsvp-wrap {
+            margin-top: 1.6rem;
+            background: rgba(255,250,246,.06);
+        }
+        #rsvp .form-g input,
+        #rsvp .form-g textarea,
+        #rsvp .form-g select,
+        #rsvp .acomp-name-input,
+        #rsvp .pix-name-field input {
+            background: rgba(255,250,246,.96);
+            color: #4a3128;
+        }
+        #rsvp .rsvp-presenca-btn,
+        #rsvp .thanks-plaque,
+        #rsvp .thanks-card,
+        #rsvp .qty-btn,
+        #rsvp .pix-copy-box,
+        #rsvp .pix-qrcode,
+        #rsvp .pix-modal {
+            background: rgba(255,250,246,.96);
+            color: #4a3128;
+        }
+        #rsvp .rsvp-btn-title,
+        #rsvp .rsvp-btn-sub,
+        #rsvp .thanks-kicker,
+        #rsvp #thanks-name,
+        #rsvp #thanks-copy,
+        #rsvp .thanks-msg-preview,
+        #rsvp .acomp-qty-value,
+        #rsvp .pix-modal-cota-nome,
+        #rsvp .pix-modal-valor,
+        #rsvp .pix-chave,
+        #rsvp .pix-name-field label,
+        #rsvp .pix-titular {
+            color: #4a3128 !important;
+        }
+        #rsvp .gift-btn,
+        #local .gift-btn,
+        .copy-btn,
+        .pix-close-btn {
+            background: #5b4035;
+            color: #fffaf6;
+        }
+        #rsvp .gift-btn:hover,
+        #local .gift-btn:hover,
+        .copy-btn:hover,
+        .pix-close-btn:hover {
+            background: #4a3128;
+            color: #fffaf6;
+            transform: none;
+        }
+        #rsvp .qty-btn:hover,
+        #rsvp .rsvp-presenca-btn.selected-sim,
+        #rsvp .rsvp-presenca-btn.selected-nao {
+            background: #e9ddd4;
+            color: #4a3128;
+        }
+        #rsvp .thanks-card-floor,
+        #rsvp .thanks-card-overlay { display: none !important; }
+
+        #local {
+            padding: clamp(4rem, 8vw, 5.5rem) clamp(2rem, 6vw, 5rem) !important;
+        }
+        #local .map-wrap {
+            background: #fbf7f3;
+            overflow: hidden;
+        }
+        #local p,
+        #local .stitle,
+        #local .stag { color: #4a3128 !important; }
+
+        footer.site-footer {
+            background-image: none;
+            padding: 4.5rem 1.5rem 3.4rem;
+        }
+        .footer-mono-i,
+        .footer-mono-m,
+        .nav-monogram .nav-mono-i,
+        .nav-monogram .nav-mono-m {
+            color: #fffaf6;
+        }
+
+        @media (max-width: 900px) {
+            #presentes .cotas-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+            #manual .manual-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 660px) {
+            #save-the-date .std-date-badge {
+                min-width: 0;
+                width: 100%;
+                max-width: 320px;
+                padding: 1rem 1.4rem .95rem;
+                gap: .4rem;
+            }
+            #save-the-date .std-date-month {
+                letter-spacing: .18em;
+                font-size: .68rem;
+            }
+            #presentes .presentes-content { padding: 4rem 1rem 3.2rem; }
+        }
+
     </style>
 </head>
 
@@ -863,29 +1360,6 @@
     <!-- ★ SAVE THE DATE ★ -->
     <section id="save-the-date" aria-label="Save the Date">
         <div class="std-card reveal">
-            <div class="std-border"></div>
-            <div class="std-corners" aria-hidden="true">
-                <svg class="std-corner tl" viewBox="0 0 40 40" fill="none">
-                    <path d="M2 38 L2 8 Q2 2 8 2 L38 2" stroke="#b89a6a" stroke-width="1" fill="none"/>
-                    <circle cx="2" cy="2" r="2" fill="none" stroke="#b89a6a" stroke-width=".8"/>
-                    <circle cx="2" cy="2" r=".8" fill="#b89a6a"/>
-                </svg>
-                <svg class="std-corner tr" viewBox="0 0 40 40" fill="none">
-                    <path d="M2 38 L2 8 Q2 2 8 2 L38 2" stroke="#b89a6a" stroke-width="1" fill="none"/>
-                    <circle cx="2" cy="2" r="2" fill="none" stroke="#b89a6a" stroke-width=".8"/>
-                    <circle cx="2" cy="2" r=".8" fill="#b89a6a"/>
-                </svg>
-                <svg class="std-corner bl" viewBox="0 0 40 40" fill="none">
-                    <path d="M2 38 L2 8 Q2 2 8 2 L38 2" stroke="#b89a6a" stroke-width="1" fill="none"/>
-                    <circle cx="2" cy="2" r="2" fill="none" stroke="#b89a6a" stroke-width=".8"/>
-                    <circle cx="2" cy="2" r=".8" fill="#b89a6a"/>
-                </svg>
-                <svg class="std-corner br" viewBox="0 0 40 40" fill="none">
-                    <path d="M2 38 L2 8 Q2 2 8 2 L38 2" stroke="#b89a6a" stroke-width="1" fill="none"/>
-                    <circle cx="2" cy="2" r="2" fill="none" stroke="#b89a6a" stroke-width=".8"/>
-                    <circle cx="2" cy="2" r=".8" fill="#b89a6a"/>
-                </svg>
-            </div>
             <div class="std-inner">
                 <p class="std-eyebrow">Guarde esta data</p>
 
@@ -895,22 +1369,10 @@
                     <span class="std-save">the Date</span>
                 </div>
 
-                <div class="std-divider" style="margin-top:1.6rem">
-                    <span class="std-divider-line rev"></span>
-                    <span class="std-divider-gem"></span>
-                    <span class="std-divider-line"></span>
-                </div>
-
                 <div class="std-names-sub">
                     <span style="color:var(--pearl-rose)">Ingrid</span>
                     <span class="std-amp">&amp;</span>
                     <span>Marcos</span>
-                </div>
-
-                <div class="std-divider" style="margin-top:1.6rem">
-                    <span class="std-divider-line rev"></span>
-                    <span class="std-divider-gem"></span>
-                    <span class="std-divider-line"></span>
                 </div>
 
                 <div class="std-date-badge">
@@ -927,20 +1389,12 @@
 
     <!-- ★ NOSSA HISTÓRIA — versão direta ★ -->
     <section id="historia" class="section-band band-champagne">
-        <div class="section-shell ornate-surface">
-            <div class="frame-art" aria-hidden="true"></div>
-            <div class="frame-corners" aria-hidden="true">
-                <svg class="c-tl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                <svg class="c-tr" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                <svg class="c-bl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                <svg class="c-br" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-            </div>
+        <div class="section-shell">
 
             <div class="historia-shell">
                 <div class="reveal">
                     <p class="stag">Nossa História</p>
                     <h2 class="stitle">Como tudo começou</h2>
-                    <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
                 </div>
 
                 <div class="historia-text reveal d1">
@@ -968,7 +1422,6 @@
                 <div class="reveal">
                     <p class="stag">Dress Code</p>
                     <h2 class="stitle">Traje para o Grande Dia</h2>
-                    <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
                 </div>
                 <div class="dresscode-grid reveal d1">
                     <div class="dresscode-text-col">
@@ -982,27 +1435,6 @@
                             <li>Acessórios dourados e perolados combinam lindamente com a paleta do evento.</li>
                         </ul>
                     </div>
-                    <div class="dresscode-palette-col">
-                        <p class="dresscode-palette-title">Paleta sugerida</p>
-                        <div class="palette-swatches">
-                            <div class="swatch-item"><div class="swatch-circle" style="background:#faf7f2"></div><span class="swatch-label">Champagne</span></div>
-                            <div class="swatch-item"><div class="swatch-circle" style="background:#d8c19a"></div><span class="swatch-label">Dourado</span></div>
-                            <div class="swatch-item"><div class="swatch-circle" style="background:#d8bcc4"></div><span class="swatch-label">Rosé</span></div>
-                            <div class="swatch-item"><div class="swatch-circle" style="background:#c9c0b4"></div><span class="swatch-label">Areia</span></div>
-                            <div class="swatch-item"><div class="swatch-circle" style="background:#8a7268"></div><span class="swatch-label">Terracota</span></div>
-                            <div class="swatch-item"><div class="swatch-circle" style="background:#2e231e"></div><span class="swatch-label">Preto</span></div>
-                        </div>
-                        <p class="palette-note">Tons neutros, terrosos, rosê, dourado suave e preto — a paleta que sonhamos para este dia.</p>
-                        <div class="palette-avoid">
-                            <p class="palette-avoid-title">Evitar</p>
-                            <div class="palette-avoid-swatches">
-                                <div class="avoid-swatch" style="background:#ffffff"><span class="avoid-x">✕</span></div>
-                                <div class="avoid-swatch" style="background:#f5f5dc"><span class="avoid-x">✕</span></div>
-                                <div class="avoid-swatch" style="background:#fffaf0"><span class="avoid-x">✕</span></div>
-                            </div>
-                            <p style="font-size:.72rem; color:#9b8278; margin-top:.6rem; font-style:italic;">Tons muito claros próximos ao branco são reservados à noiva 🤍</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1014,7 +1446,6 @@
             <div class="presentes-content">
                 <p class="stag">Lua de Mel</p>
                 <h2 class="stitle">Ajude os Noivos</h2>
-                <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
                 <p class="cotas-intro">
                     Nossa maior alegria é compartilhar este dia com você. Se desejar nos presentear, escolha uma das cotas abaixo para contribuir com nossa <strong>Lua de Mel</strong>. Cada valor representa um pedacinho desta aventura que faremos juntos!
                 </p>
@@ -1028,11 +1459,6 @@
                 <p class="pix-modal-eyebrow">Presente para os Noivos</p>
                 <p class="pix-modal-cota-nome" id="pix-cota-nome"></p>
                 <p class="pix-modal-valor" id="pix-modal-valor"></p>
-                <div class="pix-divider">
-                    <span class="pix-div-line rev"></span>
-                    <span class="pix-div-gem"></span>
-                    <span class="pix-div-line"></span>
-                </div>
                 <div class="pix-qrcode">
                     <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021126330014BR.GOV.BCB.PIX0114066553061755204000053039865802BR5913IngridMarcos6009Petropolis62070503***6304E67E" alt="QR Code Pix" />
                 </div>
@@ -1058,7 +1484,6 @@
             <div class="msg-header reveal">
                 <p class="stag">Palavras de Carinho</p>
                 <h2 class="stitle" style="color:rgba(255,255,255,.92)">Mensagens dos Convidados</h2>
-                <div class="orn" style="justify-content:center"><span class="orn-d"></span></div>
             </div>
             <div class="carousel-outer reveal d1">
                 <div class="carousel-track" id="carousel-track"></div>
@@ -1117,17 +1542,9 @@
             <div class="reveal">
                 <p class="stag">Presença</p>
                 <h2 class="stitle">Confirme sua participação</h2>
-                <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
             </div>
 
-            <div class="rsvp-wrap reveal ornate-surface">
-                <div class="frame-art" aria-hidden="true"></div>
-                <div class="frame-corners" aria-hidden="true">
-                    <svg class="c-tl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                    <svg class="c-tr" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                    <svg class="c-bl" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                    <svg class="c-br" viewBox="0 0 52 52" fill="none"><path d="M4 48 L4 10 Q4 4 10 4 L48 4" stroke="#b89a6a" stroke-width="1.2" fill="none"/><circle cx="4" cy="4" r="3" fill="none" stroke="#b89a6a" stroke-width="1"/><circle cx="4" cy="4" r="1.2" fill="#b89a6a"/></svg>
-                </div>
+            <div class="rsvp-wrap reveal">
 
                 <div id="rsvp-fw" style="padding:2.5rem">
                     <div id="rsvp-form">
@@ -1212,7 +1629,6 @@
             <div class="reveal">
                 <p class="stag">Localização</p>
                 <h2 class="stitle">Onde tudo acontecerá</h2>
-                <div class="orn"><span class="orn-d"></span><span class="orn-l"></span></div>
             </div>
             <div class="venue-grid reveal">
                 <div>
@@ -1276,11 +1692,11 @@
 
         const COTAS_CONFIG = [
             { id:'c50',   valor:50,   titulo:'Sopro de Carinho',     descricao:'Uma lembrança carinhosa para começar a nossa lua de mel com leveza.', total:100, acento:'acc-claro',  emoji:'🌸' },
-            { id:'c150',  valor:150,  titulo:'Brinde ao Amor',       descricao:'Ajude a brindar esta nova fase com um momento especial a dois.', total:20,  acento:'acc-escuro', emoji:'🥂' },
+            { id:'c150',  valor:150,  titulo:'Brinde ao Amor',       descricao:'Ajude a brindar esta nova fase com um momento especial a dois.', total:20,  acento:'acc-claro',  emoji:'🥂' },
             { id:'c200',  valor:200,  titulo:'Passeio Inesquecível', descricao:'Contribua para um passeio marcante que ficará para sempre na memória.', total:10,  acento:'acc-claro',  emoji:'🗺️' },
-            { id:'c350',  valor:350,  titulo:'Jantar Romântico',     descricao:'Um presente para um jantar inesquecível em nossa viagem.', total:6,   acento:'acc-escuro', emoji:'🍷' },
+            { id:'c350',  valor:350,  titulo:'Jantar Romântico',     descricao:'Um presente para um jantar inesquecível em nossa viagem.', total:6,   acento:'acc-claro',  emoji:'🍷' },
             { id:'c500',  valor:500,  titulo:'Noite dos Sonhos',     descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.', total:3,   acento:'acc-claro',  emoji:'🌙' },
-            { id:'c1000', valor:1000, titulo:'Grande Aventura',      descricao:'O presente máximo para viver um grande capítulo da nossa aventura.', total:2,   acento:'acc-escuro', emoji:'✈️' }
+            { id:'c1000', valor:1000, titulo:'Grande Aventura',      descricao:'O presente máximo para viver um grande capítulo da nossa aventura.', total:2,   acento:'acc-claro',  emoji:'✈️' }
         ];
 
         let cotasUsadas = {};
