@@ -185,9 +185,38 @@
 }
         .std-names { font-family: var(--script); font-size: clamp(2.4rem,6vw,4rem); color: rgba(255,250,246,.85); margin-top: .6rem; line-height: 1; }
         .std-amp { font-family: var(--serif); font-size: .65em; color: var(--gold-lt); font-style: italic; vertical-align: middle; margin: 0 .2em; }
-        .std-day { font-family: var(--serif); font-size: clamp(2.6rem,6vw,4rem); font-weight: 300; color: var(--white); line-height: 1; }
-        .std-month { font-family: var(--menu); font-size: .72rem; letter-spacing: .26em; text-transform: uppercase; color: rgba(255,250,246,.6); }
-        .std-loc { margin-top: 1.6rem; font-family: var(--menu); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,250,246,.42); line-height: 1.9; }
+        @font-face {
+  font-family: "Cinzel Bold";
+  src: url("./Cinzel-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+.std-day { 
+  font-family: "Cinzel Bold", serif; 
+  font-size: clamp(2.6rem, 6vw, 4rem); 
+  font-weight: 700; 
+  color: var(--white); 
+  line-height: 1; 
+}
+
+.std-month { 
+  font-family: "Cinzel Bold", serif; 
+  font-size: .72rem; 
+  letter-spacing: .26em; 
+  text-transform: uppercase; 
+  color: rgba(255, 250, 246, .6); 
+}
+
+.std-loc { 
+  margin-top: 1.6rem; 
+  font-family: "Cinzel Bold", serif; 
+  font-size: .62rem; 
+  letter-spacing: .2em; 
+  text-transform: uppercase; 
+  color: rgba(255, 250, 246, .42); 
+  line-height: 1.9; 
+  text-align: left; /* Garante que as duas linhas do endereço quebrem alinhadas à esquerda */
+}
         .std-loc strong { color: rgba(255,250,246,.75); }
 
         /* HISTÓRIA */
@@ -458,12 +487,9 @@
             <span class="std-the">Save</span>
             <span>the Date</span>
         </div>
-        <div class="std-badge">
             <span class="std-day">31</span>
-            <span class="std-month">Outubro &nbsp;·&nbsp; 2026</span>
-        </div>
+            <span class="std-month">Outubro de 2026</span>
         <p class="std-loc"><strong>Catedral São Pedro de Alcântara</strong><br>Petrópolis, Rio de Janeiro</p>
-    </div>
 </section>
 
 <!-- HISTÓRIA -->
