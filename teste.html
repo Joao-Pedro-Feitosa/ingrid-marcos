@@ -209,19 +209,19 @@
 }
 
 .std-loc { 
-  margin-top: 1.6rem; 
+  margin-top: 1.2rem; /* Reduzi um pouco a margem para aproximar da data acima */
   font-family: "Cinzel Bold", serif; 
-  font-size: 15px; 
+  font-size: .68rem; 
   letter-spacing: .2em; 
   text-transform: uppercase; 
   color: rgba(255, 250, 246, .55); 
-  line-height: 1.9; 
+  line-height: 1.5; /* Reduzi o line-height para tirar o espaço em branco vertical entre as linhas */
   
-  /* MUDANÇA AQUI: Força as duas linhas a se centralizarem uma com a outra */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centraliza a linha de baixo com a de cima */
-  text-align: center;  /* Garante o comportamento do texto */
+  /* Faz o bloco de texto ir para a ESQUERDA da tela */
+  align-self: flex-start; 
+  
+  /* Faz o texto de baixo ficar CENTRALIZADO em relação ao de cima */
+  text-align: center; 
 }
         .std-loc strong { color: rgba(255,250,246,.75); }
 
@@ -497,7 +497,7 @@
             <span class="std-day">31 </span>
             <span class="std-month">de Outubro de 2026</span>
         <p class="std-loc"><strong>Catedral São Pedro de Alcântara</strong>
-            <br>     Petrópolis - Rio de Janeiro</p>
+            <br> Petrópolis - Rio de Janeiro</p>
 </section>
 
 <!-- HISTÓRIA -->
