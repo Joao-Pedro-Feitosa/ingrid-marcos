@@ -208,16 +208,20 @@
   color: rgba(255, 250, 246, .8); 
 }
 
-/* 5. LOCAL: Alterado exclusivamente para Cinzel Bold */
 .std-loc { 
   margin-top: 1.6rem; 
-  font-family: "Cinzel Bold", serif; /* Retornado para Cinzel Bold */
-  font-size: 12px; /* Ajustado ligeiramente para a proporção da Cinzel */
+  font-family: "Cinzel Bold", serif; 
+  font-size: 15px; 
   letter-spacing: .2em; 
   text-transform: uppercase; 
   color: rgba(255, 250, 246, .55); 
   line-height: 1.9; 
-  text-align: left; 
+  
+  /* MUDANÇA AQUI: Força as duas linhas a se centralizarem uma com a outra */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza a linha de baixo com a de cima */
+  text-align: center;  /* Garante o comportamento do texto */
 }
         .std-loc strong { color: rgba(255,250,246,.75); }
 
