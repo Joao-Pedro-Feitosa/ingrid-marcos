@@ -156,22 +156,27 @@
   justify-content: center;
 }
         .std-eyebrow { font-family: var(--menu); font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,250,246,.6); margin-bottom: 1.2rem; }
-        .std-main { 
-  /* Aplicando a fonte diretamente por extenso */
-  font-family: "Simple Serenity Serif"; 
+        @font-face {
+  font-family: "Simple Serenity Serif";
+  src: url("./Simple Serenity Serif.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+       .std-main { 
+  /* Agora usando a fonte Serif que você declarou acima */
+  font-family: "Simple Serenity Serif", serif; 
   font-size: clamp(4.5rem, 12vw, 8rem); 
   color: var(--white); 
   line-height: .9; 
-
-  /* Mantém na mesma linha e joga para a ESQUERDA */
+  /* Mantém na mesma linha e alinha à esquerda */
   display: flex;       
-  justify-content: flex-start; /* Alinha o conteúdo à esquerda */
-  align-items: center;         /* Alinha verticalmente os dois textos */
-  gap: 1.5rem;                 /* Espaço entre as palavras */
+  justify-content: flex-start; 
+  align-items: center;         
+  gap: 1.5rem;                 
 }
 
 .std-the { 
-  /* Garante a mesma proporção e herança da fonte */
+  /* Garante o mesmo tamanho e fonte do pai */
   font-size: clamp(4.5rem, 12vw, 8rem); 
   color: var(--gold-lt); 
   display: inline; 
