@@ -141,14 +141,22 @@
 
         /* SAVE THE DATE */
   #save-the-date { 
-  /* Mudamos de 'center top' para 'center 40%' para ela descer só um pouquinho em relação ao meio */
   background: 
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
     url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center 40% / cover; 
-  
   filter: grayscale(100%); 
-  padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 8vw, 7rem); 
   text-align: center; 
+
+  /* 1. MANTÉM O PADDING LATERAL E DOIS REM EM CIMA E EMBAIXO */
+  padding: 2rem clamp(2rem, 8vw, 7rem); 
+
+  /* 2. ADICIONE ESSA LINHA: Garante que o bloco tenha espaço para a foto */
+  min-height: 500px; /* Teste valores como 450px, 500px ou 600px */
+
+  /* 3. ADICIONE ESSA LINHA: Centraliza o texto verticalmente dentro do bloco maior */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
         .std-eyebrow { font-family: var(--menu); font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,250,246,.6); margin-bottom: 1.2rem; }
         .std-main { 
