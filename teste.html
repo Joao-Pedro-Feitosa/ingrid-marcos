@@ -142,8 +142,27 @@
         /* SAVE THE DATE */
         #save-the-date { background: var(--mocha); padding: clamp(4rem,8vw,6rem) clamp(2rem,8vw,7rem); text-align: center; }
         .std-eyebrow { font-family: var(--menu); font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,250,246,.6); margin-bottom: 1.2rem; }
-        .std-main { font-family: var(--script); font-size: clamp(4.5rem,12vw,8rem); color: var(--white); line-height: .9; }
-        .std-the { font-family: var(--serif); font-size: clamp(1.3rem,3vw,2rem); font-style: italic; color: var(--gold-lt); display: block; margin-bottom: -.3rem; letter-spacing: .1em; }
+        .std-main { 
+  font-family: var(--script); 
+  font-size: clamp(4.5rem, 12vw, 8rem); 
+  color: var(--white); 
+  line-height: .9; 
+
+  /* Adicione as linhas abaixo: */
+  display: flex;       /* Força os spans a ficarem na mesma linha */
+  align-items: center; /* Alinha os dois verticalmente pelo meio */
+  gap: 1.5rem;         /* Cria um espaço entre "save" e "the Date" */
+}
+        .std-the { 
+  font-family: var(--serif); 
+  font-size: clamp(1.3rem, 3vw, 2rem); 
+  font-style: italic; 
+  color: var(--gold-lt); 
+  letter-spacing: .1em; 
+  
+  /* Alterado para não quebrar a linha */
+  display: inline-block; 
+}
         .std-names { font-family: var(--script); font-size: clamp(2.4rem,6vw,4rem); color: rgba(255,250,246,.85); margin-top: .6rem; line-height: 1; }
         .std-amp { font-family: var(--serif); font-size: .65em; color: var(--gold-lt); font-style: italic; vertical-align: middle; margin: 0 .2em; }
         .std-badge { display: inline-flex; flex-direction: column; align-items: center; margin-top: 2rem; padding: 1.1rem 3rem; background: rgba(255,250,246,.1); gap: .3rem; min-width: min(340px,88vw); }
@@ -419,11 +438,6 @@
         <div class="std-main">
             <span class="std-the">save</span>
             <span>the Date</span>
-        </div>
-        <div class="std-names">
-            <span style="color:var(--pearl)">Ingrid</span>
-            <span class="std-amp">&amp;</span>
-            <span>Marcos</span>
         </div>
         <div class="std-badge">
             <span class="std-day">31</span>
