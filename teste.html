@@ -141,20 +141,18 @@
 
         /* SAVE THE DATE */
 /* SAVE THE DATE */
+/* SAVE THE DATE */
 #save-the-date { 
   background: 
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center 35% / cover; 
+    /* Mudamos de 35% para 'center top' para colar o topo da foto no teto do bloco */
+    url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center top / cover; 
   filter: grayscale(100%); 
   text-align: center; 
 
-  /* Mantém o padding lateral e um respiro equilibrado em cima e embaixo */
   padding: 4rem clamp(2rem, 8vw, 7rem); 
-
-  /* AQUI ESTÁ A MUDANÇA: Aumentei de 500px para 750px para abrir espaço para a torre */
   min-height: 750px; 
 
-  /* Mantém o conteúdo perfeitamente centralizado no meio do bloco maior */
   display: flex;
   flex-direction: column;
   justify-content: center;
