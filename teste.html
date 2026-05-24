@@ -49,13 +49,68 @@
         .nav-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.2rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.28); white-space: nowrap; }
 
         /* HERO */
-        #hero { min-height: 100vh; min-height: 100svh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; padding: 9rem 1.5rem 4rem; background: var(--mocha) var(--hero-img) center 36%/cover no-repeat; }
-        #hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(74,49,40,.28) 0%,rgba(74,49,40,.14) 28%,rgba(74,49,40,.32) 62%,rgba(74,49,40,.60) 100%); }
-        .hero-center { position: relative; z-index: 1; max-width: 900px; padding: 2rem 1.5rem; }
-        .hero-kicker { font-family: var(--menu); font-size: .76rem; letter-spacing: .26em; text-transform: uppercase; color: rgba(255,250,246,.82); margin-bottom: .5rem; }
-        .hero-names { font-family: var(--script); font-size: clamp(5rem, 11vw, 8.3rem); font-weight: 400; color: var(--white); line-height: .84; text-shadow: 0 4px 26px rgba(0,0,0,.42); }
-        .hero-date { margin-top: 1rem; font-family: var(--menu); font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,250,246,.78); display: inline-block; padding: .72rem 1.6rem; background: rgba(255,250,246,.12); }
+   @font-face {
+  font-family: "Simple Serenity Script";
+  src: url("./Simple Serenity Script.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
 
+#hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 9rem 1.5rem 4rem;
+  background: var(--mocha) var(--hero-img) center 36%/cover no-repeat;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,rgba(74,49,40,.28) 0%,rgba(74,49,40,.14) 28%,rgba(74,49,40,.32) 62%,rgba(74,49,40,.60) 100%);
+}
+
+.hero-center {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  padding: 2rem 1.5rem;
+}
+
+.hero-kicker {
+  font-family: var(--menu);
+  font-size: .76rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(255,250,246,.82);
+  margin-bottom: .5rem;
+}
+
+.hero-names {
+  font-family: "Simple Serenity Script", cursive;
+  font-size: clamp(5rem, 11vw, 8.3rem);
+  font-weight: 400;
+  color: var(--white);
+  line-height: .84;
+  text-shadow: 0 4px 26px rgba(0,0,0,.42);
+}
+
+.hero-date {
+  margin-top: 1rem;
+  font-family: var(--menu);
+  font-size: .7rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,250,246,.78);
+  display: inline-block;
+  padding: .72rem 1.6rem;
+  background: rgba(255,250,246,.12);
+}
         /* COUNTDOWN */
         #countdown { background: var(--cream); padding: 2.8rem clamp(1.5rem,6vw,5rem); text-align: center; }
         .cd-label { font-family: var(--menu); font-size: .64rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
