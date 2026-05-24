@@ -143,25 +143,27 @@
         #save-the-date { background: var(--mocha); padding: clamp(4rem,8vw,6rem) clamp(2rem,8vw,7rem); text-align: center; }
         .std-eyebrow { font-family: var(--menu); font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,250,246,.6); margin-bottom: 1.2rem; }
         .std-main { 
-  font-family: var(--script); 
+  font-family: var(--script); /* Simple Serenity Script para tudo */
   font-size: clamp(4.5rem, 12vw, 8rem); 
   color: var(--white); 
   line-height: .9; 
 
-  /* Adicione as linhas abaixo: */
-  display: flex;       /* Força os spans a ficarem na mesma linha */
-  align-items: center; /* Alinha os dois verticalmente pelo meio */
-  gap: 1.5rem;         /* Cria um espaço entre "save" e "the Date" */
+  /* Centraliza na tela e mantém na mesma linha */
+  display: flex;       
+  justify-content: center; /* Centraliza horizontalmente na tela */
+  align-items: center;     /* Alinha verticalmente os dois textos */
+  gap: 1.5rem;             /* Espaço entre as palavras */
 }
-        .std-the { 
-  font-family: var(--serif); 
-  font-size: clamp(1.3rem, 3vw, 2rem); 
-  font-style: italic; 
-  color: var(--gold-lt); 
-  letter-spacing: .1em; 
+
+.std-the { 
+  /* Removeu o font-family antigo para herdar o var(--script) do pai */
+  font-size: clamp(4.5rem, 12vw, 8rem); /* Mesma proporção do resto do texto */
+  color: var(--gold-lt); /* Mantém o dourado lindo que você escolheu */
   
-  /* Alterado para não quebrar a linha */
-  display: inline-block; 
+  /* Remove os blocos e margens antigas que quebravam a linha */
+  display: inline; 
+  font-style: normal;
+  letter-spacing: normal;
 }
         .std-names { font-family: var(--script); font-size: clamp(2.4rem,6vw,4rem); color: rgba(255,250,246,.85); margin-top: .6rem; line-height: 1; }
         .std-amp { font-family: var(--serif); font-size: .65em; color: var(--gold-lt); font-style: italic; vertical-align: middle; margin: 0 .2em; }
