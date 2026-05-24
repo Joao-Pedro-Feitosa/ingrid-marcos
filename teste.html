@@ -140,20 +140,21 @@
         .cd-done { font-family: var(--serif); font-size: clamp(1.4rem,4vw,2.5rem); font-style: italic; color: var(--mocha); display: none; }
 
         /* SAVE THE DATE */
-  #save-the-date { 
+/* SAVE THE DATE */
+#save-the-date { 
   background: 
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center 40% / cover; 
+    url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center 35% / cover; 
   filter: grayscale(100%); 
   text-align: center; 
 
-  /* 1. MANTÉM O PADDING LATERAL E DOIS REM EM CIMA E EMBAIXO */
-  padding: 2rem clamp(2rem, 8vw, 7rem); 
+  /* Mantém o padding lateral e um respiro equilibrado em cima e embaixo */
+  padding: 4rem clamp(2rem, 8vw, 7rem); 
 
-  /* 2. ADICIONE ESSA LINHA: Garante que o bloco tenha espaço para a foto */
-  min-height: 500px; /* Teste valores como 450px, 500px ou 600px */
+  /* AQUI ESTÁ A MUDANÇA: Aumentei de 500px para 750px para abrir espaço para a torre */
+  min-height: 750px; 
 
-  /* 3. ADICIONE ESSA LINHA: Centraliza o texto verticalmente dentro do bloco maior */
+  /* Mantém o conteúdo perfeitamente centralizado no meio do bloco maior */
   display: flex;
   flex-direction: column;
   justify-content: center;
