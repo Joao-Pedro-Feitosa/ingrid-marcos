@@ -141,15 +141,13 @@
 
         /* SAVE THE DATE */
         #save-the-date { 
-  /* Substituído o background original pela imagem, com preto e branco aplicado */
+  #save-the-date { 
+  /* Ajustado de 'center center' para 'center top' para a imagem descer e focar no topo da torre */
   background: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Camada escura opcional para contraste */
-    url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center center / cover; 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center top / cover; 
   
-  /* Filtro para tornar a imagem em preto e branco */
   filter: grayscale(100%); 
-  
-  /* Mantendo o padding e o alinhamento original */
   padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 8vw, 7rem); 
   text-align: center; 
 }
