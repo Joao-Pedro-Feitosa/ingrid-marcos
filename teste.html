@@ -209,19 +209,17 @@
 }
 
 .std-loc { 
-  margin-top: 1.2rem; /* Reduzi um pouco a margem para aproximar da data acima */
+  margin-top: 1.2rem; 
   font-family: "Cinzel Bold", serif; 
-  font-size: .68rem; 
+  font-size: 15px; 
   letter-spacing: .2em; 
   text-transform: uppercase; 
   color: rgba(255, 250, 246, .55); 
-  line-height: 1.5; /* Reduzi o line-height para tirar o espaço em branco vertical entre as linhas */
-  
-  /* Faz o bloco de texto ir para a ESQUERDA da tela */
-  align-self: flex-start; 
-  
-  /* Faz o texto de baixo ficar CENTRALIZADO em relação ao de cima */
-  text-align: center; 
+  line-height: 1.5; 
+
+  /* O SEGREDO AQUI: */
+  width: max-content;  /* Faz o bloco ter o tamanho exato do texto, sem sobrar */
+  text-align: center;   /* Centraliza Petrópolis embaixo de Catedral */
 }
         .std-loc strong { color: rgba(255,250,246,.75); }
 
