@@ -443,11 +443,10 @@
         }
         @media (max-width: 860px) {
             /* Troca o menu completo por hambúrguer (esquerda) + acessos rápidos (direita) */
-            .top-nav { display: flex; justify-content: space-between; align-items: center; padding-left: .9rem; padding-right: .9rem; }
+            .top-nav { display: flex; justify-content: flex-start; align-items: center; padding-left: .9rem; padding-right: .9rem; }
             .nav-left, .nav-right { display: none; }
-            .nav-toggle { display: flex; }
-            .nav-quick { display: flex; }
-            .nav-monogram { width: 100px; height: 96px; }
+            .nav-toggle { display: flex; position: relative; z-index: 2; }
+            .nav-monogram { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 100px; height: 96px; }
             .nav-mono-i { font-size: 5.4rem; }
             .nav-mono-m { font-size: 4.4rem; }
         }
@@ -471,8 +470,6 @@
             .nav-mono-i { font-size: 4.6rem; }
             .nav-mono-m { font-size: 3.8rem; }
             .nav-toggle { width: 40px; height: 40px; }
-            .nav-quick-btn { width: 36px; height: 36px; font-size: 1rem; }
-            .nav-quick { gap: .35rem; }
             .footer-mono { width: 68px; height: 64px; }
             .footer-mono-i { font-size: 3.6rem; }
             .footer-mono-m { font-size: 2.9rem; }
@@ -506,11 +503,6 @@
         <a href="#manual">Manual</a>
         <a href="#rsvp">Presença</a>
         <a href="#local">Local</a>
-    </div>
-    <div class="nav-quick">
-        <a href="#presentes" class="nav-quick-btn" aria-label="Lista de Presentes"><span aria-hidden="true">🎁</span></a>
-        <a href="#rsvp" class="nav-quick-btn" aria-label="Confirmar Presença"><span aria-hidden="true">💍</span></a>
-        <a href="#local" class="nav-quick-btn" aria-label="Local do Casamento"><span aria-hidden="true">📍</span></a>
     </div>
 </nav>
 
