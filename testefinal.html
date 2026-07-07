@@ -157,11 +157,11 @@
         /* COUNTDOWN */
         #countdown { background: var(--cream); padding: 2.8rem clamp(1.5rem,6vw,5rem); text-align: center; }
         .cd-label { font-family: var(--menu); font-size: 25px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
-        .cd-grid { display: inline-flex; gap: clamp(1rem,3.5vw,2.8rem); align-items: flex-end; flex-wrap: wrap; justify-content: center; }
-        .cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
-        .cd-num { font-family: var(--serif); font-size: clamp(2.8rem,7vw,5rem); font-weight: 300; color: var(--ink); line-height: 1; }
-        .cd-lbl { font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(74,49,40,.45); }
-        .cd-sep { font-family: var(--serif); font-size: clamp(2rem,5vw,3.5rem); color: var(--gold); line-height: 1; padding-bottom: .55rem; }
+        .cd-grid { display: inline-flex; gap: clamp(.5rem,3.5vw,2.8rem); align-items: flex-end; flex-wrap: nowrap; justify-content: center; max-width: 100%; }
+        .cd-unit { display: flex; flex-direction: column; align-items: center; gap: .35rem; min-width: 44px; }
+        .cd-num { font-family: var(--serif); font-size: clamp(1.7rem,7vw,5rem); font-weight: 300; color: var(--ink); line-height: 1; }
+        .cd-lbl { font-size: clamp(.42rem,1.6vw,.56rem); letter-spacing: .16em; text-transform: uppercase; color: rgba(74,49,40,.45); white-space: nowrap; }
+        .cd-sep { font-family: var(--serif); font-size: clamp(1.3rem,5vw,3.5rem); color: var(--gold); line-height: 1; padding-bottom: .5rem; }
         .cd-done { font-family: var(--serif); font-size: clamp(1.4rem,4vw,2.5rem); font-style: italic; color: var(--mocha); display: none; }
 
         /* SAVE THE DATE */
@@ -536,7 +536,7 @@
 
 <!-- COUNTDOWN -->
 <div id="countdown">
-    <p class="cd-label">Contagem regressiva para o grande dia</p>
+    <p class="cd-label">Contagem Regressiva</p>
     <div class="cd-grid" id="cd-grid">
         <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">Dias</span></div>
         <span class="cd-sep">:</span>
