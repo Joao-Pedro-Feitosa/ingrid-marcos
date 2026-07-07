@@ -170,12 +170,12 @@
   overflow: hidden; 
   text-align: center; 
 
-  padding: 4rem clamp(2rem, 8vw, 7rem); 
+  padding: 2.6rem clamp(2rem, 8vw, 7rem) 4rem; 
   min-height: min(750px, 100svh); 
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .std-video {
   position: absolute;
@@ -204,20 +204,20 @@
        .std-main { 
   /* Agora usando a fonte Serif que você declarou acima */
   font-family: "Simple Serenity Serif", serif; 
-  font-size: clamp(2.8rem, 12vw, 8rem); 
+  font-size: clamp(1.4rem, 12vw, 8rem); 
   color: var(--white); 
   line-height: .9; 
-  /* Quebra em telas estreitas e centraliza */
+  /* Fica sempre em uma linha só, encolhendo em vez de quebrar */
   display: flex;       
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center; 
   align-items: center;         
-  gap: clamp(.5rem, 2vw, 1.5rem);
+  gap: clamp(.3rem, 2vw, 1.5rem);
 }
 
 .std-the { 
   /* Garante o mesmo tamanho e fonte do pai */
-  font-size: clamp(4.5rem, 12vw, 8rem); 
+  font-size: clamp(2.2rem, 12vw, 8rem); 
   color: var(--gold-lt); 
   display: inline; 
   font-style: normal;
@@ -231,9 +231,17 @@
   font-weight: 700;
   font-style: normal;
 }
+.std-date-line {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(.3rem, 1.5vw, .6rem);
+  margin-top: .3rem;
+}
 .std-day { 
   font-family: "Simple Serenity Serif", serif; 
-  font-size: clamp(2.2rem, 5vw, 3.2rem); 
+  font-size: clamp(.9rem, 5vw, 3.2rem); 
   font-weight: 400; 
   color: var(--white); 
   line-height: 1; 
@@ -242,7 +250,7 @@
 /* 4. DATA: Mês em Simple Serenity Serif */
 .std-month { 
   font-family: "Simple Serenity Serif", serif; 
-  font-size: clamp(2.2rem, 5vw, 3.2rem); 
+  font-size: clamp(.9rem, 5vw, 3.2rem); 
   letter-spacing: .1em; 
   text-transform: uppercase; 
   color: rgba(255, 250, 246, .8); 
@@ -573,10 +581,11 @@
         <div class="std-main">
             <span class="std-the">Save</span>
             <span>the Date</span>
-            <br>
         </div>
-            <span class="std-day">31 </span>
+        <div class="std-date-line">
+            <span class="std-day">31</span>
             <span class="std-month">de Outubro de 2026</span>
+        </div>
         <p class="std-loc"><strong>Catedral São Pedro de Alcântara</strong>
             <br> Petrópolis - Rio de Janeiro</p>
     </div>
