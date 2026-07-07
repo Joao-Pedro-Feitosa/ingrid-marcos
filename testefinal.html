@@ -56,12 +56,6 @@
         .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
         .nav-toggle:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 2px; }
 
-        /* Acessos rápidos (Presentes / Presença / Local) — só aparecem no mobile, sempre em evidência */
-        .nav-quick { display: none; align-items: center; gap: .5rem; }
-        .nav-quick-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: var(--white); font-size: 1.1rem; text-decoration: none; box-shadow: 0 2px 10px rgba(0,0,0,.22); transition: background .2s, transform .2s; }
-        .nav-quick-btn:hover, .nav-quick-btn:focus-visible { background: var(--mocha); transform: translateY(-1px); }
-        .nav-quick-btn:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 2px; }
-
         /* Painel do menu mobile (off-canvas, abre pela esquerda — mesmo lado do botão) */
         .mobile-menu-backdrop { position: fixed; inset: 0; background: rgba(74,49,40,.55); backdrop-filter: blur(3px); z-index: 130; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
         .mobile-menu-backdrop.open { opacity: 1; pointer-events: auto; }
