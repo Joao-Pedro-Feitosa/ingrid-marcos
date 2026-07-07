@@ -49,11 +49,11 @@
         .nav-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.7rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.28); white-space: nowrap; }
 
         /* NAV TOGGLE (hamburger) — oculto no desktop */
-        .nav-toggle { display: none; align-items: center; justify-content: center; flex-direction: column; gap: 6px; width: 54px; height: 54px; background: rgba(255,250,246,.08); border: 1px solid rgba(255,250,246,.22); border-radius: 4px; cursor: pointer; padding: 0; z-index: 10; }
-        .nav-toggle-bar { width: 25px; height: 2.5px; background: var(--white); border-radius: 2px; transition: transform .28s ease, opacity .2s ease; }
-        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+        .nav-toggle { display: none; align-items: center; justify-content: center; flex-direction: column; gap: 8px; width: 68px; height: 68px; background: rgba(255,250,246,.1); border: 1px solid rgba(255,250,246,.28); border-radius: 5px; cursor: pointer; padding: 0; z-index: 10; }
+        .nav-toggle-bar { width: 32px; height: 3px; background: var(--white); border-radius: 2px; transition: transform .28s ease, opacity .2s ease; }
+        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(11px) rotate(45deg); }
         .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
-        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
         .nav-toggle:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 2px; }
 
         /* Painel do menu mobile (off-canvas, abre pela esquerda — mesmo lado do botão) */
@@ -470,7 +470,7 @@
             .nav-monogram { width: 98px; height: 93px; }
             .nav-mono-i { font-size: 5.2rem; }
             .nav-mono-m { font-size: 4.3rem; }
-            .nav-toggle { width: 48px; height: 48px; }
+            .nav-toggle { width: 58px; height: 58px; }
             .footer-mono { width: 68px; height: 64px; }
             .footer-mono-i { font-size: 3.6rem; }
             .footer-mono-m { font-size: 2.9rem; }
