@@ -443,7 +443,7 @@
         }
         @media (max-width: 860px) {
             /* Troca o menu completo por hambúrguer (esquerda) + acessos rápidos (direita) */
-            .top-nav { display: flex; justify-content: flex-start; align-items: center; padding-left: .9rem; padding-right: .9rem; }
+            .top-nav { display: flex; justify-content: flex-start; align-items: center; padding-left: .9rem; padding-right: .9rem; min-height: 108px; }
             .nav-left, .nav-right { display: none; }
             .nav-toggle { display: flex; position: relative; z-index: 2; }
             .nav-monogram { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 100px; height: 96px; }
@@ -466,6 +466,7 @@
         @media (max-width: 900px) { .msg-card { flex: 0 0 calc(50% - .8rem); } }
         @media (max-width: 600px) { .msg-card { flex: 0 0 88%; } }
         @media (max-width: 480px) {
+            .top-nav { min-height: 94px; }
             .nav-monogram { width: 86px; height: 82px; }
             .nav-mono-i { font-size: 4.6rem; }
             .nav-mono-m { font-size: 3.8rem; }
