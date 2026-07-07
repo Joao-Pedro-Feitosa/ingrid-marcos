@@ -166,11 +166,8 @@
 
         /* SAVE THE DATE */
 #save-the-date { 
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    /* Mudamos de 35% para 'center top' para colar o topo da foto no teto do bloco */
-    url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center top / cover; 
-  filter: grayscale(100%); 
+  position: relative; 
+  overflow: hidden; 
   text-align: center; 
 
   padding: 4rem clamp(2rem, 8vw, 7rem); 
@@ -180,6 +177,24 @@
   flex-direction: column;
   justify-content: center;
 }
+.std-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(100%);
+  z-index: 0;
+  pointer-events: none;
+}
+.std-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 1;
+}
+#save-the-date .reveal { position: relative; z-index: 2; }
         .std-eyebrow { font-family: var(--menu); font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,250,246,.6); margin-bottom: 1.2rem; }
         @font-face {
   font-family: "Simple Serenity Serif";
@@ -551,6 +566,10 @@
 
 <!-- SAVE THE DATE -->
 <section id="save-the-date">
+    <video class="std-video" autoplay muted loop playsinline preload="auto">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+    <div class="std-overlay"></div>
     <div class="reveal">
         <div class="std-main">
             <span class="std-the">Save</span>
@@ -561,6 +580,7 @@
             <span class="std-month">de Outubro de 2026</span>
         <p class="std-loc"><strong>Catedral São Pedro de Alcântara</strong>
             <br> Petrópolis - Rio de Janeiro</p>
+    </div>
 </section>
 
 <!-- HISTÓRIA -->
