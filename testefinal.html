@@ -407,10 +407,11 @@
         .form-g input:focus, .form-g textarea:focus { background: rgba(255,250,246,.17); }
         .form-g textarea { resize: vertical; min-height: 88px; }
         .presenca-label { font-size: .8rem; color: rgba(255,250,246,.68); font-weight: 500; margin-bottom: .55rem; display: block; }
-        .presenca-btns { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1.3rem; }
+        .presenca-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; margin-bottom: 1.3rem; }
         .presenca-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .42rem; padding: 1.2rem 1rem; background: rgba(255,250,246,.08); border: 1px solid rgba(255,250,246,.14); cursor: pointer; transition: all .22s; font-family: var(--sans); text-align: center; }
         .presenca-btn:hover { background: rgba(255,250,246,.14); border-color: rgba(255,250,246,.28); }
         .presenca-btn.selected-sim { background: rgba(183,145,121,.22); border-color: var(--gold-lt); }
+        .presenca-btn.selected-online { background: rgba(219,200,187,.16); border-color: rgba(219,200,187,.55); }
         .presenca-btn.selected-nao { background: rgba(201,168,151,.13); border-color: rgba(201,168,151,.38); }
         .presenca-emoji { font-size: 1.55rem; line-height: 1; }
         .presenca-titulo { font-family: var(--serif); font-size: 1.05rem; font-style: italic; color: var(--white); }
@@ -487,7 +488,7 @@
             .manual-card { border-right: none; border-bottom: 1px solid rgba(74,49,40,.12); }
             .manual-card:nth-child(odd) { border-right: none; }
             .manual-card:last-child { border-bottom: none; }
-            .presenca-btns { grid-template-columns: 1fr; }
+            .presenca-btns { grid-template-columns: 1fr; gap: .6rem; }
             .footer-nav { flex-direction: column; gap: .45rem; }
         }
         @media (max-width: 900px) { .msg-card { flex: 0 0 calc(50% - .8rem); } }
@@ -723,6 +724,11 @@
                         <span class="presenca-titulo">Estarei lá!</span>
                         <span class="presenca-sub">Sim, confirmo minha presença</span>
                     </button>
+                    <button type="button" class="presenca-btn" id="btn-online" onclick="selecionarPresenca('online')">
+                        <span class="presenca-emoji">📺</span>
+                        <span class="presenca-titulo">Assistirei Online</span>
+                        <span class="presenca-sub">Vou acompanhar pela transmissão</span>
+                    </button>
                     <button type="button" class="presenca-btn" id="btn-nao" onclick="selecionarPresenca('nao')">
                         <span class="presenca-emoji">🥺</span>
                         <span class="presenca-titulo">Não poderei ir</span>
@@ -801,11 +807,20 @@
 const SUPABASE_URL="https://scsqxrpjhivwjauukaph.supabase.co";
 const SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjc3F4cnBqaGl2d2phdXVrYXBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODkzMDIsImV4cCI6MjA5MTg2NTMwMn0.XlooQ1E4ka5O05W_3VWjtjokbUb-ig9RKaU4i4dWDFQ";
 const WEDDING_DATE=new Date('2026-10-31T16:00:00-03:00');
-const ENABLE_GOOGLE_FORMS=false;
+const ENABLE_GOOGLE_FORMS=true;
 const GOOGLE_FORM_ACTION_URL="COLE_AQUI_A_URL_DO_SEU_FORMULARIO/formResponse";
-const GOOGLE_FORM_FIELDS={nome:"COLE_AQUI_O_ENTRY_NOME",email:"COLE_AQUI_O_ENTRY_EMAIL",presenca:"COLE_AQUI_O_ENTRY_PRESENCA",mensagem:"COLE_AQUI_O_ENTRY_MENSAGEM",origem:""};
+const GOOGLE_FORM_FIELDS={nome:"COLE_AQUI_O_ENTRY_NOME",email:"COLE_AQUI_O_ENTRY_EMAIL",presenca:"COLE_AQUI_O_ENTRY_PRESENCA",mensagem:"COLE_AQUI_O_ENTRY_MENSAGEM",acompanhantes:"COLE_AQUI_O_ENTRY_ACOMPANHANTES",origem:""};
 const PIX_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdXLpB-poYvwodTlvDa8_4MAU5Ti8AV9yB8nlWVuRui-o7FxA/formResponse";
 const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321"};
+
+/* Mensagens dos convidados: lidas direto de uma planilha do Google Sheets
+   (a mesma planilha que o Forms de presença cria em Respostas > planilha).
+   A planilha só precisa estar com "Qualquer pessoa com o link pode visualizar". */
+const MESSAGES_SHEET_ID="COLE_AQUI_O_ID_DA_PLANILHA";
+const MESSAGES_SHEET_NAME="Respostas ao formulário 1";
+const MESSAGES_COL_TIMESTAMP=0; // coluna A (carimbo de data/hora, criada automaticamente)
+const MESSAGES_COL_NOME=1;      // coluna B (na ordem em que os campos aparecem no Forms)
+const MESSAGES_COL_MENSAGEM=4;  // coluna E
 
 let sb;try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){}
 
@@ -830,10 +845,15 @@ function getAcompanhantes(){return Array.from(document.querySelectorAll('.acomp-
 
 function selecionarPresenca(v){
     document.getElementById('presenca').value=v;
-    const bs=document.getElementById('btn-sim'),bn=document.getElementById('btn-nao'),af=document.getElementById('acomp-fields');
-    bs.className='presenca-btn';bn.className='presenca-btn';
-    if(v==='sim'){bs.classList.add('selected-sim');af.classList.add('visible');}
-    else{bn.classList.add('selected-nao');af.classList.remove('visible');acompQty=0;document.getElementById('qty-display').textContent='0';renderAcompNames();}
+    const bs=document.getElementById('btn-sim'),bo=document.getElementById('btn-online'),bn=document.getElementById('btn-nao'),af=document.getElementById('acomp-fields');
+    bs.className='presenca-btn';bo.className='presenca-btn';bn.className='presenca-btn';
+    if(v==='sim'){
+        bs.classList.add('selected-sim');af.classList.add('visible');
+    }else{
+        if(v==='online')bo.classList.add('selected-online');
+        else bn.classList.add('selected-nao');
+        af.classList.remove('visible');acompQty=0;document.getElementById('qty-display').textContent='0';renderAcompNames();
+    }
 }
 
 function pad(n){return String(n).padStart(2,'0');}
@@ -842,9 +862,8 @@ function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;
 function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_FORM_FIELDS.nome&&PIX_FORM_FIELDS.valor;}
 function gfOk(){return ENABLE_GOOGLE_FORMS&&!GOOGLE_FORM_ACTION_URL.includes('COLE_AQUI');}
 
-async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.email)fd.append(GOOGLE_FORM_FIELDS.email,p.email||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
+async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.email)fd.append(GOOGLE_FORM_FIELDS.email,p.email||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');if(GOOGLE_FORM_FIELDS.acompanhantes)fd.append(GOOGLE_FORM_FIELDS.acompanhantes,p.acompanhantes||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
-async function enviarSB(payload){if(!sb)return{ok:false,skipped:true};try{const{error}=await sb.from('rsvp').insert([payload]);if(error){console.error(error);return{ok:false,error};}return{ok:true};}catch(e){return{ok:false,error:e};}}
 
 function renderCotas(){
     const g=document.getElementById('cotas-grid');if(!g)return;g.innerHTML='';
@@ -857,8 +876,17 @@ function renderCotas(){
     document.querySelectorAll('.cota-card.reveal').forEach(el=>obs.observe(el));
 }
 async function carregarCotas(){
-    if(sb){try{const{data,error}=await sb.from('presentes').select('cota_id');if(!error&&data){cotasUsadas={};data.forEach(r=>{if(r.cota_id)cotasUsadas[r.cota_id]=(cotasUsadas[r.cota_id]||0)+1;});}}catch(e){}}
-    renderCotas();
+    renderCotas(); // desenha os cards na hora, sem esperar a rede
+    if(sb){
+        try{
+            const{data,error}=await sb.from('presentes').select('cota_id');
+            if(!error&&data){
+                cotasUsadas={};
+                data.forEach(r=>{if(r.cota_id)cotasUsadas[r.cota_id]=(cotasUsadas[r.cota_id]||0)+1;});
+                renderCotas(); // atualiza quantidades já escolhidas assim que chegam
+            }
+        }catch(e){}
+    }
 }
 function abrirCota(id){const c=COTAS_CONFIG.find(x=>x.id===id);if(!c)return;cotaSelecionada=id;document.getElementById('pix-cota-nome').textContent=c.emoji+' '+c.titulo;document.getElementById('pix-modal-valor').textContent='R$ '+c.valor.toLocaleString('pt-BR',{minimumFractionDigits:2});togglePixModal(true);}
 function togglePixModal(show){const o=document.getElementById('pixOverlay');if(!o)return;if(show){o.classList.add('open');document.body.style.overflow='hidden';}else{o.classList.remove('open');document.body.style.overflow='';}}
@@ -878,25 +906,66 @@ document.getElementById('mensagem').addEventListener('input',function(){document
 
 async function enviarRsvp(){
     const nome=document.getElementById('nome').value.trim(),email=document.getElementById('email').value.trim(),presenca=document.getElementById('presenca').value,mensagem=document.getElementById('mensagem').value.trim(),btn=document.getElementById('btn-rsvp'),acomp=presenca==='sim'?getAcompanhantes():[];
-    if(!nome||!email){alert('Preencha nome e e-mail.');return;}if(!presenca){alert('Selecione se vai comparecer.');return;}
+    if(!nome||!email){alert('Preencha nome e e-mail.');return;}
+    if(!presenca){alert('Selecione uma opção de presença.');return;}
+    if(!gfOk()){alert('O formulário ainda não foi configurado. Avise quem está cuidando do site.');return;}
     btn.disabled=true;btn.textContent='Enviando…';
-    const acompStr=acomp.join(', ');const msgC=[mensagem,acompStr?`Acompanhantes: ${acompStr}`:''].filter(Boolean).join('\n');
-    const payload={nome,email,presenca};if(mensagem)payload.mensagem=mensagem;if(acompStr)payload.acompanhantes=acompStr;
+    const acompStr=acomp.join(', ');
+    const presencaLabel=presenca==='sim'?'Presencial':presenca==='online'?'Assistirei Online':'Não vou';
     try{
-        await enviarGF({nome,email,presenca:presenca==='sim'?'Sim':'Não',mensagem:msgC,origem:'casamento'});
-        const sr=await enviarSB(payload);if(!sr.ok&&!sr.skipped)throw new Error('Falha');
+        const r=await enviarGF({nome,email,presenca:presencaLabel,mensagem,acompanhantes:acompStr,origem:'casamento'});
+        if(!r.ok)throw new Error('Falha ao enviar');
         document.getElementById('rsvp-fw').style.display='none';document.getElementById('rsvp-success').style.display='block';
-        const nc=primeiroNome(nome),conf=presenca==='sim';
-        document.getElementById('thanks-name').textContent=conf?`${nc}, sua presença foi confirmada`:`${nc}, recebemos sua mensagem com carinho`;
-        let copy=conf?'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.':'Mesmo de longe, seu carinho também faz parte da nossa história.';
-        if(conf&&acomp.length)copy+=` Registramos ${acomp.length} acompanhante${acomp.length>1?'s':''}.`;
+        const nc=primeiroNome(nome);
+        let title,copy;
+        if(presenca==='sim'){
+            title=`${nc}, sua presença foi confirmada`;
+            copy='Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.';
+            if(acomp.length)copy+=` Registramos ${acomp.length} acompanhante${acomp.length>1?'s':''}.`;
+        }else if(presenca==='online'){
+            title=`${nc}, vamos te ver por aqui também`;
+            copy='Assim que a transmissão estiver pronta, vamos te enviar o link para acompanhar tudo ao vivo, de onde você estiver.';
+        }else{
+            title=`${nc}, recebemos sua mensagem com carinho`;
+            copy='Mesmo de longe, seu carinho também faz parte da nossa história.';
+        }
+        document.getElementById('thanks-name').textContent=title;
         document.getElementById('thanks-copy').textContent=copy;
-        const tm=document.getElementById('thanks-msg-preview');if(mensagem){tm.style.display='block';tm.textContent='"'+mensagem+'"';mensagens.unshift({nome,mensagem,created_at:new Date().toISOString()});renderCarrossel();}else tm.style.display='none';
-    }catch(err){console.error(err);alert('Erro ao salvar.');}finally{btn.disabled=false;btn.textContent='Confirmar Presença';}
+        const tm=document.getElementById('thanks-msg-preview');
+        if(mensagem){tm.style.display='block';tm.textContent='"'+mensagem+'"';mensagens.unshift({nome,mensagem,created_at:new Date().toISOString()});renderCarrossel();}else tm.style.display='none';
+    }catch(err){console.error(err);alert('Erro ao enviar. Tente novamente.');}
+    finally{btn.disabled=false;btn.textContent='Confirmar Presença';}
 }
 
 function calcVis(){return window.innerWidth<=600?1:window.innerWidth<=900?2:3;}
-async function carregarMensagens(){if(sb){try{const{data,error}=await sb.from('rsvp').select('nome,mensagem,created_at').not('mensagem','is',null).neq('mensagem','').order('created_at',{ascending:false}).limit(50);if(!error&&data)mensagens=data;}catch(e){}}renderCarrossel();}
+async function carregarMensagens(){
+    if(MESSAGES_SHEET_ID&&!MESSAGES_SHEET_ID.includes('COLE_AQUI')){
+        try{
+            const url=`https://docs.google.com/spreadsheets/d/${MESSAGES_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(MESSAGES_SHEET_NAME)}`;
+            const res=await fetch(url);
+            const text=await res.text();
+            const json=JSON.parse(text.substring(text.indexOf('{'),text.lastIndexOf('}')+1));
+            const rows=(json.table&&json.table.rows)||[];
+            const parsed=rows.map(r=>{
+                const c=r.c;
+                const get=(i)=>(c[i]?(c[i].f!=null?c[i].f:c[i].v):null);
+                const nome=get(MESSAGES_COL_NOME);
+                const msg=get(MESSAGES_COL_MENSAGEM);
+                const tsCell=c[MESSAGES_COL_TIMESTAMP];
+                let created_at=new Date().toISOString();
+                const tsRaw=tsCell?tsCell.v:null;
+                if(typeof tsRaw==='string'&&tsRaw.startsWith('Date(')){
+                    const nums=tsRaw.replace('Date(','').replace(')','').split(',').map(Number);
+                    created_at=new Date(nums[0],nums[1],nums[2],nums[3]||0,nums[4]||0,nums[5]||0).toISOString();
+                }
+                return{nome:nome||'Convidado',mensagem:msg,created_at};
+            }).filter(m=>m.mensagem&&String(m.mensagem).trim()!=='');
+            parsed.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+            mensagens=parsed.slice(0,50);
+        }catch(e){console.error(e);}
+    }
+    renderCarrossel();
+}
 function renderCarrossel(){
     const t=document.getElementById('carousel-track'),e=document.getElementById('msg-empty'),c=document.getElementById('carousel-controls'),d=document.getElementById('car-dots');
     if(!t||!e||!c||!d)return;
