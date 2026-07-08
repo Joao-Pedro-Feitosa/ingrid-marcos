@@ -709,11 +709,7 @@
         <div id="rsvp-form">
             <div class="form-g reveal d1">
                 <label for="nome">Nome Completo</label>
-                <input id="nome" type="text" required placeholder="Seu nome" />
-            </div>
-            <div class="form-g reveal d1">
-                <label for="email">E-mail</label>
-                <input id="email" type="email" required placeholder="seu@email.com" />
+                <input id="nome" type="text" required placeholder="Seu nome completo" />
             </div>
             <div class="reveal d1">
                 <span class="presenca-label">Você vai comparecer?</span>
@@ -809,7 +805,7 @@ const SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 const WEDDING_DATE=new Date('2026-10-31T16:00:00-03:00');
 const ENABLE_GOOGLE_FORMS=true;
 const GOOGLE_FORM_ACTION_URL="COLE_AQUI_A_URL_DO_SEU_FORMULARIO/formResponse";
-const GOOGLE_FORM_FIELDS={nome:"COLE_AQUI_O_ENTRY_NOME",email:"COLE_AQUI_O_ENTRY_EMAIL",presenca:"COLE_AQUI_O_ENTRY_PRESENCA",mensagem:"COLE_AQUI_O_ENTRY_MENSAGEM",acompanhantes:"COLE_AQUI_O_ENTRY_ACOMPANHANTES",origem:""};
+const GOOGLE_FORM_FIELDS={nome:"COLE_AQUI_O_ENTRY_NOME",presenca:"COLE_AQUI_O_ENTRY_PRESENCA",mensagem:"COLE_AQUI_O_ENTRY_MENSAGEM",acompanhantes:"COLE_AQUI_O_ENTRY_ACOMPANHANTES",origem:""};
 const PIX_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdXLpB-poYvwodTlvDa8_4MAU5Ti8AV9yB8nlWVuRui-o7FxA/formResponse";
 const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321"};
 
@@ -819,8 +815,8 @@ const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321"};
 const MESSAGES_SHEET_ID="COLE_AQUI_O_ID_DA_PLANILHA";
 const MESSAGES_SHEET_NAME="Respostas ao formulário 1";
 const MESSAGES_COL_TIMESTAMP=0; // coluna A (carimbo de data/hora, criada automaticamente)
-const MESSAGES_COL_NOME=1;      // coluna B (na ordem em que os campos aparecem no Forms)
-const MESSAGES_COL_MENSAGEM=4;  // coluna E
+const MESSAGES_COL_NOME=1;      // coluna B (na ordem em que os campos aparecem no Forms: Nome, Presença, Mensagem, Acompanhantes)
+const MESSAGES_COL_MENSAGEM=3;  // coluna D
 
 let sb;try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){}
 
@@ -862,7 +858,7 @@ function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;
 function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_FORM_FIELDS.nome&&PIX_FORM_FIELDS.valor;}
 function gfOk(){return ENABLE_GOOGLE_FORMS&&!GOOGLE_FORM_ACTION_URL.includes('COLE_AQUI');}
 
-async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.email)fd.append(GOOGLE_FORM_FIELDS.email,p.email||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');if(GOOGLE_FORM_FIELDS.acompanhantes)fd.append(GOOGLE_FORM_FIELDS.acompanhantes,p.acompanhantes||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
+async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');if(GOOGLE_FORM_FIELDS.acompanhantes)fd.append(GOOGLE_FORM_FIELDS.acompanhantes,p.acompanhantes||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 
 function renderCotas(){
@@ -905,15 +901,15 @@ function tick(){const d=WEDDING_DATE.getTime()-Date.now();if(d<=0){document.getE
 document.getElementById('mensagem').addEventListener('input',function(){document.getElementById('char-count').textContent=this.value.length;});
 
 async function enviarRsvp(){
-    const nome=document.getElementById('nome').value.trim(),email=document.getElementById('email').value.trim(),presenca=document.getElementById('presenca').value,mensagem=document.getElementById('mensagem').value.trim(),btn=document.getElementById('btn-rsvp'),acomp=presenca==='sim'?getAcompanhantes():[];
-    if(!nome||!email){alert('Preencha nome e e-mail.');return;}
+    const nome=document.getElementById('nome').value.trim(),presenca=document.getElementById('presenca').value,mensagem=document.getElementById('mensagem').value.trim(),btn=document.getElementById('btn-rsvp'),acomp=presenca==='sim'?getAcompanhantes():[];
+    if(!nome){alert('Preencha seu nome completo.');return;}
     if(!presenca){alert('Selecione uma opção de presença.');return;}
     if(!gfOk()){alert('O formulário ainda não foi configurado. Avise quem está cuidando do site.');return;}
     btn.disabled=true;btn.textContent='Enviando…';
     const acompStr=acomp.join(', ');
     const presencaLabel=presenca==='sim'?'Presencial':presenca==='online'?'Assistirei Online':'Não vou';
     try{
-        const r=await enviarGF({nome,email,presenca:presencaLabel,mensagem,acompanhantes:acompStr,origem:'casamento'});
+        const r=await enviarGF({nome,presenca:presencaLabel,mensagem,acompanhantes:acompStr,origem:'casamento'});
         if(!r.ok)throw new Error('Falha ao enviar');
         document.getElementById('rsvp-fw').style.display='none';document.getElementById('rsvp-success').style.display='block';
         const nc=primeiroNome(nome);
