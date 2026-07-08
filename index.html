@@ -937,7 +937,7 @@ function calcVis(){return window.innerWidth<=600?1:window.innerWidth<=900?2:3;}
 async function carregarMensagens(){
     if(MESSAGES_SHEET_ID&&!MESSAGES_SHEET_ID.includes('COLE_AQUI')){
         try{
-            const url=`https://docs.google.com/spreadsheets/d/${MESSAGES_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(MESSAGES_SHEET_NAME)}`;
+            const url=`https://docs.google.com/spreadsheets/d/${MESSAGES_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(MESSAGES_SHEET_NAME)}&range=A2:E`;
             const res=await fetch(url);
             const text=await res.text();
             const json=JSON.parse(text.substring(text.indexOf('{'),text.lastIndexOf('}')+1));
@@ -955,7 +955,7 @@ async function carregarMensagens(){
                     created_at=new Date(nums[0],nums[1],nums[2],nums[3]||0,nums[4]||0,nums[5]||0).toISOString();
                 }
                 return{nome:nome||'Convidado',mensagem:msg,created_at};
-            }).filter(m=>m.mensagem&&String(m.mensagem).trim()!=='');
+            }).filter(m=>m.mensagem&&String(m.mensagem).trim()!==''&&String(m.mensagem).trim().toLowerCase()!=='mensagem');
             parsed.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
             mensagens=parsed.slice(0,50);
         }catch(e){console.error(e);}
