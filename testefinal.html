@@ -386,7 +386,7 @@
 
         /* MANUAL */
         #manual { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
-        .manual-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border-top: 1px solid rgba(74,49,40,.12); margin-top: 2.5rem; }
+        .manual-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 1px solid rgba(74,49,40,.12); margin-top: 2.5rem; }
         .manual-card { padding: 2rem 1.8rem; border-right: 1px solid rgba(74,49,40,.12); }
         .manual-card:last-child { border-right: none; }
         .manual-icon { font-size: 1.15rem; margin-bottom: .7rem; }
@@ -678,15 +678,6 @@
             </ul>
         </article>
         <article class="manual-card">
-            <div class="manual-icon">💌</div>
-            <h3 class="manual-title">Gentilezas</h3>
-            <ul class="manual-list">
-                <li>Em caso de dúvidas, entre em contato com os noivos.</li>
-                <li>Atenção ao horário para não perder a entrada da cerimônia.</li>
-                <li>Presente via PIX na seção Lua de Mel.</li>
-            </ul>
-        </article>
-        <article class="manual-card">
             <div class="manual-icon">👗</div>
             <h3 class="manual-title">Dress Code</h3>
             <ul class="dress-tips">
@@ -819,12 +810,16 @@ const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321"};
 let sb;try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){}
 
 const COTAS_CONFIG=[
-    {id:'c50',  valor:50,  titulo:'Sopro de Carinho',    descricao:'Uma lembrança carinhosa para começar a nossa lua de mel com leveza.',         total:100,emoji:'🌸'},
-    {id:'c150', valor:150, titulo:'Brinde ao Amor',      descricao:'Ajude a brindar esta nova fase com um momento especial a dois.',              total:20, emoji:'🥂'},
-    {id:'c200', valor:200, titulo:'Passeio Inesquecível',descricao:'Contribua para um passeio marcante que ficará para sempre na memória.',       total:10, emoji:'🗺️'},
-    {id:'c350', valor:350, titulo:'Jantar Romântico',    descricao:'Um presente para um jantar inesquecível em nossa viagem.',                   total:6,  emoji:'🍷'},
-    {id:'c500', valor:500, titulo:'Noite dos Sonhos',    descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.',    total:3,  emoji:'🌙'},
-    {id:'c1000',valor:1000,titulo:'Grande Aventura',     descricao:'O presente máximo para viver um grande capítulo da nossa aventura.',         total:2,  emoji:'✈️'}
+    {id:'c100', valor:100, titulo:'Sopro de Carinho',       descricao:'Uma lembrança carinhosa para começar a nossa lua de mel com leveza.',            total:25,emoji:'🌸'},
+    {id:'c120', valor:120, titulo:'Brinde ao Amor',         descricao:'Ajude a brindar esta nova fase com um momento especial a dois.',                 total:20,emoji:'🥂'},
+    {id:'c135', valor:135, titulo:'Café da Manhã a Dois',   descricao:'Contribua para começarmos o dia com carinho durante a viagem.',                  total:20,emoji:'☕'},
+    {id:'c150', valor:150, titulo:'Doce Lembrança',         descricao:'Um mimo doce para guardarmos como lembrança dessa aventura.',                    total:20,emoji:'🍰'},
+    {id:'c165', valor:165, titulo:'Passeio Especial',       descricao:'Ajude a tornar um passeio ainda mais inesquecível.',                             total:25,emoji:'🗺️'},
+    {id:'c180', valor:180, titulo:'Tarde de Relaxamento',   descricao:'Presenteie um momento de spa e relaxamento na lua de mel.',                      total:20,emoji:'💆'},
+    {id:'c190', valor:190, titulo:'Jantar Romântico',       descricao:'Um presente para um jantar inesquecível em nossa viagem.',                       total:15,emoji:'🍷'},
+    {id:'c200', valor:200, titulo:'Brinde à Nova Vida',     descricao:'Contribua para celebrarmos essa nova fase com um brinde especial.',              total:15,emoji:'🍾'},
+    {id:'c210', valor:210, titulo:'Noite dos Sonhos',       descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.',        total:10,emoji:'🌙'},
+    {id:'c215', valor:215, titulo:'Grande Aventura',        descricao:'O presente para vivermos um grande capítulo dessa aventura.',                    total:10,emoji:'✈️'}
 ];
 
 let cotasUsadas={},cotaSelecionada=null,mensagens=[],carPos=0,carVisiveis=3,acompQty=0;
