@@ -409,6 +409,17 @@
         .dress-tips li { display: flex; gap: .45rem; }
         .dress-tips li::before { content: "·"; color: var(--gold); flex-shrink: 0; }
 
+        /* RESUMO DO GRANDE DIA (bloco único, mais enxuto) */
+        .resumo-dia { max-width: 620px; margin: 2.6rem auto 0; border: 1px solid rgba(74,49,40,.14); background: var(--white); padding: clamp(1.8rem,4vw,2.6rem) clamp(1.8rem,5vw,3.2rem); display: grid; gap: 1.5rem; }
+        .resumo-item { display: flex; align-items: center; gap: 1.1rem; }
+        .resumo-item + .resumo-item { padding-top: 1.5rem; border-top: 1px solid rgba(74,49,40,.1); }
+        .resumo-icon { flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+        .resumo-label { font-family: var(--sans); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: .25rem; }
+        .resumo-valor { font-family: var(--serif); font-size: 1.2rem; font-weight: 300; color: var(--ink); line-height: 1.3; }
+        @media (max-width: 480px) {
+            .resumo-item { align-items: flex-start; }
+        }
+
         /* RSVP */
         #rsvp { background: var(--mocha); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
         #rsvp .stag { color: var(--gold-lt); }
@@ -634,7 +645,7 @@
 <section id="presentes">
     <div class="presentes-inner">
         <div class="reveal" style="text-align:center">
-            <h2 class="stitle">Ajude os Noivos</h2>
+            <h2 class="stitle">Presenteie os Noivos</h2>
             <p class="cotas-intro">Nossa maior alegria é compartilhar este dia com você. Se desejar nos presentear, escolha uma das cotas abaixo para contribuir com nossa <strong>Lua de Mel</strong>. Cada valor representa um pedacinho desta aventura que faremos juntos!</p>
         </div>
         <div class="cotas-grid reveal d1" id="cotas-grid"></div>
@@ -645,7 +656,7 @@
             <div class="aviso-icon">💌</div>
             <p class="aviso-titulo">Antes de fazer o Pix</p>
             <p class="aviso-texto">Por favor, faça o Pix e <strong>salve o comprovante</strong> — print da tela ou PDF — antes de continuar.</p>
-            <p class="aviso-texto">Na próxima tela você vai anexar esse comprovante para confirmarmos o seu presente aos noivos. 💛</p>
+            <p class="aviso-texto">Na próxima tela você vai anexar esse comprovante para confirmarmos o seu presente aos noivos. 💜</p>
             <button class="pix-confirm" id="btnAvisoOk" onclick="prosseguirParaPix()" type="button">OK, entendi</button>
             <button class="pix-close" onclick="togglePixModal(false,'avisoOverlay')" type="button">Cancelar</button>
         </div>
@@ -698,37 +709,28 @@
 <section id="manual">
     <div class="reveal">
         <h2 class="stitle">Informações para o grande dia</h2></div>
-    <div class="manual-grid reveal d1">
-        <article class="manual-card">
-            <div class="manual-icon">🕐</div>
-            <h3 class="manual-title">Horários</h3>
-            <ul class="manual-list">
-                <li><strong>Data:</strong> 31 de outubro de 2026</li>
-                <li><strong>Chegada sugerida:</strong> 30 minutos antes</li>
-                <li><strong>Cerimônia:</strong> a confirmar</li>
-                <li><strong>Recepção:</strong> logo após a cerimônia</li>
-            </ul>
-        </article>
-        <article class="manual-card">
-            <div class="manual-icon">👗</div>
-            <h3 class="manual-title">Dress Code</h3>
-            <ul class="dress-tips">
-                <li>Traje <strong>social / passeio completo</strong></li>
-                <li>Cavalheiros: terno ou blazer com calça social</li>
-                <li>Damas: vestidos midi ou longos, macacões de festa</li>
-                <li>Tons neutros, terrosos, rosê, dourado ou preto</li>
-                <li>Evitar branco — reservado à noiva 🤍</li>
-            </ul>
-        </article>
-        <article class="manual-card">
-            <div class="manual-icon">📍</div>
-            <h3 class="manual-title">Local</h3>
-            <ul class="manual-list">
-                <li><strong>Cerimônia:</strong> Catedral São Pedro de Alcântara</li>
-                <li>Rua São Pedro de Alcântara, 60</li>
-                <li>Centro — Petrópolis, RJ</li>
-            </ul>
-        </article>
+    <div class="resumo-dia reveal d1">
+        <div class="resumo-item">
+            <div class="resumo-icon">📅</div>
+            <div class="resumo-texto">
+                <p class="resumo-label">Data</p>
+                <p class="resumo-valor">31 de outubro de 2026</p>
+            </div>
+        </div>
+        <div class="resumo-item">
+            <div class="resumo-icon">🕒</div>
+            <div class="resumo-texto">
+                <p class="resumo-label">Horário de chegada</p>
+                <p class="resumo-valor">15:00h</p>
+            </div>
+        </div>
+        <div class="resumo-item">
+            <div class="resumo-icon">📍</div>
+            <div class="resumo-texto">
+                <p class="resumo-label">Local</p>
+                <p class="resumo-valor">Catedral São Pedro de Alcântara, Petrópolis-RJ</p>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -845,7 +847,7 @@ const PIX_FORM_FIELDS={nome:"entry.91308880",valor:"entry.1815091321"};
 const PIX_COTA_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSemKTWFdwyUS71lirUhrNCoQdLmlCdVmorge97xEe0CrZ5iYg/formResponse";
 /* Mapeamento pelos valores de teste que você preencheu: "100,00" -> Cota,
    "google.com" -> Link do comprovante. Se estiver trocado, é só inverter os dois. */
-const PIX_COTA_FORM_FIELDS={cota:"entry.1350134623",comprovante:"entry.1208638352"};
+const PIX_COTA_FORM_FIELDS={nome:"entry.50996302",cota:"entry.1350134623",comprovante:"entry.1208638352"};
 
 /* Bucket do Supabase Storage onde SOMENTE o arquivo do comprovante (print/PDF)
    e enviado — ele so devolve um link, quem controla quantas cotas já foram
@@ -911,12 +913,12 @@ function pad(n){return String(n).padStart(2,'0');}
 function primeiroNome(s){return String(s).trim().split(' ')[0]||'Querido convidado';}
 function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
 function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_FORM_FIELDS.nome&&PIX_FORM_FIELDS.valor;}
-function pixCotaOk(){return PIX_COTA_FORM_ACTION_URL&&!PIX_COTA_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_COTA_FORM_FIELDS.cota&&PIX_COTA_FORM_FIELDS.comprovante;}
+function pixCotaOk(){return PIX_COTA_FORM_ACTION_URL&&!PIX_COTA_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_COTA_FORM_FIELDS.nome&&PIX_COTA_FORM_FIELDS.cota&&PIX_COTA_FORM_FIELDS.comprovante;}
 function gfOk(){return ENABLE_GOOGLE_FORMS&&!GOOGLE_FORM_ACTION_URL.includes('COLE_AQUI');}
 
 async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');if(GOOGLE_FORM_FIELDS.acompanhantes)fd.append(GOOGLE_FORM_FIELDS.acompanhantes,p.acompanhantes||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
-async function enviarPixCotaGF(p){if(!pixCotaOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_COTA_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_COTA_FORM_FIELDS.comprovante,p.comprovante||'');await fetch(PIX_COTA_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
+async function enviarPixCotaGF(p){if(!pixCotaOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_COTA_FORM_FIELDS.nome,p.nome||'');fd.append(PIX_COTA_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_COTA_FORM_FIELDS.comprovante,p.comprovante||'');await fetch(PIX_COTA_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 
 function renderCotas(){
     const g=document.getElementById('cotas-grid');if(!g)return;g.innerHTML='';
@@ -999,7 +1001,7 @@ async function confirmarCota(){
     btn.disabled=true;btn.textContent='Verificando disponibilidade…';
     await carregarCotas(); // busca a contagem mais recente na planilha antes de confirmar
     if((cotasUsadas[cota.id]||0)>=cota.total){
-        alert('Ih, essa cota acabou de esgotar! Por favor, escolha outra para presentear. 💛');
+        alert('Ih, essa cota acabou de esgotar! Por favor, escolha outra para presentear. 💜');
         btn.disabled=false;btn.textContent='Já fiz o PIX';
         togglePixModal(false,'pixOverlay');
         return;
@@ -1019,12 +1021,12 @@ async function confirmarCota(){
         const cotaLabel=`${cota.titulo} [${cota.id}]`;
         const[fr1,fr2]=await Promise.all([
             enviarPixGF({nome,valor:String(cota.valor)}),
-            enviarPixCotaGF({cota:cotaLabel,comprovante:comprovanteUrl})
+            enviarPixCotaGF({nome,cota:cotaLabel,comprovante:comprovanteUrl})
         ]);
         if(!fr1.ok||!fr2.ok){alert('Não foi possível enviar.');return;}
         cotasUsadas[cota.id]=(cotasUsadas[cota.id]||0)+1; // atualiza a tela na hora; a planilha confirma em seguida
         renderCotas();
-        alert('Confirmação enviada! Muito obrigado 💛');
+        alert('Confirmação enviada! Muito obrigado 💜');
         cotaSelecionada=null;
         document.getElementById('pixNome').value='';
         fileInput.value='';
