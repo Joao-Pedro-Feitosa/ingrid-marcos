@@ -44,9 +44,32 @@
         .nav-left { justify-content: flex-end; } .nav-right { justify-content: flex-start; }
         .top-nav a { font-family: var(--menu); font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--white); text-decoration: none; transition: opacity .2s; }
         .top-nav a:hover { opacity: .65; }
-        .nav-monogram { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 96px; height: 92px; flex-shrink: 0; text-decoration: none; }
-        .nav-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 5.2rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.25); white-space: nowrap; }
-        .nav-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.2rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.28); white-space: nowrap; }
+        .nav-monogram { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 108px; height: 104px; flex-shrink: 0; text-decoration: none; }
+        .nav-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 5.8rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.25); white-space: nowrap; }
+        .nav-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.7rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.28); white-space: nowrap; }
+
+        /* NAV TOGGLE (hamburger) — oculto no desktop */
+        .nav-toggle { display: none; align-items: center; justify-content: center; flex-direction: column; gap: 6px; width: 56px; height: 56px; background: rgba(255,250,246,.09); border: 1px solid rgba(255,250,246,.25); border-radius: 4px; cursor: pointer; padding: 0; z-index: 10; }
+        .nav-toggle-bar { width: 26px; height: 2.5px; background: var(--white); border-radius: 2px; transition: transform .28s ease, opacity .2s ease; }
+        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+        .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+        .nav-toggle:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 2px; }
+
+        /* Painel do menu mobile (off-canvas, abre pela esquerda — mesmo lado do botão) */
+        .mobile-menu-backdrop { position: fixed; inset: 0; background: rgba(74,49,40,.55); backdrop-filter: blur(3px); z-index: 130; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+        .mobile-menu-backdrop.open { opacity: 1; pointer-events: auto; }
+        .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(78vw, 340px); background: var(--mocha); z-index: 140; transform: translateX(-100%); transition: transform .32s ease; padding: 5rem 1.8rem 2.5rem; overflow-y: auto; box-shadow: 10px 0 40px rgba(0,0,0,.3); }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-menu-close { position: absolute; top: 1.2rem; right: 1.2rem; width: 40px; height: 40px; background: rgba(255,250,246,.1); border: 1px solid rgba(255,250,246,.2); border-radius: 50%; color: var(--white); font-size: 1.4rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .mobile-menu-close:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 2px; }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: .3rem; }
+        .mm-link { font-family: var(--menu); font-size: .9rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,250,246,.82); text-decoration: none; padding: .85rem .3rem; border-radius: 4px; transition: background .2s, color .2s; }
+        .mm-link:hover, .mm-link:focus-visible { background: rgba(255,250,246,.08); color: var(--white); }
+        .mm-highlight { background: rgba(183,145,121,.22); color: var(--white); font-weight: 600; padding: 1rem 1rem; margin-bottom: .15rem; border: 1px solid rgba(219,200,187,.4); }
+        .mm-highlight:hover, .mm-highlight:focus-visible { background: var(--gold); }
+        .mm-divider { height: 1px; background: rgba(255,250,246,.15); margin: .9rem 0 .6rem; }
+        body.menu-open { overflow: hidden; }
 
         /* HERO */
    @font-face {
@@ -93,16 +116,18 @@
 
 .hero-names {
   font-family: "Simple Serenity Script", cursive;
-  font-size: clamp(5rem, 11vw, 8.3rem);
+  font-size: clamp(4.8rem, 15vw, 8.3rem);
   font-weight: 400;
   color: var(--white);
   line-height: .84;
   text-shadow: 0 4px 26px rgba(0, 0, 0, .42);
-  
-  /* Mantém na mesma linha e alinha verticalmente pelo meio */
+
+  /* Quebra em telas estreitas em vez de estourar a largura da tela */
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1.5rem; /* Como a fonte é script, um espaço um pouco maior fica melhor */
+  justify-content: center;
+  gap: clamp(.5rem, 2vw, 1.5rem);
 }
 
 /* Regra para DIMINUIR apenas o "E" */
@@ -132,29 +157,43 @@
         /* COUNTDOWN */
         #countdown { background: var(--cream); padding: 2.8rem clamp(1.5rem,6vw,5rem); text-align: center; }
         .cd-label { font-family: var(--menu); font-size: 25px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
-        .cd-grid { display: inline-flex; gap: clamp(1rem,3.5vw,2.8rem); align-items: flex-end; flex-wrap: wrap; justify-content: center; }
-        .cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
-        .cd-num { font-family: var(--serif); font-size: clamp(2.8rem,7vw,5rem); font-weight: 300; color: var(--ink); line-height: 1; }
-        .cd-lbl { font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(74,49,40,.45); }
-        .cd-sep { font-family: var(--serif); font-size: clamp(2rem,5vw,3.5rem); color: var(--gold); line-height: 1; padding-bottom: .55rem; }
+        .cd-grid { display: inline-flex; gap: clamp(.6rem,3.5vw,2.8rem); align-items: flex-end; flex-wrap: nowrap; justify-content: center; max-width: 100%; }
+        .cd-unit { display: flex; flex-direction: column; align-items: center; gap: .35rem; min-width: 48px; }
+        .cd-num { font-family: var(--serif); font-size: clamp(2.6rem,8vw,5rem); font-weight: 300; color: var(--ink); line-height: 1; }
+        .cd-lbl { font-size: clamp(.58rem,1.8vw,.7rem); letter-spacing: .16em; text-transform: uppercase; color: rgba(74,49,40,.45); white-space: nowrap; }
+        .cd-sep { font-family: var(--serif); font-size: clamp(1.9rem,5.5vw,3.5rem); color: var(--gold); line-height: 1; padding-bottom: .5rem; }
         .cd-done { font-family: var(--serif); font-size: clamp(1.4rem,4vw,2.5rem); font-style: italic; color: var(--mocha); display: none; }
 
         /* SAVE THE DATE */
 #save-the-date { 
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-    /* Mudamos de 35% para 'center top' para colar o topo da foto no teto do bloco */
-    url('ffdc542ae3cda295d983e6b7eda8244a.jpg') no-repeat center top / cover; 
-  filter: grayscale(100%); 
+  position: relative; 
+  overflow: hidden; 
   text-align: center; 
 
-  padding: 4rem clamp(2rem, 8vw, 7rem); 
-  min-height: 750px; 
+  padding: 2.6rem clamp(2rem, 8vw, 7rem) 4rem; 
+  min-height: min(750px, 100svh); 
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
+.std-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 0;
+  pointer-events: none;
+}
+.std-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 1;
+}
+#save-the-date .reveal { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: space-between; flex: 1; width: 100%; }
         .std-eyebrow { font-family: var(--menu); font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,250,246,.6); margin-bottom: 1.2rem; }
         @font-face {
   font-family: "Simple Serenity Serif";
@@ -165,19 +204,20 @@
        .std-main { 
   /* Agora usando a fonte Serif que você declarou acima */
   font-family: "Simple Serenity Serif", serif; 
-  font-size: clamp(4.5rem, 12vw, 8rem); 
+  font-size: clamp(1.4rem, 12vw, 8rem); 
   color: var(--white); 
   line-height: .9; 
-  /* Mantém na mesma linha e alinha à esquerda */
+  /* Fica sempre em uma linha só, encolhendo em vez de quebrar */
   display: flex;       
-  justify-content: flex-start; 
+  flex-wrap: nowrap;
+  justify-content: center; 
   align-items: center;         
-  gap: 1.5rem;                 
+  gap: clamp(.3rem, 2vw, 1.5rem);
 }
 
 .std-the { 
   /* Garante o mesmo tamanho e fonte do pai */
-  font-size: clamp(4.5rem, 12vw, 8rem); 
+  font-size: clamp(2.2rem, 12vw, 8rem); 
   color: var(--gold-lt); 
   display: inline; 
   font-style: normal;
@@ -191,9 +231,22 @@
   font-weight: 700;
   font-style: normal;
 }
+.std-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.std-date-line {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(.3rem, 1.5vw, .6rem);
+  margin-top: .3rem;
+}
 .std-day { 
   font-family: "Simple Serenity Serif", serif; 
-  font-size: clamp(2.2rem, 5vw, 3.2rem); 
+  font-size: clamp(.9rem, 5vw, 3.2rem); 
   font-weight: 400; 
   color: var(--white); 
   line-height: 1; 
@@ -202,7 +255,7 @@
 /* 4. DATA: Mês em Simple Serenity Serif */
 .std-month { 
   font-family: "Simple Serenity Serif", serif; 
-  font-size: clamp(2.2rem, 5vw, 3.2rem); 
+  font-size: clamp(.9rem, 5vw, 3.2rem); 
   letter-spacing: .1em; 
   text-transform: uppercase; 
   color: rgba(255, 250, 246, .8); 
@@ -312,6 +365,19 @@
         .pix-close { display: block; width: 100%; margin-top: .45rem; padding: .7rem; background: transparent; color: rgba(74,49,40,.45); border: 1px solid var(--blush); font-family: var(--menu); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; transition: all .2s; }
         .pix-close:hover { border-color: var(--mocha); color: var(--mocha); }
 
+        /* AVISO COMPROVANTE (tela antes do Pix) */
+        .aviso-icon { font-size: 2.1rem; margin-bottom: .9rem; }
+        .aviso-titulo { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--ink); margin-bottom: 1rem; line-height: 1.25; }
+        .aviso-texto { font-size: .88rem; line-height: 1.85; color: rgba(74,49,40,.78); margin-bottom: .3rem; text-align: left; }
+        .aviso-texto strong { color: var(--mocha); }
+
+        /* UPLOAD DO COMPROVANTE */
+        .pix-field input[type="file"] { width: 100%; padding: .65rem .7rem; border: 1px dashed var(--gold-lt); background: var(--cream); font-family: var(--sans); font-size: .78rem; color: var(--ink); cursor: pointer; }
+        .pix-field input[type="file"]:focus { border-color: var(--gold); outline: none; }
+        .pix-field input[type="file"]::file-selector-button { margin-right: .7rem; padding: .42rem .85rem; border: none; background: var(--mocha); color: var(--white); font-family: var(--sans); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+        .comprovante-file-name { font-size: .68rem; color: rgba(74,49,40,.55); margin-top: .4rem; line-height: 1.5; word-break: break-all; }
+        .comprovante-required-tag { color: var(--rose); font-size: .68rem; font-weight: 600; }
+
         /* MENSAGENS */
         #mensagens-section { background: var(--mocha); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
         #mensagens-section .stag { color: var(--gold-lt); }
@@ -333,7 +399,7 @@
 
         /* MANUAL */
         #manual { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
-        .manual-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border-top: 1px solid rgba(74,49,40,.12); margin-top: 2.5rem; }
+        .manual-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 1px solid rgba(74,49,40,.12); margin-top: 2.5rem; }
         .manual-card { padding: 2rem 1.8rem; border-right: 1px solid rgba(74,49,40,.12); }
         .manual-card:last-child { border-right: none; }
         .manual-icon { font-size: 1.15rem; margin-bottom: .7rem; }
@@ -354,10 +420,11 @@
         .form-g input:focus, .form-g textarea:focus { background: rgba(255,250,246,.17); }
         .form-g textarea { resize: vertical; min-height: 88px; }
         .presenca-label { font-size: .8rem; color: rgba(255,250,246,.68); font-weight: 500; margin-bottom: .55rem; display: block; }
-        .presenca-btns { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1.3rem; }
+        .presenca-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; margin-bottom: 1.3rem; }
         .presenca-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .42rem; padding: 1.2rem 1rem; background: rgba(255,250,246,.08); border: 1px solid rgba(255,250,246,.14); cursor: pointer; transition: all .22s; font-family: var(--sans); text-align: center; }
         .presenca-btn:hover { background: rgba(255,250,246,.14); border-color: rgba(255,250,246,.28); }
         .presenca-btn.selected-sim { background: rgba(183,145,121,.22); border-color: var(--gold-lt); }
+        .presenca-btn.selected-online { background: rgba(219,200,187,.16); border-color: rgba(219,200,187,.55); }
         .presenca-btn.selected-nao { background: rgba(201,168,151,.13); border-color: rgba(201,168,151,.38); }
         .presenca-emoji { font-size: 1.55rem; line-height: 1; }
         .presenca-titulo { font-family: var(--serif); font-size: 1.05rem; font-style: italic; color: var(--white); }
@@ -399,9 +466,9 @@
         footer { position: relative; overflow: hidden; text-align: center; padding: 5rem 1.5rem 4rem; background: var(--mocha) var(--hero-img) center 36%/cover no-repeat; }
         footer::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(74,49,40,.68) 0%,rgba(74,49,40,.78) 100%); }
         .footer-inner { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
-        .footer-mono { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 96px; height: 92px; margin-bottom: 1.1rem; text-decoration: none; }
-        .footer-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 5.2rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.28); }
-        .footer-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.2rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.3); }
+        .footer-mono { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 108px; height: 104px; margin-bottom: 1.1rem; text-decoration: none; }
+        .footer-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 5.8rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.28); }
+        .footer-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.7rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.3); }
         .footer-nav { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.3rem; }
         .footer-nav a { font-family: var(--menu); font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,250,246,.78); text-decoration: none; transition: opacity .2s; }
         .footer-nav a:hover { opacity: .55; }
@@ -416,9 +483,13 @@
             .manual-card:nth-last-child(-n+2) { border-bottom: none; }
         }
         @media (max-width: 860px) {
-            .top-nav { grid-template-columns: 1fr; justify-items: center; }
-            .nav-left, .nav-right, .nav-group { justify-content: center; }
-            .nav-monogram { order: -1; }
+            /* Troca o menu completo por hambúrguer (esquerda) + acessos rápidos (direita) */
+            .top-nav { display: flex; justify-content: flex-start; align-items: center; padding-left: .9rem; padding-right: .9rem; min-height: 122px; }
+            .nav-left, .nav-right { display: none; }
+            .nav-toggle { display: flex; position: relative; z-index: 2; }
+            .nav-monogram { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 114px; height: 109px; }
+            .nav-mono-i { font-size: 6.1rem; }
+            .nav-mono-m { font-size: 5rem; }
         }
         @media (max-width: 768px) {
             #hero { padding-top: 11rem; }
@@ -430,10 +501,24 @@
             .manual-card { border-right: none; border-bottom: 1px solid rgba(74,49,40,.12); }
             .manual-card:nth-child(odd) { border-right: none; }
             .manual-card:last-child { border-bottom: none; }
-            .presenca-btns { grid-template-columns: 1fr; }
+            .presenca-btns { grid-template-columns: 1fr; gap: .6rem; }
             .footer-nav { flex-direction: column; gap: .45rem; }
         }
+        @media (max-width: 900px) { .msg-card { flex: 0 0 calc(50% - .8rem); } }
         @media (max-width: 600px) { .msg-card { flex: 0 0 88%; } }
+        @media (max-width: 480px) {
+            .top-nav { min-height: 106px; }
+            .nav-monogram { width: 98px; height: 93px; }
+            .nav-mono-i { font-size: 5.2rem; }
+            .nav-mono-m { font-size: 4.3rem; }
+            .nav-toggle { width: 50px; height: 50px; }
+            .footer-mono { width: 68px; height: 64px; }
+            .footer-mono-i { font-size: 3.6rem; }
+            .footer-mono-m { font-size: 2.9rem; }
+            .hero-kicker { font-size: 17px; }
+            .std-loc { font-size: 12px; }
+            #save-the-date { padding-top: 3rem; padding-bottom: 3rem; }
+        }
         @supports (-webkit-touch-callout: none) { #hero { min-height: -webkit-fill-available; } }
     </style>
 </head>
@@ -441,22 +526,43 @@
 
 <!-- NAV -->
 <nav class="top-nav">
+    <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+    </button>
     <div class="nav-group nav-left">
         <a href="#hero">Início</a>
         <a href="#historia">Nossa História</a>
-        <a href="#presentes">Lua de Mel</a>
+        <a href="#mensagens-section">Mensagens</a>
     </div>
     <a href="#hero" class="nav-monogram">
         <span class="nav-mono-i">I</span>
         <span class="nav-mono-m">M</span>
     </a>
     <div class="nav-group nav-right">
+        <a href="#presentes">Lista de Presentes</a>
         <a href="#manual">Manual</a>
-        <a href="#mensagens-section">Mensagens</a>
         <a href="#rsvp">Presença</a>
         <a href="#local">Local</a>
     </div>
 </nav>
+
+<!-- MENU MOBILE (off-canvas, abre pela esquerda) -->
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+    <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Fechar menu">&times;</button>
+    <nav class="mobile-menu-links">
+        <a href="#presentes" class="mm-link mm-highlight">🎁 Lista de Presentes</a>
+        <a href="#rsvp" class="mm-link mm-highlight">💍 Presença</a>
+        <a href="#local" class="mm-link mm-highlight">📍 Local</a>
+        <div class="mm-divider"></div>
+        <a href="#hero" class="mm-link">Início</a>
+        <a href="#historia" class="mm-link">Nossa História</a>
+        <a href="#mensagens-section" class="mm-link">Mensagens</a>
+        <a href="#manual" class="mm-link">Manual</a>
+    </nav>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -471,7 +577,7 @@
 
 <!-- COUNTDOWN -->
 <div id="countdown">
-    <p class="cd-label">Contagem regressiva para o grande dia</p>
+    <p class="cd-label">Contagem Regressiva</p>
     <div class="cd-grid" id="cd-grid">
         <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">Dias</span></div>
         <span class="cd-sep">:</span>
@@ -486,16 +592,24 @@
 
 <!-- SAVE THE DATE -->
 <section id="save-the-date">
+    <video class="std-video" autoplay muted loop playsinline preload="auto">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+    <div class="std-overlay"></div>
     <div class="reveal">
-        <div class="std-main">
-            <span class="std-the">Save</span>
-            <span>the Date</span>
-            <br>
+        <div class="std-title-group">
+            <div class="std-main">
+                <span class="std-the">Save</span>
+                <span>the Date</span>
+            </div>
+            <div class="std-date-line">
+                <span class="std-day">31</span>
+                <span class="std-month">de Outubro de 2026</span>
+            </div>
         </div>
-            <span class="std-day">31 </span>
-            <span class="std-month">de Outubro de 2026</span>
         <p class="std-loc"><strong>Catedral São Pedro de Alcântara</strong>
             <br> Petrópolis - Rio de Janeiro</p>
+    </div>
 </section>
 
 <!-- HISTÓRIA -->
@@ -525,6 +639,18 @@
         </div>
         <div class="cotas-grid reveal d1" id="cotas-grid"></div>
     </div>
+    <!-- AVISO ANTES DO PIX -->
+    <div id="avisoOverlay" class="pix-overlay">
+        <div class="pix-modal" style="max-width:420px">
+            <div class="aviso-icon">💌</div>
+            <p class="aviso-titulo">Antes de fazer o Pix</p>
+            <p class="aviso-texto">Por favor, faça o Pix e <strong>salve o comprovante</strong> — print da tela ou PDF — antes de continuar.</p>
+            <p class="aviso-texto">Na próxima tela você vai anexar esse comprovante para confirmarmos o seu presente aos noivos. 💛</p>
+            <button class="pix-confirm" id="btnAvisoOk" onclick="prosseguirParaPix()" type="button">OK, entendi</button>
+            <button class="pix-close" onclick="togglePixModal(false,'avisoOverlay')" type="button">Cancelar</button>
+        </div>
+    </div>
+
     <!-- PIX MODAL -->
     <div id="pixOverlay" class="pix-overlay">
         <div class="pix-modal">
@@ -542,6 +668,12 @@
                 <input id="pixNome" type="text" placeholder="Seu nome completo" required />
             </div>
             <p class="pix-helper">Informe seu nome para registrarmos a confirmação corretamente.</p>
+            <div class="pix-field">
+                <label for="pixComprovante">Comprovante do Pix (print ou PDF) <span class="comprovante-required-tag">*obrigatório</span></label>
+                <input id="pixComprovante" type="file" accept="image/*,.pdf,application/pdf" required />
+                <p id="comprovanteFileName" class="comprovante-file-name"></p>
+            </div>
+            <p class="pix-helper">Anexe aqui o print ou o PDF do comprovante para confirmarmos seu presente.</p>
             <button class="pix-confirm" id="btnConfirmarCota" onclick="confirmarCota()" type="button">Já fiz o PIX</button>
             <button class="pix-close" onclick="togglePixModal(false)" type="button">Fechar</button>
         </div>
@@ -578,15 +710,6 @@
             </ul>
         </article>
         <article class="manual-card">
-            <div class="manual-icon">💌</div>
-            <h3 class="manual-title">Gentilezas</h3>
-            <ul class="manual-list">
-                <li>Em caso de dúvidas, entre em contato com os noivos.</li>
-                <li>Atenção ao horário para não perder a entrada da cerimônia.</li>
-                <li>Presente via PIX na seção Lua de Mel.</li>
-            </ul>
-        </article>
-        <article class="manual-card">
             <div class="manual-icon">👗</div>
             <h3 class="manual-title">Dress Code</h3>
             <ul class="dress-tips">
@@ -617,11 +740,7 @@
         <div id="rsvp-form">
             <div class="form-g reveal d1">
                 <label for="nome">Nome Completo</label>
-                <input id="nome" type="text" required placeholder="Seu nome" />
-            </div>
-            <div class="form-g reveal d1">
-                <label for="email">E-mail</label>
-                <input id="email" type="email" required placeholder="seu@email.com" />
+                <input id="nome" type="text" required placeholder="Seu nome completo" />
             </div>
             <div class="reveal d1">
                 <span class="presenca-label">Você vai comparecer?</span>
@@ -631,6 +750,11 @@
                         <span class="presenca-emoji">💍</span>
                         <span class="presenca-titulo">Estarei lá!</span>
                         <span class="presenca-sub">Sim, confirmo minha presença</span>
+                    </button>
+                    <button type="button" class="presenca-btn" id="btn-online" onclick="selecionarPresenca('online')">
+                        <span class="presenca-emoji">📺</span>
+                        <span class="presenca-titulo">Assistirei Online</span>
+                        <span class="presenca-sub">Vou acompanhar pela transmissão</span>
                     </button>
                     <button type="button" class="presenca-btn" id="btn-nao" onclick="selecionarPresenca('nao')">
                         <span class="presenca-emoji">🥺</span>
@@ -710,21 +834,38 @@
 const SUPABASE_URL="https://scsqxrpjhivwjauukaph.supabase.co";
 const SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjc3F4cnBqaGl2d2phdXVrYXBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODkzMDIsImV4cCI6MjA5MTg2NTMwMn0.XlooQ1E4ka5O05W_3VWjtjokbUb-ig9RKaU4i4dWDFQ";
 const WEDDING_DATE=new Date('2026-10-31T16:00:00-03:00');
-const ENABLE_GOOGLE_FORMS=false;
-const GOOGLE_FORM_ACTION_URL="COLE_AQUI_A_URL_DO_SEU_FORMULARIO/formResponse";
-const GOOGLE_FORM_FIELDS={nome:"COLE_AQUI_O_ENTRY_NOME",email:"COLE_AQUI_O_ENTRY_EMAIL",presenca:"COLE_AQUI_O_ENTRY_PRESENCA",mensagem:"COLE_AQUI_O_ENTRY_MENSAGEM",origem:""};
+const ENABLE_GOOGLE_FORMS=true;
+const GOOGLE_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdObA_ZQMPRwDYjZvRzRRf5z1U_9OPKQQS1vBMnGt3ZHk9_dA/formResponse";
+const GOOGLE_FORM_FIELDS={nome:"entry.698488504",presenca:"entry.301285473",mensagem:"entry.621416400",acompanhantes:"entry.1576249945",origem:""};
 const PIX_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdXLpB-poYvwodTlvDa8_4MAU5Ti8AV9yB8nlWVuRui-o7FxA/formResponse";
-const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321"};
+const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321",comprovante:""};
+/* Bucket do Supabase Storage onde os comprovantes (print/PDF) sao enviados */
+const COMPROVANTES_BUCKET="comprovantes";
+/* Tabela onde fica o registro de nome + link do comprovante de cada Pix, para conferencia dos noivos */
+const COMPROVANTES_TABLE="comprovantes_pix";
+
+/* Mensagens dos convidados: lidas direto de uma planilha do Google Sheets
+   (a mesma planilha que o Forms de presença cria em Respostas > planilha).
+   A planilha só precisa estar com "Qualquer pessoa com o link pode visualizar". */
+const MESSAGES_SHEET_ID="1B3nCgPqyylhGX2GJNT1iUMbXXMd5TOdKJ7aDlkD3C4o";
+const MESSAGES_SHEET_NAME="Form_Responses";
+const MESSAGES_COL_TIMESTAMP=0; // coluna A (carimbo de data/hora, criada automaticamente)
+const MESSAGES_COL_NOME=1;      // coluna B (na ordem em que os campos aparecem no Forms: Nome, Presença, Mensagem, Acompanhantes)
+const MESSAGES_COL_MENSAGEM=3;  // coluna D
 
 let sb;try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){}
 
 const COTAS_CONFIG=[
-    {id:'c50',  valor:50,  titulo:'Sopro de Carinho',    descricao:'Uma lembrança carinhosa para começar a nossa lua de mel com leveza.',         total:100,emoji:'🌸'},
-    {id:'c150', valor:150, titulo:'Brinde ao Amor',      descricao:'Ajude a brindar esta nova fase com um momento especial a dois.',              total:20, emoji:'🥂'},
-    {id:'c200', valor:200, titulo:'Passeio Inesquecível',descricao:'Contribua para um passeio marcante que ficará para sempre na memória.',       total:10, emoji:'🗺️'},
-    {id:'c350', valor:350, titulo:'Jantar Romântico',    descricao:'Um presente para um jantar inesquecível em nossa viagem.',                   total:6,  emoji:'🍷'},
-    {id:'c500', valor:500, titulo:'Noite dos Sonhos',    descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.',    total:3,  emoji:'🌙'},
-    {id:'c1000',valor:1000,titulo:'Grande Aventura',     descricao:'O presente máximo para viver um grande capítulo da nossa aventura.',         total:2,  emoji:'✈️'}
+    {id:'c100', valor:100, titulo:'Sopro de Carinho',       descricao:'Uma lembrança carinhosa para começar a nossa lua de mel com leveza.',            total:25,emoji:'🌸'},
+    {id:'c120', valor:120, titulo:'Brinde ao Amor',         descricao:'Ajude a brindar esta nova fase com um momento especial a dois.',                 total:20,emoji:'🥂'},
+    {id:'c135', valor:135, titulo:'Café da Manhã a Dois',   descricao:'Contribua para começarmos o dia com carinho durante a viagem.',                  total:20,emoji:'☕'},
+    {id:'c150', valor:150, titulo:'Doce Lembrança',         descricao:'Um mimo doce para guardarmos como lembrança dessa aventura.',                    total:20,emoji:'🍰'},
+    {id:'c165', valor:165, titulo:'Passeio Especial',       descricao:'Ajude a tornar um passeio ainda mais inesquecível.',                             total:25,emoji:'🗺️'},
+    {id:'c180', valor:180, titulo:'Tarde de Relaxamento',   descricao:'Presenteie um momento de spa e relaxamento na lua de mel.',                      total:20,emoji:'💆'},
+    {id:'c190', valor:190, titulo:'Jantar Romântico',       descricao:'Um presente para um jantar inesquecível em nossa viagem.',                       total:15,emoji:'🍷'},
+    {id:'c200', valor:200, titulo:'Brinde à Nova Vida',     descricao:'Contribua para celebrarmos essa nova fase com um brinde especial.',              total:15,emoji:'🍾'},
+    {id:'c210', valor:210, titulo:'Noite dos Sonhos',       descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.',        total:10,emoji:'🌙'},
+    {id:'c215', valor:215, titulo:'Grande Aventura',        descricao:'O presente para vivermos um grande capítulo dessa aventura.',                    total:10,emoji:'✈️'}
 ];
 
 let cotasUsadas={},cotaSelecionada=null,mensagens=[],carPos=0,carVisiveis=3,acompQty=0;
@@ -735,10 +876,15 @@ function getAcompanhantes(){return Array.from(document.querySelectorAll('.acomp-
 
 function selecionarPresenca(v){
     document.getElementById('presenca').value=v;
-    const bs=document.getElementById('btn-sim'),bn=document.getElementById('btn-nao'),af=document.getElementById('acomp-fields');
-    bs.className='presenca-btn';bn.className='presenca-btn';
-    if(v==='sim'){bs.classList.add('selected-sim');af.classList.add('visible');}
-    else{bn.classList.add('selected-nao');af.classList.remove('visible');acompQty=0;document.getElementById('qty-display').textContent='0';renderAcompNames();}
+    const bs=document.getElementById('btn-sim'),bo=document.getElementById('btn-online'),bn=document.getElementById('btn-nao'),af=document.getElementById('acomp-fields');
+    bs.className='presenca-btn';bo.className='presenca-btn';bn.className='presenca-btn';
+    if(v==='sim'){
+        bs.classList.add('selected-sim');af.classList.add('visible');
+    }else{
+        if(v==='online')bo.classList.add('selected-online');
+        else bn.classList.add('selected-nao');
+        af.classList.remove('visible');acompQty=0;document.getElementById('qty-display').textContent='0';renderAcompNames();
+    }
 }
 
 function pad(n){return String(n).padStart(2,'0');}
@@ -747,9 +893,8 @@ function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;
 function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_FORM_FIELDS.nome&&PIX_FORM_FIELDS.valor;}
 function gfOk(){return ENABLE_GOOGLE_FORMS&&!GOOGLE_FORM_ACTION_URL.includes('COLE_AQUI');}
 
-async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.email)fd.append(GOOGLE_FORM_FIELDS.email,p.email||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
-async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
-async function enviarSB(payload){if(!sb)return{ok:false,skipped:true};try{const{error}=await sb.from('rsvp').insert([payload]);if(error){console.error(error);return{ok:false,error};}return{ok:true};}catch(e){return{ok:false,error:e};}}
+async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');if(GOOGLE_FORM_FIELDS.acompanhantes)fd.append(GOOGLE_FORM_FIELDS.acompanhantes,p.acompanhantes||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
+async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');if(PIX_FORM_FIELDS.comprovante)fd.append(PIX_FORM_FIELDS.comprovante,p.comprovante||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 
 function renderCotas(){
     const g=document.getElementById('cotas-grid');if(!g)return;g.innerHTML='';
@@ -762,46 +907,159 @@ function renderCotas(){
     document.querySelectorAll('.cota-card.reveal').forEach(el=>obs.observe(el));
 }
 async function carregarCotas(){
-    if(sb){try{const{data,error}=await sb.from('presentes').select('cota_id');if(!error&&data){cotasUsadas={};data.forEach(r=>{if(r.cota_id)cotasUsadas[r.cota_id]=(cotasUsadas[r.cota_id]||0)+1;});}}catch(e){}}
-    renderCotas();
+    renderCotas(); // desenha os cards na hora, sem esperar a rede
+    if(sb){
+        try{
+            const{data,error}=await sb.from('presentes').select('cota_id');
+            if(!error&&data){
+                cotasUsadas={};
+                data.forEach(r=>{if(r.cota_id)cotasUsadas[r.cota_id]=(cotasUsadas[r.cota_id]||0)+1;});
+                renderCotas(); // atualiza quantidades já escolhidas assim que chegam
+            }
+        }catch(e){}
+    }
 }
-function abrirCota(id){const c=COTAS_CONFIG.find(x=>x.id===id);if(!c)return;cotaSelecionada=id;document.getElementById('pix-cota-nome').textContent=c.emoji+' '+c.titulo;document.getElementById('pix-modal-valor').textContent='R$ '+c.valor.toLocaleString('pt-BR',{minimumFractionDigits:2});togglePixModal(true);}
-function togglePixModal(show){const o=document.getElementById('pixOverlay');if(!o)return;if(show){o.classList.add('open');document.body.style.overflow='hidden';}else{o.classList.remove('open');document.body.style.overflow='';}}
+function abrirCota(id){
+    const c=COTAS_CONFIG.find(x=>x.id===id);if(!c)return;
+    cotaSelecionada=id;
+    document.getElementById('pix-cota-nome').textContent=c.emoji+' '+c.titulo;
+    document.getElementById('pix-modal-valor').textContent='R$ '+c.valor.toLocaleString('pt-BR',{minimumFractionDigits:2});
+    const fi=document.getElementById('pixComprovante');if(fi)fi.value='';
+    const fn=document.getElementById('comprovanteFileName');if(fn){fn.textContent='';fn.style.color='';}
+    togglePixModal(true,'avisoOverlay');
+}
+function prosseguirParaPix(){togglePixModal(false,'avisoOverlay');togglePixModal(true,'pixOverlay');}
+function togglePixModal(show,id){id=id||'pixOverlay';const o=document.getElementById(id);if(!o)return;if(show){o.classList.add('open');document.body.style.overflow='hidden';}else{o.classList.remove('open');document.body.style.overflow='';}}
 function copiarPix(){const chave=document.getElementById('chavePix').innerText.trim(),btn=document.getElementById('btnCopiar');if(!navigator.clipboard){alert('Chave: '+chave);return;}navigator.clipboard.writeText(chave).then(()=>{btn.textContent='Copiado! ✓';setTimeout(()=>btn.textContent='Copiar Chave PIX',3000);}).catch(()=>alert('Chave: '+chave));}
+const COMPROVANTE_MAX_MB=8;
+function validarComprovanteInput(){
+    const inp=document.getElementById('pixComprovante'),fn=document.getElementById('comprovanteFileName');
+    if(!inp||!fn)return;
+    inp.addEventListener('change',function(){
+        const f=this.files[0];
+        if(!f){fn.textContent='';fn.style.color='';return;}
+        const tipoOk=f.type.startsWith('image/')||f.type==='application/pdf';
+        const tamanhoOk=f.size<=COMPROVANTE_MAX_MB*1024*1024;
+        if(!tipoOk){fn.textContent='Formato inválido. Envie uma imagem (print) ou um PDF.';fn.style.color='#b0413e';this.value='';return;}
+        if(!tamanhoOk){fn.textContent='Arquivo muito grande (máx. '+COMPROVANTE_MAX_MB+'MB).';fn.style.color='#b0413e';this.value='';return;}
+        fn.style.color='rgba(74,49,40,.55)';
+        fn.textContent='Selecionado: '+f.name+' ('+(f.size/1024/1024).toFixed(1)+' MB)';
+    });
+}
+validarComprovanteInput();
+async function uploadComprovante(file,cotaId){
+    if(!sb)throw new Error('Conexão com o Supabase indisponível.');
+    const ext=(file.name.split('.').pop()||'dat').toLowerCase().replace(/[^a-z0-9]/g,'')||'dat';
+    const path=`${cotaId}/${Date.now()}_${Math.random().toString(36).slice(2,8)}.${ext}`;
+    const{error}=await sb.storage.from(COMPROVANTES_BUCKET).upload(path,file,{cacheControl:'3600',upsert:false});
+    if(error)throw error;
+    const{data}=sb.storage.from(COMPROVANTES_BUCKET).getPublicUrl(path);
+    if(!data?.publicUrl)throw new Error('Não foi possível gerar o link do comprovante.');
+    return data.publicUrl;
+}
 async function confirmarCota(){
     if(!cotaSelecionada){alert('Nenhuma cota selecionada.');return;}
     const nome=document.getElementById('pixNome').value.trim();if(!nome){alert('Informe seu nome.');document.getElementById('pixNome').focus();return;}
+    const fileInput=document.getElementById('pixComprovante'),file=fileInput&&fileInput.files[0];
+    if(!file){alert('Anexe o comprovante do Pix (print ou PDF) para confirmar.');fileInput&&fileInput.focus();return;}
     if(!pixOk()){alert('Configure o Google Forms PIX.');return;}if(!sb){alert('Conexão indisponível.');return;}
     const btn=document.getElementById('btnConfirmarCota'),cota=COTAS_CONFIG.find(c=>c.id===cotaSelecionada);if(!cota){alert('Cota inválida.');return;}
-    btn.disabled=true;btn.textContent='Confirmando…';
-    try{const fr=await enviarPixGF({nome,cota:cota.titulo,valor:String(cota.valor)});if(!fr.ok){alert('Não foi possível enviar.');return;}const{data,error}=await sb.rpc('registrar_presente',{p_cota_id:cota.id,p_valor:cota.valor});if(error){console.error(error);alert('Confirmação enviada, mas houve erro ao registrar.');return;}if(!data?.ok){alert(data?.message||'Não foi possível registrar.');await carregarCotas();return;}alert('Confirmação enviada! Muito obrigado 💛');cotaSelecionada=null;document.getElementById('pixNome').value='';togglePixModal(false);await carregarCotas();}
-    catch(err){console.error(err);alert('Erro inesperado.');}finally{btn.disabled=false;btn.textContent='Já fiz o PIX';}
+    btn.disabled=true;btn.textContent='Enviando comprovante…';
+    let comprovanteUrl='';
+    try{
+        comprovanteUrl=await uploadComprovante(file,cota.id);
+    }catch(err){
+        console.error(err);
+        alert('Não foi possível enviar o comprovante. Verifique sua conexão e tente novamente.');
+        btn.disabled=false;btn.textContent='Já fiz o PIX';
+        return;
+    }
+    btn.textContent='Confirmando…';
+    try{
+        const fr=await enviarPixGF({nome,cota:cota.titulo,valor:String(cota.valor),comprovante:comprovanteUrl});
+        if(!fr.ok){alert('Não foi possível enviar.');return;}
+        const{data,error}=await sb.rpc('registrar_presente',{p_cota_id:cota.id,p_valor:cota.valor});
+        if(error){console.error(error);alert('Confirmação enviada, mas houve erro ao registrar.');return;}
+        if(!data?.ok){alert(data?.message||'Não foi possível registrar.');await carregarCotas();return;}
+        try{
+            await sb.from(COMPROVANTES_TABLE).insert({cota_id:cota.id,cota_titulo:cota.titulo,nome,valor:cota.valor,comprovante_url:comprovanteUrl});
+        }catch(logErr){console.error('Falha ao salvar o registro do comprovante:',logErr);}
+        alert('Confirmação enviada! Muito obrigado 💛');
+        cotaSelecionada=null;
+        document.getElementById('pixNome').value='';
+        fileInput.value='';
+        const fn=document.getElementById('comprovanteFileName');if(fn){fn.textContent='';fn.style.color='';}
+        togglePixModal(false,'pixOverlay');
+        await carregarCotas();
+    }catch(err){console.error(err);alert('Erro inesperado.');}
+    finally{btn.disabled=false;btn.textContent='Já fiz o PIX';}
 }
 
 function tick(){const d=WEDDING_DATE.getTime()-Date.now();if(d<=0){document.getElementById('cd-grid').style.display='none';document.getElementById('cd-done').style.display='block';return;}document.getElementById('cd-d').textContent=Math.floor(d/864e5);document.getElementById('cd-h').textContent=pad(Math.floor((d%864e5)/36e5));document.getElementById('cd-m').textContent=pad(Math.floor((d%36e5)/6e4));document.getElementById('cd-s').textContent=pad(Math.floor((d%6e4)/1e3));}
 document.getElementById('mensagem').addEventListener('input',function(){document.getElementById('char-count').textContent=this.value.length;});
 
 async function enviarRsvp(){
-    const nome=document.getElementById('nome').value.trim(),email=document.getElementById('email').value.trim(),presenca=document.getElementById('presenca').value,mensagem=document.getElementById('mensagem').value.trim(),btn=document.getElementById('btn-rsvp'),acomp=presenca==='sim'?getAcompanhantes():[];
-    if(!nome||!email){alert('Preencha nome e e-mail.');return;}if(!presenca){alert('Selecione se vai comparecer.');return;}
+    const nome=document.getElementById('nome').value.trim(),presenca=document.getElementById('presenca').value,mensagem=document.getElementById('mensagem').value.trim(),btn=document.getElementById('btn-rsvp'),acomp=presenca==='sim'?getAcompanhantes():[];
+    if(!nome){alert('Preencha seu nome completo.');return;}
+    if(!presenca){alert('Selecione uma opção de presença.');return;}
+    if(!gfOk()){alert('O formulário ainda não foi configurado. Avise quem está cuidando do site.');return;}
     btn.disabled=true;btn.textContent='Enviando…';
-    const acompStr=acomp.join(', ');const msgC=[mensagem,acompStr?`Acompanhantes: ${acompStr}`:''].filter(Boolean).join('\n');
-    const payload={nome,email,presenca};if(mensagem)payload.mensagem=mensagem;if(acompStr)payload.acompanhantes=acompStr;
+    const acompStr=acomp.join(', ');
+    const presencaLabel=presenca==='sim'?'Presencial':presenca==='online'?'Assistirei Online':'Não vou';
     try{
-        await enviarGF({nome,email,presenca:presenca==='sim'?'Sim':'Não',mensagem:msgC,origem:'casamento'});
-        const sr=await enviarSB(payload);if(!sr.ok&&!sr.skipped)throw new Error('Falha');
+        const r=await enviarGF({nome,presenca:presencaLabel,mensagem,acompanhantes:acompStr,origem:'casamento'});
+        if(!r.ok)throw new Error('Falha ao enviar');
         document.getElementById('rsvp-fw').style.display='none';document.getElementById('rsvp-success').style.display='block';
-        const nc=primeiroNome(nome),conf=presenca==='sim';
-        document.getElementById('thanks-name').textContent=conf?`${nc}, sua presença foi confirmada`:`${nc}, recebemos sua mensagem com carinho`;
-        let copy=conf?'Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.':'Mesmo de longe, seu carinho também faz parte da nossa história.';
-        if(conf&&acomp.length)copy+=` Registramos ${acomp.length} acompanhante${acomp.length>1?'s':''}.`;
+        const nc=primeiroNome(nome);
+        let title,copy;
+        if(presenca==='sim'){
+            title=`${nc}, sua presença foi confirmada`;
+            copy='Seu carinho agora faz parte do nosso grande dia. Obrigado por celebrar esse momento conosco.';
+            if(acomp.length)copy+=` Registramos ${acomp.length} acompanhante${acomp.length>1?'s':''}.`;
+        }else if(presenca==='online'){
+            title=`${nc}, vamos te ver por aqui também`;
+            copy='Assim que a transmissão estiver pronta, vamos te enviar o link para acompanhar tudo ao vivo, de onde você estiver.';
+        }else{
+            title=`${nc}, recebemos sua mensagem com carinho`;
+            copy='Mesmo de longe, seu carinho também faz parte da nossa história.';
+        }
+        document.getElementById('thanks-name').textContent=title;
         document.getElementById('thanks-copy').textContent=copy;
-        const tm=document.getElementById('thanks-msg-preview');if(mensagem){tm.style.display='block';tm.textContent='"'+mensagem+'"';mensagens.unshift({nome,mensagem,created_at:new Date().toISOString()});renderCarrossel();}else tm.style.display='none';
-    }catch(err){console.error(err);alert('Erro ao salvar.');}finally{btn.disabled=false;btn.textContent='Confirmar Presença';}
+        const tm=document.getElementById('thanks-msg-preview');
+        if(mensagem){tm.style.display='block';tm.textContent='"'+mensagem+'"';mensagens.unshift({nome,mensagem,created_at:new Date().toISOString()});renderCarrossel();}else tm.style.display='none';
+    }catch(err){console.error(err);alert('Erro ao enviar. Tente novamente.');}
+    finally{btn.disabled=false;btn.textContent='Confirmar Presença';}
 }
 
 function calcVis(){return window.innerWidth<=600?1:window.innerWidth<=900?2:3;}
-async function carregarMensagens(){if(sb){try{const{data,error}=await sb.from('rsvp').select('nome,mensagem,created_at').not('mensagem','is',null).neq('mensagem','').order('created_at',{ascending:false}).limit(50);if(!error&&data)mensagens=data;}catch(e){}}renderCarrossel();}
+async function carregarMensagens(){
+    if(MESSAGES_SHEET_ID&&!MESSAGES_SHEET_ID.includes('COLE_AQUI')){
+        try{
+            const url=`https://docs.google.com/spreadsheets/d/${MESSAGES_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(MESSAGES_SHEET_NAME)}&range=A2:E`;
+            const res=await fetch(url);
+            const text=await res.text();
+            const json=JSON.parse(text.substring(text.indexOf('{'),text.lastIndexOf('}')+1));
+            const rows=(json.table&&json.table.rows)||[];
+            const parsed=rows.map(r=>{
+                const c=r.c;
+                const get=(i)=>(c[i]?(c[i].f!=null?c[i].f:c[i].v):null);
+                const nome=get(MESSAGES_COL_NOME);
+                const msg=get(MESSAGES_COL_MENSAGEM);
+                const tsCell=c[MESSAGES_COL_TIMESTAMP];
+                let created_at=new Date().toISOString();
+                const tsRaw=tsCell?tsCell.v:null;
+                if(typeof tsRaw==='string'&&tsRaw.startsWith('Date(')){
+                    const nums=tsRaw.replace('Date(','').replace(')','').split(',').map(Number);
+                    created_at=new Date(nums[0],nums[1],nums[2],nums[3]||0,nums[4]||0,nums[5]||0).toISOString();
+                }
+                return{nome:nome||'Convidado',mensagem:msg,created_at};
+            }).filter(m=>m.mensagem&&String(m.mensagem).trim()!==''&&String(m.mensagem).trim().toLowerCase()!=='mensagem');
+            parsed.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+            mensagens=parsed.slice(0,50);
+        }catch(e){console.error(e);}
+    }
+    renderCarrossel();
+}
 function renderCarrossel(){
     const t=document.getElementById('carousel-track'),e=document.getElementById('msg-empty'),c=document.getElementById('carousel-controls'),d=document.getElementById('car-dots');
     if(!t||!e||!c||!d)return;
@@ -821,6 +1079,42 @@ setInterval(()=>{if(!mensagens.length)return;const mx=Math.max(0,mensagens.lengt
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 window.addEventListener('scroll',()=>{document.querySelector('.top-nav').classList.toggle('scrolled',window.scrollY>14);});
+
+/* MENU MOBILE — abrir/fechar, ESC, clique fora, foco e bloqueio de scroll */
+(function(){
+    const toggle=document.getElementById('navToggle');
+    const menu=document.getElementById('mobileMenu');
+    const backdrop=document.getElementById('mobileMenuBackdrop');
+    const closeBtn=document.getElementById('mobileMenuClose');
+    if(!toggle||!menu||!backdrop||!closeBtn)return;
+    const links=menu.querySelectorAll('a');
+
+    function openMenu(){
+        menu.classList.add('open');
+        backdrop.classList.add('open');
+        toggle.setAttribute('aria-expanded','true');
+        toggle.setAttribute('aria-label','Fechar menu');
+        document.body.classList.add('menu-open');
+        closeBtn.focus();
+    }
+    function closeMenu(returnFocus){
+        menu.classList.remove('open');
+        backdrop.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.setAttribute('aria-label','Abrir menu');
+        document.body.classList.remove('menu-open');
+        if(returnFocus)toggle.focus();
+    }
+    toggle.addEventListener('click',()=>{
+        toggle.getAttribute('aria-expanded')==='true'?closeMenu(true):openMenu();
+    });
+    closeBtn.addEventListener('click',()=>closeMenu(true));
+    backdrop.addEventListener('click',()=>closeMenu(false));
+    links.forEach(a=>a.addEventListener('click',()=>closeMenu(false)));
+    document.addEventListener('keydown',(e)=>{
+        if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true')closeMenu(true);
+    });
+})();
 
 tick();setInterval(tick,1000);carregarCotas();carregarMensagens();
 </script>
