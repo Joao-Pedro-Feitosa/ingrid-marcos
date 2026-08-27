@@ -29,6 +29,7 @@
             --bg-img:   url('Downloads/casamento/img/fundo.jpg');
             --historia-img: url('historia-bg.jpg');
             --local-img: url('local-bg.jpg');
+            --mid-img: url('fotomid-bg.jpeg');
         }
         html { scroll-behavior: smooth; }
         body { font-family: var(--sans); background: var(--cream); color: var(--ink); overflow-x: hidden; line-height: 1.6; }
@@ -367,13 +368,24 @@
 
         /* MANUAL */
         #manual { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
-        .manual-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 1px solid rgba(74,49,40,.12); margin-top: 2.5rem; }
-        .manual-card { padding: 2rem 1.8rem; border-right: 1px solid rgba(74,49,40,.12); }
-        .manual-card:last-child { border-right: none; }
-        .manual-icon { font-size: 1.15rem; margin-bottom: .7rem; }
-        .manual-title { font-family: var(--serif); font-size: 1.45rem; font-style: italic; color: var(--ink); margin-bottom: .8rem; }
-        .manual-list, .dress-tips { list-style: none; font-size: .87rem; line-height: 1.9; color: rgba(74,49,40,.78); display: grid; gap: .3rem; }
-        .manual-list strong { color: var(--ink); font-weight: 600; }
+        /* FOTO + MONOGRAMA (divisor "grande dia") */
+        #manual {
+            position: relative;
+            min-height: 680px;
+            background: var(--mid-img) center/cover no-repeat;
+        }
+        .mid-mono-i {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-64%,-56%) rotate(-5deg);
+            font-family: var(--script); font-size: 9.4rem; color: var(--white);
+            text-shadow: 0 4px 22px rgba(0,0,0,.35); white-space: nowrap;
+        }
+        .mid-mono-m {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-36%,-48%);
+            font-family: var(--serif); font-size: 7.6rem; color: var(--white);
+            text-shadow: 0 4px 22px rgba(0,0,0,.38); white-space: nowrap;
+        }
         .dress-tips li { display: flex; gap: .45rem; }
         .dress-tips li::before { content: "·"; color: var(--gold); flex-shrink: 0; }
 
@@ -450,10 +462,9 @@
 
         /* RESPONSIVE */
         @media (max-width: 1000px) {
-            .manual-grid { grid-template-columns: repeat(2,1fr); }
-            .manual-card { border-right: none; border-bottom: 1px solid rgba(74,49,40,.12); }
-            .manual-card:nth-child(odd) { border-right: 1px solid rgba(74,49,40,.12); }
-            .manual-card:nth-last-child(-n+2) { border-bottom: none; }
+            #manual { min-height: 560px; }
+            .mid-mono-i { font-size: 7.6rem; }
+            .mid-mono-m { font-size: 6.1rem; }
         }
         @media (max-width: 860px) {
             /* Troca o menu completo por hambúrguer (esquerda) + acessos rápidos (direita) */
@@ -470,10 +481,9 @@
             .cotas-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
-            .manual-grid { grid-template-columns: 1fr; }
-            .manual-card { border-right: none; border-bottom: 1px solid rgba(74,49,40,.12); }
-            .manual-card:nth-child(odd) { border-right: none; }
-            .manual-card:last-child { border-bottom: none; }
+            #manual { min-height: 440px; }
+            .mid-mono-i { font-size: 5.6rem; }
+            .mid-mono-m { font-size: 4.5rem; }
             .presenca-btns { grid-template-columns: 1fr; gap: .6rem; }
             .footer-nav { flex-direction: column; gap: .45rem; }
         }
@@ -646,41 +656,10 @@
 </section>
 
 <!-- MANUAL -->
+<!-- FOTO + MONOGRAMA -->
 <section id="manual">
-    <div class="reveal">
-        <h2 class="stitle">Informações para o grande dia</h2></div>
-    <div class="manual-grid reveal d1">
-        <article class="manual-card">
-            <div class="manual-icon">🕐</div>
-            <h3 class="manual-title">Horários</h3>
-            <ul class="manual-list">
-                <li><strong>Data:</strong> 31 de outubro de 2026</li>
-                <li><strong>Chegada sugerida:</strong> 30 minutos antes</li>
-                <li><strong>Cerimônia:</strong> a confirmar</li>
-                <li><strong>Recepção:</strong> logo após a cerimônia</li>
-            </ul>
-        </article>
-        <article class="manual-card">
-            <div class="manual-icon">👗</div>
-            <h3 class="manual-title">Dress Code</h3>
-            <ul class="dress-tips">
-                <li>Traje <strong>social / passeio completo</strong></li>
-                <li>Cavalheiros: terno ou blazer com calça social</li>
-                <li>Damas: vestidos midi ou longos, macacões de festa</li>
-                <li>Tons neutros, terrosos, rosê, dourado ou preto</li>
-                <li>Evitar branco — reservado à noiva 🤍</li>
-            </ul>
-        </article>
-        <article class="manual-card">
-            <div class="manual-icon">📍</div>
-            <h3 class="manual-title">Local</h3>
-            <ul class="manual-list">
-                <li><strong>Cerimônia:</strong> Catedral São Pedro de Alcântara</li>
-                <li>Rua São Pedro de Alcântara, 60</li>
-                <li>Centro — Petrópolis, RJ</li>
-            </ul>
-        </article>
-    </div>
+    <span class="mid-mono-i">I</span>
+    <span class="mid-mono-m">M</span>
 </section>
 
 <!-- RSVP -->
