@@ -26,10 +26,9 @@
             --menu:   'Cormorant SC', Georgia, serif;
             --sans:   'Jost', sans-serif;
             --hero-img: url('https://amerikaneked.com/wp-content/uploads/2023/07/shutterstock_2462028509.jpg');
-            --footer-img: url('footer-catedral.jpg');
+            --bg-img:   url('Downloads/casamento/img/fundo.jpg');
             --historia-img: url('historia-bg.jpg');
             --local-img: url('local-bg.jpg');
-            --bg-img:   url('Downloads/casamento/img/fundo.jpg');
         }
         html { scroll-behavior: smooth; }
         body { font-family: var(--sans); background: var(--cream); color: var(--ink); overflow-x: hidden; line-height: 1.6; }
@@ -280,110 +279,27 @@
         .std-loc strong { color: rgba(255,250,246,.75); }
 
         /* HISTÓRIA */
-        #historia { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
+        #historia {
+            position: relative;
+            background:
+                linear-gradient(180deg, rgba(26,15,11,.8), rgba(26,15,11,.82)),
+                var(--historia-img) center/cover no-repeat fixed;
+            padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem);
+        }
         .stag { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--menu); font-size: .64rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
         .stag::before { content: ""; width: 26px; height: 1px; background: currentColor; opacity: .55; }
         .stitle { font-family: var(--serif); font-size: clamp(2.2rem,4.5vw,3.2rem); font-weight: 300; font-style: italic; line-height: 1.1; margin-bottom: 1.4rem; color: var(--ink); }
+        #historia .stitle { color: var(--cream); text-align: center; }
 
-        /* História: texto introdutório, largura de leitura confortável */
-        .historia-text { position: relative; overflow: hidden; font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: var(--white); max-width: 900px; margin: 0 auto; padding: clamp(3.4rem,7vw,5.6rem) clamp(2rem,6vw,4.6rem); background: var(--mocha) var(--historia-img) center 22%/cover no-repeat; }
-        .historia-text::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(74,49,40,.7) 0%,rgba(74,49,40,.8) 100%); }
-        .historia-text p { position: relative; z-index: 1; margin-bottom: 1.5rem; text-shadow: 0 2px 14px rgba(0,0,0,.3); }
+        /* História: texto centralizado sobre a foto de fundo */
+        .historia-layout { display: flex; justify-content: center; }
+        .historia-text { max-width: 700px; font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: rgba(246,238,231,.94); text-shadow: 0 1px 10px rgba(0,0,0,.25); }
+        .historia-text p { margin-bottom: 1.5rem; }
         .historia-text p:last-child { margin-bottom: 0; }
-
-        /* LINHA DO TEMPO INTERATIVA — horizontal, ondulada, com escala responsiva via --tl-scale */
-        .timeline-wrap { margin-top: clamp(3.2rem,6vw,4.6rem); }
-        .timeline-lead { text-align: center; font-family: var(--serif); font-size: .95rem; font-style: italic; color: var(--gold); letter-spacing: .02em; margin-bottom: clamp(1.6rem,3.5vw,2.4rem); }
-
-        .timeline-scroll-outer { position: relative; }
-        .timeline-scroll-outer::before, .timeline-scroll-outer::after { content: ""; position: absolute; top: 0; bottom: 0; width: clamp(20px,5vw,64px); z-index: 3; pointer-events: none; }
-        .timeline-scroll-outer::before { left: 0; background: linear-gradient(90deg, var(--cream) 0%, rgba(246,238,231,0) 100%); }
-        .timeline-scroll-outer::after { right: 0; background: linear-gradient(270deg, var(--cream) 0%, rgba(246,238,231,0) 100%); }
-
-        .timeline-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--gold-lt) transparent; cursor: grab; }
-        .timeline-scroll.dragging { cursor: grabbing; scroll-snap-type: none; }
-        .timeline-scroll::-webkit-scrollbar { height: 5px; }
-        .timeline-scroll::-webkit-scrollbar-track { background: transparent; }
-        .timeline-scroll::-webkit-scrollbar-thumb { background: var(--gold-lt); border-radius: 3px; }
-
-        /* --tl-scale controla o tamanho de TODO o desenho (onda, pontos e cards) de forma proporcional.
-           Em telas menores só precisamos mudar este número — nada de recalcular posições na mão. */
-        .timeline-track { position: relative; --tl-scale: 1; width: calc(1860px * var(--tl-scale)); height: calc(560px * var(--tl-scale)); margin: 0 clamp(.8rem,4vw,2rem); }
-        .timeline-track svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-        .tl-wave { fill: none; stroke: var(--gold-lt); stroke-width: 1.4; }
-
-        .tl-stem { position: absolute; width: 1px; background: var(--gold-lt); left: calc(var(--x) * var(--tl-scale) * 1px); }
-        .tl-stem.tl-stem-up { top: calc(124px * var(--tl-scale)); height: calc(14px * var(--tl-scale)); }
-        .tl-stem.tl-stem-down { top: calc(422px * var(--tl-scale)); height: calc(14px * var(--tl-scale)); }
-
-        .tl-card { position: absolute; left: calc(var(--cl) * var(--tl-scale) * 1px); width: calc(226px * var(--tl-scale)); display: flex; flex-direction: column; text-align: center; }
-        .tl-card.tl-up { top: 0; height: calc(124px * var(--tl-scale)); justify-content: flex-end; }
-        .tl-card.tl-down { top: calc(436px * var(--tl-scale)); height: calc(124px * var(--tl-scale)); justify-content: flex-start; }
-        .tl-date { display: block; font-family: var(--menu); font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
-        .tl-name { font-family: var(--serif); font-size: 1.14rem; font-style: italic; color: var(--ink); line-height: 1.22; margin-bottom: .32rem; }
-        .tl-desc { font-size: .78rem; line-height: 1.55; color: rgba(74,49,40,.64); }
-
-        .tl-dot { position: absolute; width: calc(74px * var(--tl-scale)); height: calc(74px * var(--tl-scale)); left: calc(var(--x) * var(--tl-scale) * 1px - (74px * var(--tl-scale)) / 2); border-radius: 50%; padding: 0; margin: 0; border: 2px solid var(--gold-lt); background: var(--white); cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(91,64,53,.16); transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; z-index: 2; }
-        .tl-dot.tl-dot-up { top: calc(175px * var(--tl-scale) - (74px * var(--tl-scale)) / 2); }
-        .tl-dot.tl-dot-down { top: calc(385px * var(--tl-scale) - (74px * var(--tl-scale)) / 2); }
-        .tl-dot:hover, .tl-dot:focus-visible { transform: scale(1.08); box-shadow: 0 10px 26px rgba(91,64,53,.26); border-color: var(--gold); outline: none; }
-        .tl-dot img { width: 100%; height: 100%; object-fit: cover; filter: sepia(8%) saturate(92%) contrast(1.02); }
-        .tl-dot .tl-icon-svg { width: 28px; height: 28px; color: var(--gold); }
-        .tl-dot::after { content: "+"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(74,49,40,.46); color: var(--white); font-family: var(--serif); font-size: 1.7rem; font-weight: 300; opacity: 0; transition: opacity .25s ease; }
-        .tl-dot:hover::after, .tl-dot:focus-visible::after { opacity: 1; }
-        .tl-dot.tl-future { border-style: dashed; border-color: var(--rose); background: var(--blush); animation: tlPulse 2.6s ease-in-out infinite; }
-        @keyframes tlPulse {
-            0%,100% { box-shadow: 0 6px 18px rgba(91,64,53,.16), 0 0 0 0 rgba(201,168,151,.4); }
-            50%     { box-shadow: 0 6px 18px rgba(91,64,53,.16), 0 0 0 9px rgba(201,168,151,0); }
+        @media (max-width: 820px) {
+            #historia { background-attachment: scroll; }
+            #local { background-attachment: scroll; }
         }
-
-        /* TOQUE: sem :hover confiável, então trocamos o "+" que cobre a foto por um selinho fixo no canto */
-        @media (hover: none) {
-            .tl-dot::after { display: none; }
-            .tl-dot::before {
-                content: "+"; position: absolute; right: -1px; bottom: -1px; z-index: 3;
-                width: 22px; height: 22px; border-radius: 50%;
-                background: var(--mocha); color: var(--white);
-                font-family: var(--serif); font-size: .9rem; line-height: 1;
-                display: flex; align-items: center; justify-content: center;
-                box-shadow: 0 2px 8px rgba(74,49,40,.35);
-            }
-        }
-
-        .tl-nav { display: flex; justify-content: center; align-items: center; gap: .8rem; margin-top: 1.5rem; }
-        .tl-nav-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--gold-lt); background: transparent; color: var(--mocha); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all .2s; flex-shrink: 0; }
-        .tl-nav-btn:hover { background: var(--mocha); color: var(--white); border-color: var(--mocha); }
-        .tl-nav-hint { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(74,49,40,.4); }
-
-        @media (max-width: 640px) {
-            .timeline-track { --tl-scale: .76; }
-            .tl-name { font-size: 1rem; }
-            .tl-desc { font-size: .72rem; line-height: 1.45; }
-            .tl-nav-btn { width: 42px; height: 42px; }
-        }
-        @media (max-width: 400px) {
-            .timeline-track { --tl-scale: .64; }
-            .tl-date { font-size: .54rem; }
-            .tl-name { font-size: .9rem; margin-bottom: .22rem; }
-            .tl-desc { font-size: .66rem; line-height: 1.4; }
-        }
-
-        /* MODAL DA LINHA DO TEMPO */
-        .tl-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(74,49,40,.78); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 1.5rem; }
-        .tl-overlay.open { display: flex; }
-        .tl-modal { position: relative; background: var(--white); max-width: 560px; width: 100%; max-height: 92vh; overflow-y: auto; box-shadow: 0 40px 90px rgba(74,49,40,.35); transform: scale(.94); opacity: 0; transition: transform .32s ease, opacity .32s ease; }
-        .tl-overlay.open .tl-modal { transform: scale(1); opacity: 1; }
-        .tl-modal-close { position: absolute; top: .8rem; right: .8rem; width: 36px; height: 36px; border: 1px solid var(--blush); background: var(--white); color: var(--mocha); font-size: 1.15rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all .2s; }
-        .tl-modal-close:hover { background: var(--mocha); color: var(--white); border-color: var(--mocha); }
-        .tl-modal-photo { margin: 1.3rem 1.3rem 0; padding: 10px; border: 1px solid var(--gold-lt); background: var(--cream); }
-        .tl-modal-photo img { width: 100%; max-height: 54vh; object-fit: contain; display: block; filter: sepia(8%) saturate(92%) contrast(1.02); }
-        .tl-modal-icon-box { margin: 1.3rem 1.3rem 0; padding: 2.8rem 1rem; border: 1px solid var(--gold-lt); background: var(--cream); display: flex; align-items: center; justify-content: center; }
-        .tl-modal-icon-box svg { width: 58px; height: 58px; color: var(--gold); }
-        .tl-modal-body { padding: 1.3rem 1.7rem 1.9rem; text-align: center; }
-        .tl-modal-date { font-family: var(--menu); font-size: .62rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); }
-        .tl-modal-title { font-family: var(--serif); font-size: clamp(1.5rem,3.4vw,1.9rem); font-style: italic; color: var(--ink); margin: .5rem 0 .8rem; }
-        .tl-modal-text { font-family: var(--serif); font-size: 1rem; line-height: 1.85; color: rgba(74,49,40,.78); }
-        body.no-scroll { overflow: hidden; }
 
         /* PRESENTES */
         #presentes { background: var(--blush) var(--bg-img) center/cover no-repeat; }
@@ -505,25 +421,30 @@
         .thanks-msg { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,250,246,.13); font-family: var(--serif); font-size: .97rem; font-style: italic; color: rgba(255,250,246,.55); }
 
         /* LOCAL */
-        #local { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
-        .venue-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 3rem; margin-top: 2rem; align-items: stretch; }
-        .local-card { position: relative; overflow: hidden; padding: clamp(2.4rem,5vw,3.4rem); display: flex; flex-direction: column; justify-content: center; min-height: 320px; background: var(--mocha) var(--local-img) center 22%/cover no-repeat; }
-        .local-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(74,49,40,.62) 0%,rgba(74,49,40,.74) 100%); }
+        #local {
+            background:
+                linear-gradient(180deg, rgba(246,238,231,.85), rgba(246,238,231,.9)),
+                var(--local-img) center/cover no-repeat fixed;
+            padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem);
+        }
+        .venue-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 3rem; margin-top: 2rem; align-items: start; }
         .map-wrap { overflow: hidden; height: 320px; }
         .map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
-        .local-name { position: relative; z-index: 1; font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--white); margin-bottom: .45rem; text-shadow: 0 2px 12px rgba(0,0,0,.3); }
-        .local-addr { position: relative; z-index: 1; font-size: .87rem; color: rgba(255,250,246,.82); line-height: 1.8; text-shadow: 0 2px 12px rgba(0,0,0,.3); }
-        .btn-map { position: relative; z-index: 1; display: inline-flex; align-items: center; margin-top: 1.3rem; padding: .82rem 1.75rem; background: var(--white); color: var(--mocha); font-family: var(--menu); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; transition: background .2s, color .2s; width: fit-content; }
-        .btn-map:hover { background: var(--gold-lt); }
+        .local-name { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--ink); margin-bottom: .45rem; }
+        .local-addr { font-size: .87rem; color: rgba(74,49,40,.68); line-height: 1.8; }
+        .btn-map { display: inline-flex; align-items: center; margin-top: 1.3rem; padding: .82rem 1.75rem; background: var(--mocha); color: var(--white); font-family: var(--menu); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; transition: background .2s; }
+        .btn-map:hover { background: var(--ink); }
 
         /* FOOTER */
-        footer { position: relative; overflow: hidden; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 780px; padding: 5rem 1.5rem 4rem; background: var(--mocha) var(--footer-img) center 24%/cover no-repeat; }
-        @media (max-width: 640px) { footer { min-height: 560px; } }
+        footer { position: relative; overflow: hidden; text-align: center; padding: 5rem 1.5rem 4rem; background: var(--mocha) var(--hero-img) center 36%/cover no-repeat; }
         footer::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(74,49,40,.68) 0%,rgba(74,49,40,.78) 100%); }
         .footer-inner { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
-        .footer-mono { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 108px; height: 104px; margin-bottom: 1.7rem; text-decoration: none; }
+        .footer-mono { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 108px; height: 104px; margin-bottom: 1.1rem; text-decoration: none; }
         .footer-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 5.8rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.28); }
         .footer-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.7rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.3); }
+        .footer-nav { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.3rem; }
+        .footer-nav a { font-family: var(--menu); font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,250,246,.78); text-decoration: none; transition: opacity .2s; }
+        .footer-nav a:hover { opacity: .55; }
         .footer-couple { font-family: var(--script); font-size: 2.7rem; color: var(--white); line-height: .9; margin-bottom: .55rem; }
         .footer-date { font-family: var(--menu); font-size: .64rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,250,246,.48); }
 
@@ -554,6 +475,7 @@
             .manual-card:nth-child(odd) { border-right: none; }
             .manual-card:last-child { border-bottom: none; }
             .presenca-btns { grid-template-columns: 1fr; gap: .6rem; }
+            .footer-nav { flex-direction: column; gap: .45rem; }
         }
         @media (max-width: 900px) { .msg-card { flex: 0 0 calc(50% - .8rem); } }
         @media (max-width: 600px) { .msg-card { flex: 0 0 88%; } }
@@ -665,114 +587,14 @@
 
 <!-- HISTÓRIA -->
 <section id="historia">
-    <div class="reveal" style="text-align:center">
-        <span class="stag" style="justify-content:center">Nossa história</span>
-        <h2 class="stitle">Como tudo começou</h2>
-    </div>
-    <div class="historia-text reveal d1">
-        <p>Era novembro de 2024. Posso até esquecer o dia exato, mas o mês ficou gravado para sempre. Conheci o Marcos no alto da torre da Catedral de São Pedro de Alcântara, em uma tarde de céu nublado em Petrópolis. Enquanto eu me encantava pela atmosfera antiga e romântica da cidade, ele guiava o passeio. Como meu celular havia descarregado, ele gentilmente me emprestou o dele para tirar fotos, e essa troca de telefones acabou sendo o pretexto perfeito para o início de tudo.</p>
-        <p>Dois dias depois, o convidei para jantar. Entre taças de vinho e boas conversas em um restaurante italiano, a noite fluiu leve e especial. Foi ali que demos nosso primeiro beijo.</p>
-        <p>A incerteza veio no dia de ir embora. Receosa com a ideia de um relacionamento à distância, nos despedimos na Ponte Vermelha, bem de frente para a catedral. Nos beijamos com o aperto no peito de quem achava que seria a despedida final. Eu me sentia grata pelo momento e encantada por ele, mas segui viagem...</p>
-        <p>Só que o destino tinha outros planos e simplesmente não conseguíamos ficar sem nos falar. O Marcos veio me visitar em Anápolis para a virada do ano e, no dia 2 de janeiro de 2025, veio o pedido de namoro. Em 5 de julho fez as malas e se mudou para Anápolis. Pouco depois, em 26 de julho de 2025, veio o pedido de casamento. E no dia 31 de outubro de 2026, vamos oficializar nossa história diante de quem amamos!</p>
-    </div>
-
-    <div class="timeline-wrap reveal d2">
-        <p class="timeline-lead">Arraste para o lado e toque em cada marco para reviver o momento</p>
-
-        <div class="timeline-scroll-outer">
-            <div class="timeline-scroll" id="tlScroll">
-                <div class="timeline-track" id="tlTrack">
-                    <svg viewBox="0 0 1860 560" preserveAspectRatio="none" aria-hidden="true">
-                        <path class="tl-wave" d="M180,175 C330,175 330,385 480,385 C630,385 630,175 780,175 C930,175 930,385 1080,385 C1230,385 1230,175 1380,175 C1530,175 1530,385 1680,385" />
-                    </svg>
-
-                    <!-- 1. Nos conhecemos -->
-                    <div class="tl-card tl-up" style="--cl:67">
-                        <span class="tl-date">Novembro de 2024</span>
-                        <h3 class="tl-name">Nos conhecemos</h3>
-                        <p class="tl-desc">No alto da torre da Catedral de Petrópolis, numa tarde nublada.</p>
-                    </div>
-                    <div class="tl-stem tl-stem-up" style="--x:180"></div>
-                    <button type="button" class="tl-dot tl-dot-up" style="--x:180" data-img="linha-tempo-1-torre.jpg" data-date="Novembro de 2024" data-title="Nos conhecemos" data-text="No alto da torre da Catedral São Pedro de Alcântara, numa tarde nublada em Petrópolis. Ele era guia do passeio e me emprestou o celular para eu tirar fotos — o pretexto necessário para o início de tudo.">
-                        <img src="linha-tempo-1-torre.jpg" alt="Ingrid e Marcos na torre da catedral">
-                    </button>
-
-                    <!-- 2. Primeiro encontro -->
-                    <div class="tl-card tl-down" style="--cl:367">
-                        <span class="tl-date">Novembro de 2024</span>
-                        <h3 class="tl-name">Primeiro encontro</h3>
-                        <p class="tl-desc">Jantar num restaurante italiano — e o nosso primeiro beijo.</p>
-                    </div>
-                    <div class="tl-stem tl-stem-down" style="--x:480"></div>
-                    <button type="button" class="tl-dot tl-dot-down" style="--x:480" data-img="linha-tempo-2-encontro.jpg" data-date="Novembro de 2024" data-title="Primeiro encontro" data-text="Dois dias depois, jantamos em um restaurante italiano. Conversamos muito, bebemos vinho, e tudo parecia leve e empolgante. Foi também nesse dia que demos nosso primeiro beijo.">
-                        <img src="linha-tempo-2-encontro.jpg" alt="Ingrid e Marcos depois do primeiro encontro">
-                    </button>
-
-                    <!-- 3. Pedido de namoro -->
-                    <div class="tl-card tl-up" style="--cl:667">
-                        <span class="tl-date">2 de janeiro de 2025</span>
-                        <h3 class="tl-name">Pedido de namoro</h3>
-                        <p class="tl-desc">Na virada do ano, em Anápolis. E eu disse sim.</p>
-                    </div>
-                    <div class="tl-stem tl-stem-up" style="--x:780"></div>
-                    <button type="button" class="tl-dot tl-dot-up" style="--x:780" data-img="linha-tempo-3-namoro.jpg" data-date="2 de janeiro de 2025" data-title="Pedido de namoro" data-text="Não conseguimos parar de nos falar. Marcos veio me ver em Anápolis e passamos juntos a virada do ano. Nesse dia, ele me pediu em namoro — e eu aceitei, hehehe.">
-                        <img src="linha-tempo-3-namoro.jpg" alt="Ingrid e Marcos em um passeio de barco">
-                    </button>
-
-                    <!-- 4. Morando juntos -->
-                    <div class="tl-card tl-down" style="--cl:967">
-                        <span class="tl-date">5 de julho de 2025</span>
-                        <h3 class="tl-name">Morando juntos</h3>
-                        <p class="tl-desc">Marcos se muda para Anápolis para estarmos mais perto.</p>
-                    </div>
-                    <div class="tl-stem tl-stem-down" style="--x:1080"></div>
-                    <button type="button" class="tl-dot tl-dot-down" style="--x:1080" data-date="5 de julho de 2025" data-title="Morando juntos" data-text="Marcos veio morar em Anápolis, e nossa história ganhou um novo capítulo — agora, lado a lado todos os dias.">
-                        <svg class="tl-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
-                    </button>
-
-                    <!-- 5. Pedido de casamento -->
-                    <div class="tl-card tl-up" style="--cl:1267">
-                        <span class="tl-date">26 de julho de 2025</span>
-                        <h3 class="tl-name">Pedido de casamento</h3>
-                        <p class="tl-desc">De joelhos, com direito a flores e lágrimas de alegria.</p>
-                    </div>
-                    <div class="tl-stem tl-stem-up" style="--x:1380"></div>
-                    <button type="button" class="tl-dot tl-dot-up" style="--x:1380" data-img="linha-tempo-4-pedido.jpg" data-date="26 de julho de 2025" data-title="Pedido de casamento" data-text="Marcos me pediu em casamento, e claro que eu disse sim. Um dos momentos mais felizes da nossa vida.">
-                        <img src="linha-tempo-4-pedido.jpg" alt="Pedido de casamento de Marcos para Ingrid">
-                    </button>
-
-                    <!-- 6. O grande dia -->
-                    <div class="tl-card tl-down" style="--cl:1567">
-                        <span class="tl-date">31 de outubro de 2026</span>
-                        <h3 class="tl-name">O grande dia</h3>
-                        <p class="tl-desc">Vamos nos casar! Continua...</p>
-                    </div>
-                    <div class="tl-stem tl-stem-down" style="--x:1680"></div>
-                    <button type="button" class="tl-dot tl-dot-down tl-future" style="--x:1680" data-date="31 de outubro de 2026" data-title="O grande dia" data-text="E finalmente, vamos nos casar! Mal podemos esperar para celebrar esse dia com quem amamos. Continua...">
-                        <svg class="tl-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="14" r="5.2"/><circle cx="15" cy="14" r="5.2"/></svg>
-                    </button>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="tl-nav">
-            <button type="button" class="tl-nav-btn" id="tlPrev" aria-label="Marco anterior">&#8249;</button>
-            <span class="tl-nav-hint">deslize</span>
-            <button type="button" class="tl-nav-btn" id="tlNext" aria-label="Próximo marco">&#8250;</button>
-        </div>
-    </div>
-
-    <!-- MODAL DA LINHA DO TEMPO -->
-    <div id="tlOverlay" class="tl-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-        <div class="tl-modal" id="tlModal">
-            <button type="button" class="tl-modal-close" id="tlModalClose" aria-label="Fechar">&times;</button>
-            <div id="tlModalMedia"></div>
-            <div class="tl-modal-body">
-                <span class="tl-modal-date" id="tlModalDate"></span>
-                <h3 class="tl-modal-title" id="tlModalTitle"></h3>
-                <p class="tl-modal-text" id="tlModalText"></p>
-            </div>
+    <div class="reveal">
+        <h2 class="stitle">Como tudo começou</h2></div>
+    <div class="historia-layout reveal d1">
+        <div class="historia-text">
+            <p>Era novembro de 2024. Eu sempre esqueço o dia, mas lembro do mês. Conheci Marcos na torre da Catedral São Pedro de Alcântara, numa tarde nublada em Petrópolis. Eu estava encantada pela cidade, tão antiga e romântica. Ele era guia do passeio no alto da torre. Naquele dia, meu celular estava descarregado e ele, gentilmente, me emprestou o seu para que eu tirasse fotos. Trocamos nossos números, o pretexto necessário para o início de tudo.</p>
+            <p>Dois dias depois, convidei Marcos para jantar em um restaurante italiano. Conversamos muito naquela noite, bebemos vinho, e tudo parecia leve e empolgante. Foi também nesse dia que demos nosso primeiro beijo.</p>
+            <p>No dia marcado para minha volta ao Rio, eu ficaria hospedada na casa de uma amiga. Tudo parecia tão incerto; não queria levar um namoro à distância. Nos despedimos na Ponte Vermelha, de frente à catedral. Nos beijamos acreditando que seria a última vez. Eu estava grata por tudo, Marcos era tão interessante, mas segui meu caminho...</p>
+            <p>Só que não conseguimos parar de nos falar. Marcos veio me ver em Anápolis e passamos juntos a virada do ano. No dia 2 de janeiro de 2025, ele me pediu em namoro, e eu aceitei, hehehe. No dia 5 de junho de 2025, ele veio morar em Anápolis. No dia 26 de julho de 2025, me pediu em casamento. E no dia 31 de outubro de 2026 vamos nos casar!!! Continua...</p>
         </div>
     </div>
 </section>
@@ -927,7 +749,7 @@
     <div class="reveal">
         <h2 class="stitle">Onde tudo acontecerá</h2></div>
     <div class="venue-grid reveal d1">
-        <div class="local-card">
+        <div>
             <p class="local-name">Catedral São Pedro de Alcântara</p>
             <p class="local-addr">Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ</p>
             <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="btn-map">Abrir no Google Maps</a>
@@ -945,6 +767,14 @@
             <span class="footer-mono-i">I</span>
             <span class="footer-mono-m">M</span>
         </a>
+        <nav class="footer-nav">
+            <a href="#hero">Início</a>
+            <a href="#historia">Nossa História</a>
+            <a href="#presentes">Lua de Mel</a>
+            <a href="#manual">Manual</a>
+            <a href="#rsvp">Presença</a>
+            <a href="#local">Local</a>
+        </nav>
         <p class="footer-couple">Ingrid &amp; Marcos</p>
         <p class="footer-date">31 de Outubro de 2026 &nbsp;·&nbsp; Feito com muito amor</p>
     </div>
@@ -1168,90 +998,6 @@ window.addEventListener('scroll',()=>{document.querySelector('.top-nav').classLi
     document.addEventListener('keydown',(e)=>{
         if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true')closeMenu(true);
     });
-})();
-
-/* LINHA DO TEMPO — modal de expansão dos marcos */
-(function(){
-    const overlay=document.getElementById('tlOverlay');
-    const modal=document.getElementById('tlModal');
-    const closeBtn=document.getElementById('tlModalClose');
-    const media=document.getElementById('tlModalMedia');
-    const dateEl=document.getElementById('tlModalDate');
-    const titleEl=document.getElementById('tlModalTitle');
-    const textEl=document.getElementById('tlModalText');
-    const dots=document.querySelectorAll('.tl-dot');
-    if(!overlay||!dots.length)return;
-    let lastFocused=null;
-    let dragged=false;
-
-    function openModal(dot){
-        if(dragged)return;
-        const img=dot.getAttribute('data-img');
-        const svg=dot.querySelector('.tl-icon-svg');
-        media.innerHTML = img
-            ? `<div class="tl-modal-photo"><img src="${img}" alt=""></div>`
-            : `<div class="tl-modal-icon-box">${svg?svg.outerHTML:''}</div>`;
-        dateEl.textContent=dot.getAttribute('data-date')||'';
-        titleEl.textContent=dot.getAttribute('data-title')||'';
-        textEl.textContent=dot.getAttribute('data-text')||'';
-        lastFocused=document.activeElement;
-        overlay.classList.add('open');
-        overlay.setAttribute('aria-hidden','false');
-        document.body.classList.add('no-scroll');
-        closeBtn.focus();
-    }
-    function closeModal(){
-        overlay.classList.remove('open');
-        overlay.setAttribute('aria-hidden','true');
-        document.body.classList.remove('no-scroll');
-        if(lastFocused)lastFocused.focus();
-    }
-    dots.forEach(dot=>dot.addEventListener('click',()=>openModal(dot)));
-    closeBtn.addEventListener('click',closeModal);
-    overlay.addEventListener('click',(e)=>{if(e.target===overlay)closeModal();});
-    modal.addEventListener('click',(e)=>e.stopPropagation());
-    document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeModal();});
-
-    /* arrastar com o mouse (desktop) para navegar na linha do tempo horizontal */
-    const scroller=document.getElementById('tlScroll');
-    const prevBtn=document.getElementById('tlPrev');
-    const nextBtn=document.getElementById('tlNext');
-    if(scroller){
-        let isDown=false,startX=0,startScroll=0,moved=0;
-        scroller.addEventListener('mousedown',(e)=>{
-            isDown=true;dragged=false;moved=0;
-            scroller.classList.add('dragging');
-            startX=e.pageX;startScroll=scroller.scrollLeft;
-        });
-        window.addEventListener('mouseup',()=>{isDown=false;scroller.classList.remove('dragging');setTimeout(()=>{dragged=false;},50);});
-        window.addEventListener('mousemove',(e)=>{
-            if(!isDown)return;
-            e.preventDefault();
-            const dx=e.pageX-startX;
-            if(Math.abs(dx)>4){dragged=true;moved=dx;}
-            scroller.scrollLeft=startScroll-dx;
-        });
-        if(prevBtn)prevBtn.addEventListener('click',()=>scroller.scrollBy({left:-300,behavior:'smooth'}));
-        if(nextBtn)nextBtn.addEventListener('click',()=>scroller.scrollBy({left:300,behavior:'smooth'}));
-
-        /* dica sutil de "arraste": um leve vaivém ao entrar na tela, uma única vez */
-        let nudged=false;
-        const cancelNudge=()=>{nudged=true;nudgeIO.disconnect();};
-        const nudgeIO=new IntersectionObserver((entries)=>{
-            entries.forEach(entry=>{
-                if(entry.isIntersecting&&!nudged){
-                    nudged=true;
-                    setTimeout(()=>{
-                        scroller.scrollTo({left:64,behavior:'smooth'});
-                        setTimeout(()=>{scroller.scrollTo({left:0,behavior:'smooth'});},600);
-                    },500);
-                    nudgeIO.disconnect();
-                }
-            });
-        },{threshold:.4});
-        nudgeIO.observe(scroller);
-        scroller.addEventListener('pointerdown',cancelNudge,{once:true});
-    }
 })();
 
 tick();setInterval(tick,1000);carregarCotas();carregarMensagens();
