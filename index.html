@@ -27,7 +27,7 @@
             --sans:   'Jost', sans-serif;
             --hero-img: url('https://amerikaneked.com/wp-content/uploads/2023/07/shutterstock_2462028509.jpg');
             --bg-img:   url('Downloads/casamento/img/fundo.jpg');
-            --historia-img: url('historia-bg.jpg');
+            --historia-img: url('fundo-bg.jpeg');
             --local-img: url('local-bg.jpg');
             --mid-img: url('fotomid-bg.jpeg');
         }
@@ -311,6 +311,8 @@
         .cota-card:hover { transform: translateY(-2px); }
         .cota-card.esgotada { opacity: .55; pointer-events: none; }
         .cota-card.esgotada::after { content: 'ESGOTADA'; position: absolute; top: 14px; right: -24px; background: var(--rose); color: white; font-size: .55rem; letter-spacing: .14em; padding: 4px 32px; transform: rotate(45deg); }
+        .cota-card.cota-livre { border: 1px solid var(--gold); }
+        .cota-card.cota-livre .cota-valor { font-size: 1.15rem; }
         .cota-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .8rem; gap: 1rem; }
         .cota-titulo { font-family: var(--serif); font-size: 1.4rem; font-weight: 300; font-style: italic; color: var(--ink); }
         .cota-valor { font-family: var(--serif); font-size: 1.65rem; font-weight: 300; color: var(--mocha); line-height: 1; text-align: right; }
@@ -624,6 +626,10 @@
             <p class="pix-eyebrow">Presente para os Noivos</p>
             <p class="pix-cota-nome" id="pix-cota-nome"></p>
             <p class="pix-valor" id="pix-modal-valor"></p>
+            <div class="pix-field" id="pix-valor-livre-wrap" style="display:none">
+                <label for="pixValorLivre">Quanto você quer contribuir? (R$)</label>
+                <input id="pixValorLivre" type="number" min="216" step="1" placeholder="Ex: 250" />
+            </div>
             <div class="pix-qrcode"><img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021126330014BR.GOV.BCB.PIX0114066553061755204000053039865802BR5913IngridMarcos6009Petropolis62070503***6304E67E" alt="QR Code Pix" /></div>
             <div class="pix-copy-box">
                 <p class="pix-titular"><strong>Titular:</strong> Ingrid Sobabe ou Marcos Paulo</p>
@@ -791,7 +797,8 @@ const COTAS_CONFIG=[
     {id:'c190', valor:190, titulo:'Jantar Romântico',       descricao:'Um presente para um jantar inesquecível em nossa viagem.',                       total:15,emoji:'🍷'},
     {id:'c200', valor:200, titulo:'Brinde à Nova Vida',     descricao:'Contribua para celebrarmos essa nova fase com um brinde especial.',              total:15,emoji:'🍾'},
     {id:'c210', valor:210, titulo:'Noite dos Sonhos',       descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.',        total:10,emoji:'🌙'},
-    {id:'c215', valor:215, titulo:'Grande Aventura',        descricao:'O presente para vivermos um grande capítulo dessa aventura.',                    total:10,emoji:'✈️'}
+    {id:'c215', valor:215, titulo:'Grande Aventura',        descricao:'O presente para vivermos um grande capítulo dessa aventura.',                    total:10,emoji:'✈️'},
+    {id:'livre', valor:null, titulo:'Valor Livre',          descricao:'Quer contribuir com um valor diferente? Escolha a quantia que quiser para nos ajudar nessa aventura.', total:999999, emoji:'💛', livre:true, min:216}
 ];
 
 let cotasUsadas={},cotaSelecionada=null,mensagens=[],carPos=0,carVisiveis=3,acompQty=0;
@@ -825,8 +832,15 @@ async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{cons
 function renderCotas(){
     const g=document.getElementById('cotas-grid');if(!g)return;g.innerHTML='';
     COTAS_CONFIG.forEach(c=>{
+        const card=document.createElement('div');
+        if(c.livre){
+            card.className='cota-card reveal cota-livre';
+            card.innerHTML=`<div class="cota-header"><div><div style="font-size:1.25rem;margin-bottom:.2rem">${c.emoji}</div><div class="cota-titulo">${c.titulo}</div></div><div class="cota-valor">Você escolhe<span>a partir de R$ ${c.min}</span></div></div><p class="cota-desc">${c.descricao}</p><button class="cota-btn" onclick="abrirCota('${c.id}')" type="button">Escolher valor</button>`;
+            g.appendChild(card);
+            return;
+        }
         const u=cotasUsadas[c.id]||0,r=c.total-u,p=(u/c.total)*100,e=r<=0;
-        const card=document.createElement('div');card.className='cota-card reveal'+(e?' esgotada':'');
+        card.className='cota-card reveal'+(e?' esgotada':'');
         card.innerHTML=`<div class="cota-header"><div><div style="font-size:1.25rem;margin-bottom:.2rem">${c.emoji}</div><div class="cota-titulo">${c.titulo}</div></div><div class="cota-valor">R$ ${c.valor.toLocaleString('pt-BR')}<span>por cota</span></div></div><p class="cota-desc">${c.descricao}</p><div class="cota-prog-wrap"><div class="cota-prog-label"><span>${u} de ${c.total} escolhidas</span><span>${r} restante${r!==1?'s':''}</span></div><div class="cota-prog-bg"><div class="cota-prog-fill" style="width:${p}%"></div></div></div><button class="cota-btn" onclick="abrirCota('${c.id}')" ${e?'disabled':''} type="button">${e?'Todas as cotas escolhidas':'Presentear com R$ '+c.valor.toLocaleString('pt-BR')}</button>`;
         g.appendChild(card);
     });
@@ -845,7 +859,24 @@ async function carregarCotas(){
         }catch(e){}
     }
 }
-function abrirCota(id){const c=COTAS_CONFIG.find(x=>x.id===id);if(!c)return;cotaSelecionada=id;document.getElementById('pix-cota-nome').textContent=c.emoji+' '+c.titulo;document.getElementById('pix-modal-valor').textContent='R$ '+c.valor.toLocaleString('pt-BR',{minimumFractionDigits:2});togglePixModal(true);}
+function abrirCota(id){
+    const c=COTAS_CONFIG.find(x=>x.id===id);if(!c)return;
+    cotaSelecionada=id;
+    document.getElementById('pix-cota-nome').textContent=c.emoji+' '+c.titulo;
+    const valorEl=document.getElementById('pix-modal-valor'),livreWrap=document.getElementById('pix-valor-livre-wrap'),livreInput=document.getElementById('pixValorLivre');
+    if(c.livre){
+        valorEl.style.display='none';
+        livreWrap.style.display='block';
+        livreInput.value='';
+        livreInput.min=c.min;
+        setTimeout(()=>livreInput.focus(),50);
+    }else{
+        valorEl.style.display='block';
+        livreWrap.style.display='none';
+        valorEl.textContent='R$ '+c.valor.toLocaleString('pt-BR',{minimumFractionDigits:2});
+    }
+    togglePixModal(true);
+}
 function togglePixModal(show){const o=document.getElementById('pixOverlay');if(!o)return;if(show){o.classList.add('open');document.body.style.overflow='hidden';}else{o.classList.remove('open');document.body.style.overflow='';}}
 function copiarPix(){const chave=document.getElementById('chavePix').innerText.trim(),btn=document.getElementById('btnCopiar');if(!navigator.clipboard){alert('Chave: '+chave);return;}navigator.clipboard.writeText(chave).then(()=>{btn.textContent='Copiado! ✓';setTimeout(()=>btn.textContent='Copiar Chave PIX',3000);}).catch(()=>alert('Chave: '+chave));}
 async function confirmarCota(){
@@ -853,8 +884,13 @@ async function confirmarCota(){
     const nome=document.getElementById('pixNome').value.trim();if(!nome){alert('Informe seu nome.');document.getElementById('pixNome').focus();return;}
     if(!pixOk()){alert('Configure o Google Forms PIX.');return;}if(!sb){alert('Conexão indisponível.');return;}
     const btn=document.getElementById('btnConfirmarCota'),cota=COTAS_CONFIG.find(c=>c.id===cotaSelecionada);if(!cota){alert('Cota inválida.');return;}
+    let valor=cota.valor;
+    if(cota.livre){
+        valor=parseFloat(document.getElementById('pixValorLivre').value);
+        if(!valor||isNaN(valor)||valor<cota.min){alert('Informe um valor a partir de R$ '+cota.min+'.');document.getElementById('pixValorLivre').focus();return;}
+    }
     btn.disabled=true;btn.textContent='Confirmando…';
-    try{const fr=await enviarPixGF({nome,cota:cota.titulo,valor:String(cota.valor)});if(!fr.ok){alert('Não foi possível enviar.');return;}const{data,error}=await sb.rpc('registrar_presente',{p_cota_id:cota.id,p_valor:cota.valor});if(error){console.error(error);alert('Confirmação enviada, mas houve erro ao registrar.');return;}if(!data?.ok){alert(data?.message||'Não foi possível registrar.');await carregarCotas();return;}alert('Confirmação enviada! Muito obrigado 💛');cotaSelecionada=null;document.getElementById('pixNome').value='';togglePixModal(false);await carregarCotas();}
+    try{const fr=await enviarPixGF({nome,cota:cota.titulo,valor:String(valor)});if(!fr.ok){alert('Não foi possível enviar.');return;}const{data,error}=await sb.rpc('registrar_presente',{p_cota_id:cota.id,p_valor:valor});if(error){console.error(error);alert('Confirmação enviada, mas houve erro ao registrar.');return;}if(!data?.ok){alert(data?.message||'Não foi possível registrar.');await carregarCotas();return;}alert('Confirmação enviada! Muito obrigado 💛');cotaSelecionada=null;document.getElementById('pixNome').value='';togglePixModal(false);await carregarCotas();}
     catch(err){console.error(err);alert('Erro inesperado.');}finally{btn.disabled=false;btn.textContent='Já fiz o PIX';}
 }
 
