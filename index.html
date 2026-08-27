@@ -283,18 +283,18 @@
         #historia {
             position: relative;
             background:
-                linear-gradient(180deg, rgba(26,15,11,.8), rgba(26,15,11,.82)),
+                linear-gradient(180deg, rgba(20,12,9,.4), rgba(20,12,9,.46)),
                 var(--historia-img) center/cover no-repeat fixed;
             padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem);
         }
         .stag { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--menu); font-size: .64rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
         .stag::before { content: ""; width: 26px; height: 1px; background: currentColor; opacity: .55; }
         .stitle { font-family: var(--serif); font-size: clamp(2.2rem,4.5vw,3.2rem); font-weight: 300; font-style: italic; line-height: 1.1; margin-bottom: 1.4rem; color: var(--ink); }
-        #historia .stitle { color: var(--cream); text-align: center; }
+        #historia .stitle { color: var(--cream); text-align: center; text-shadow: 0 2px 16px rgba(0,0,0,.7), 0 1px 4px rgba(0,0,0,.85); }
 
         /* História: texto centralizado sobre a foto de fundo */
         .historia-layout { display: flex; justify-content: center; }
-        .historia-text { max-width: 700px; font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: rgba(246,238,231,.94); text-shadow: 0 1px 10px rgba(0,0,0,.25); }
+        .historia-text { max-width: 700px; font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: rgba(250,244,238,.98); text-shadow: 0 2px 14px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.85); text-align: justify; text-justify: inter-word; }
         .historia-text p { margin-bottom: 1.5rem; }
         .historia-text p:last-child { margin-bottom: 0; }
         @media (max-width: 820px) {
@@ -441,9 +441,7 @@
                 var(--local-img) center/cover no-repeat fixed;
             padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem);
         }
-        .venue-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 3rem; margin-top: 2rem; align-items: start; }
-        .map-wrap { overflow: hidden; height: 320px; }
-        .map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .venue-grid { display: flex; justify-content: center; text-align: center; margin-top: 2rem; }
         .local-name { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--ink); margin-bottom: .45rem; }
         .local-addr { font-size: .87rem; color: rgba(74,49,40,.68); line-height: 1.8; }
         .btn-map { display: inline-flex; align-items: center; margin-top: 1.3rem; padding: .82rem 1.75rem; background: var(--mocha); color: var(--white); font-family: var(--menu); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; transition: background .2s; }
@@ -479,7 +477,7 @@
         }
         @media (max-width: 768px) {
             #hero { padding-top: 11rem; }
-            .venue-grid { grid-template-columns: 1fr; }
+            .venue-grid { text-align: center; }
             .cotas-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
@@ -603,10 +601,10 @@
         <h2 class="stitle">Como tudo começou</h2></div>
     <div class="historia-layout reveal d1">
         <div class="historia-text">
-            <p>Era novembro de 2024. Eu sempre esqueço o dia, mas lembro do mês. Conheci Marcos na torre da Catedral São Pedro de Alcântara, numa tarde nublada em Petrópolis. Eu estava encantada pela cidade, tão antiga e romântica. Ele era guia do passeio no alto da torre. Naquele dia, meu celular estava descarregado e ele, gentilmente, me emprestou o seu para que eu tirasse fotos. Trocamos nossos números, o pretexto necessário para o início de tudo.</p>
-            <p>Dois dias depois, convidei Marcos para jantar em um restaurante italiano. Conversamos muito naquela noite, bebemos vinho, e tudo parecia leve e empolgante. Foi também nesse dia que demos nosso primeiro beijo.</p>
-            <p>No dia marcado para minha volta ao Rio, eu ficaria hospedada na casa de uma amiga. Tudo parecia tão incerto; não queria levar um namoro à distância. Nos despedimos na Ponte Vermelha, de frente à catedral. Nos beijamos acreditando que seria a última vez. Eu estava grata por tudo, Marcos era tão interessante, mas segui meu caminho...</p>
-            <p>Só que não conseguimos parar de nos falar. Marcos veio me ver em Anápolis e passamos juntos a virada do ano. No dia 2 de janeiro de 2025, ele me pediu em namoro, e eu aceitei, hehehe. No dia 5 de junho de 2025, ele veio morar em Anápolis. No dia 26 de julho de 2025, me pediu em casamento. E no dia 31 de outubro de 2026 vamos nos casar!!! Continua...</p>
+            <p>Era novembro de 2024. Posso até esquecer o dia exato, mas o mês ficou gravado para sempre. Conheci o Marcos no alto da torre da Catedral de São Pedro de Alcântara, em uma tarde de céu nublado em Petrópolis. Enquanto eu me encantava pela atmosfera antiga e romântica da cidade, ele guiava o passeio. Como meu celular havia descarregado, ele gentilmente me emprestou o dele para tirar fotos, e essa troca de telefones acabou sendo o pretexto perfeito para o início de tudo.</p>
+            <p>Dois dias depois, o convidei para jantar. Entre taças de vinho e boas conversas em um restaurante italiano, a noite fluiu leve e especial. Foi ali que demos nosso primeiro beijo.</p>
+            <p>A incerteza veio no dia de ir embora. Receosa com a ideia de um relacionamento à distância, nos despedimos na Ponte Vermelha, bem de frente para a catedral. Nos beijamos com o aperto no peito de quem achava que seria a despedida final. Eu me sentia grata pelo momento e encantada por ele, mas segui viagem...</p>
+            <p>Só que o destino tinha outros planos e simplesmente não conseguíamos ficar sem nos falar. O Marcos veio me visitar em Anápolis para a virada do ano e, no dia 2 de janeiro de 2025, veio o pedido de namoro. Em 5 de julho fez as malas e se mudou para Anápolis. Pouco depois, em 26 de julho de 2025, veio o pedido de casamento. E no dia 31 de outubro de 2026, vamos oficializar nossa história diante de quem amamos!</p>
         </div>
     </div>
 </section>
@@ -630,10 +628,10 @@
                 <label for="pixValorLivre">Quanto você quer contribuir? (R$)</label>
                 <input id="pixValorLivre" type="number" min="216" step="1" placeholder="Ex: 250" />
             </div>
-            <div class="pix-qrcode"><img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021126330014BR.GOV.BCB.PIX0114066553061755204000053039865802BR5913IngridMarcos6009Petropolis62070503***6304E67E" alt="QR Code Pix" /></div>
+            <div class="pix-qrcode"><img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021126360014BR.GOV.BCB.PIX0114%2B55249886385465204000053039865802BR5912IngridMarcos6010Petropolis62070503%2A%2A%2A6304F783" alt="QR Code Pix" /></div>
             <div class="pix-copy-box">
                 <p class="pix-titular"><strong>Titular:</strong> Ingrid Sobabe ou Marcos Paulo</p>
-                <p id="chavePix" class="pix-chave">066.553.061-75</p>
+                <p id="chavePix" class="pix-chave">+5524988638546</p>
                 <button class="copy-btn" id="btnCopiar" onclick="copiarPix()" type="button">Copiar Chave PIX</button>
             </div>
             <div class="pix-field">
@@ -738,9 +736,6 @@
             <p class="local-name">Catedral São Pedro de Alcântara</p>
             <p class="local-addr">Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ</p>
             <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="btn-map">Abrir no Google Maps</a>
-        </div>
-        <div class="map-wrap">
-            <iframe title="Catedral São Pedro de Alcântara" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.08!2d-43.1794!3d-22.5053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9978286a41e7ef%3A0x9de4a4ab0cbfaeac!2sCatedral%20S%C3%A3o%20Pedro%20de%20Alc%C3%A2ntara!5e0!3m2!1spt-BR!2sbr!4v1714000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </section>
