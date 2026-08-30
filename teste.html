@@ -27,6 +27,10 @@
             --sans:   'Jost', sans-serif;
             --hero-img: url('https://amerikaneked.com/wp-content/uploads/2023/07/shutterstock_2462028509.jpg');
             --bg-img:   url('Downloads/casamento/img/fundo.jpg');
+            --historia-img: url('fundo-bg.jpeg');
+            --local-img: url('local-bg.jpg');
+            --mid-img: url('fotomid-bg.jpeg');
+            --footer-img: url('footer-catedral.jpg');
         }
         html { scroll-behavior: smooth; }
         body { font-family: var(--sans); background: var(--cream); color: var(--ink); overflow-x: hidden; line-height: 1.6; }
@@ -277,47 +281,26 @@
         .std-loc strong { color: rgba(255,250,246,.75); }
 
         /* HISTÓRIA */
-        #historia { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
+        #historia {
+            position: relative;
+            background:
+                linear-gradient(180deg, rgba(20,12,9,.4), rgba(20,12,9,.46)),
+                var(--historia-img) center/cover no-repeat fixed;
+            padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem);
+        }
         .stag { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--menu); font-size: .64rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
         .stag::before { content: ""; width: 26px; height: 1px; background: currentColor; opacity: .55; }
         .stitle { font-family: var(--serif); font-size: clamp(2.2rem,4.5vw,3.2rem); font-weight: 300; font-style: italic; line-height: 1.1; margin-bottom: 1.4rem; color: var(--ink); }
+        #historia .stitle { color: var(--cream); text-align: center; text-shadow: 0 2px 16px rgba(0,0,0,.7), 0 1px 4px rgba(0,0,0,.85); }
+        #local .stitle { text-shadow: 0 1px 8px rgba(255,255,255,.9), 0 0 4px rgba(255,255,255,.8); }
 
-        /* História: layout duas colunas com imagem */
-        .historia-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem,5vw,4.5rem); align-items: start; }
-        .historia-text { font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: rgba(74,49,40,.82); }
+        /* História: texto centralizado sobre a foto de fundo */
+        .historia-layout { display: flex; justify-content: center; }
+        .historia-text { max-width: 700px; font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: rgba(250,244,238,.98); text-shadow: 0 2px 14px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.85); text-align: justify; text-justify: inter-word; }
         .historia-text p { margin-bottom: 1.5rem; }
         .historia-text p:last-child { margin-bottom: 0; }
-        .historia-img-wrap { position: relative; padding: 16px 0 0 16px; }
-        .historia-img-wrap::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 16px; bottom: 16px;
-            border: 1px solid var(--gold-lt);
-            z-index: 0;
-            pointer-events: none;
-        }
-        .historia-img-wrap img {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: sepia(10%) saturate(88%) contrast(1.03);
-        }
-        .historia-caption {
-            position: relative;
-            z-index: 1;
-            margin-top: .9rem;
-            font-family: var(--serif);
-            font-size: .85rem;
-            font-style: italic;
-            color: var(--gold);
-            text-align: center;
-            letter-spacing: .06em;
-        }
         @media (max-width: 820px) {
-            .historia-layout { grid-template-columns: 1fr; }
-            .historia-img-wrap { max-width: 400px; margin: 2rem auto 0; }
+            #historia { background-attachment: scroll; }
         }
 
         /* PRESENTES */
@@ -329,6 +312,8 @@
         .cota-card:hover { transform: translateY(-2px); }
         .cota-card.esgotada { opacity: .55; pointer-events: none; }
         .cota-card.esgotada::after { content: 'ESGOTADA'; position: absolute; top: 14px; right: -24px; background: var(--rose); color: white; font-size: .55rem; letter-spacing: .14em; padding: 4px 32px; transform: rotate(45deg); }
+        .cota-card.cota-livre { border: 1px solid var(--gold); }
+        .cota-card.cota-livre .cota-valor { font-size: 1.15rem; }
         .cota-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .8rem; gap: 1rem; }
         .cota-titulo { font-family: var(--serif); font-size: 1.4rem; font-weight: 300; font-style: italic; color: var(--ink); }
         .cota-valor { font-family: var(--serif); font-size: 1.65rem; font-weight: 300; color: var(--mocha); line-height: 1; text-align: right; }
@@ -399,13 +384,24 @@
 
         /* MANUAL */
         #manual { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
-        .manual-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-top: 1px solid rgba(74,49,40,.12); margin-top: 2.5rem; }
-        .manual-card { padding: 2rem 1.8rem; border-right: 1px solid rgba(74,49,40,.12); }
-        .manual-card:last-child { border-right: none; }
-        .manual-icon { font-size: 1.15rem; margin-bottom: .7rem; }
-        .manual-title { font-family: var(--serif); font-size: 1.45rem; font-style: italic; color: var(--ink); margin-bottom: .8rem; }
-        .manual-list, .dress-tips { list-style: none; font-size: .87rem; line-height: 1.9; color: rgba(74,49,40,.78); display: grid; gap: .3rem; }
-        .manual-list strong { color: var(--ink); font-weight: 600; }
+        /* FOTO + MONOGRAMA (divisor "grande dia") */
+        #manual {
+            position: relative;
+            min-height: 680px;
+            background: var(--mid-img) center/cover no-repeat;
+        }
+        .mid-mono-i {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-64%,-56%) rotate(-5deg);
+            font-family: var(--script); font-size: 9.4rem; color: var(--white);
+            text-shadow: 0 4px 22px rgba(0,0,0,.35); white-space: nowrap;
+        }
+        .mid-mono-m {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-36%,-48%);
+            font-family: var(--serif); font-size: 7.6rem; color: var(--white);
+            text-shadow: 0 4px 22px rgba(0,0,0,.38); white-space: nowrap;
+        }
         .dress-tips li { display: flex; gap: .45rem; }
         .dress-tips li::before { content: "·"; color: var(--gold); flex-shrink: 0; }
 
@@ -421,11 +417,16 @@
         .form-g textarea { resize: vertical; min-height: 88px; }
         .presenca-label { font-size: .8rem; color: rgba(255,250,246,.68); font-weight: 500; margin-bottom: .55rem; display: block; }
         .presenca-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; margin-bottom: 1.3rem; }
-        .presenca-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .42rem; padding: 1.2rem 1rem; background: rgba(255,250,246,.08); border: 1px solid rgba(255,250,246,.14); cursor: pointer; transition: all .22s; font-family: var(--sans); text-align: center; }
+        .presenca-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .42rem; padding: 1.2rem 1rem; background: rgba(255,250,246,.08); border: 2px solid rgba(255,250,246,.14); cursor: pointer; transition: all .22s; font-family: var(--sans); text-align: center; position: relative; }
         .presenca-btn:hover { background: rgba(255,250,246,.14); border-color: rgba(255,250,246,.28); }
-        .presenca-btn.selected-sim { background: rgba(183,145,121,.22); border-color: var(--gold-lt); }
-        .presenca-btn.selected-online { background: rgba(219,200,187,.16); border-color: rgba(219,200,187,.55); }
-        .presenca-btn.selected-nao { background: rgba(201,168,151,.13); border-color: rgba(201,168,151,.38); }
+        .presenca-btn.selected-sim, .presenca-btn.selected-online, .presenca-btn.selected-nao { background: var(--gold); border-color: var(--gold); box-shadow: 0 10px 26px rgba(0,0,0,.32); transform: translateY(-3px); }
+        .presenca-btn.selected-sim .presenca-titulo, .presenca-btn.selected-online .presenca-titulo, .presenca-btn.selected-nao .presenca-titulo { color: var(--mocha); }
+        .presenca-btn.selected-sim .presenca-sub, .presenca-btn.selected-online .presenca-sub, .presenca-btn.selected-nao .presenca-sub { color: rgba(74,49,40,.72); }
+        .presenca-btn.selected-sim::after, .presenca-btn.selected-online::after, .presenca-btn.selected-nao::after {
+            content: '✓'; position: absolute; top: -11px; right: -11px; width: 26px; height: 26px; border-radius: 50%;
+            background: var(--ink); color: var(--white); display: flex; align-items: center; justify-content: center;
+            font-size: .8rem; font-weight: 700; box-shadow: 0 3px 10px rgba(0,0,0,.4); border: 2px solid var(--mocha);
+        }
         .presenca-emoji { font-size: 1.55rem; line-height: 1; }
         .presenca-titulo { font-family: var(--serif); font-size: 1.05rem; font-style: italic; color: var(--white); }
         .presenca-sub { font-size: .66rem; color: rgba(255,250,246,.45); }
@@ -444,7 +445,8 @@
         .acomp-input { flex: 1; padding: .65rem; background: rgba(255,250,246,.09); border: 1px solid rgba(255,250,246,.14); color: var(--white); font-family: var(--sans); font-size: .86rem; outline: none; }
         .acomp-input::placeholder { color: rgba(255,250,246,.28); }
         .acomp-input:focus { background: rgba(255,250,246,.15); }
-        .rsvp-submit { display: block; width: 100%; margin-top: 1.5rem; padding: 1rem; background: var(--white); color: var(--mocha); border: none; font-family: var(--menu); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: all .2s; }
+        .rsvp-submit { display: none; width: 100%; margin-top: 1.5rem; padding: 1rem; background: var(--white); color: var(--mocha); border: none; font-family: var(--menu); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; transition: all .2s; }
+        .rsvp-submit.show { display: block; }
         .rsvp-submit:hover { background: var(--gold-lt); }
         .thanks-box { background: rgba(255,250,246,.09); border: 1px solid rgba(255,250,246,.16); padding: 2.4rem; text-align: center; margin-top: .5rem; }
         .thanks-kicker { font-family: var(--menu); font-size: .64rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .6rem; }
@@ -453,34 +455,31 @@
         .thanks-msg { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,250,246,.13); font-family: var(--serif); font-size: .97rem; font-style: italic; color: rgba(255,250,246,.55); }
 
         /* LOCAL */
-        #local { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
-        .venue-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 3rem; margin-top: 2rem; align-items: start; }
-        .map-wrap { overflow: hidden; height: 320px; }
-        .map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
-        .local-name { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--ink); margin-bottom: .45rem; }
-        .local-addr { font-size: .87rem; color: rgba(74,49,40,.68); line-height: 1.8; }
+        #local { padding: 0; background: var(--cream); }
+        .local-photo-wrap { position: relative; width: 100%; line-height: 0; }
+        .local-photo { width: 100%; height: auto; display: block; }
+        .local-overlay-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(1.5rem,5vw,3rem); }
+        .venue-grid { display: flex; justify-content: center; text-align: center; margin-top: 1.6rem; }
+        .local-name { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--ink); margin-bottom: .45rem; text-shadow: 0 1px 6px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.75); }
+        .local-addr { font-size: .87rem; color: rgba(74,49,40,.78); line-height: 1.8; text-shadow: 0 1px 6px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.75); }
         .btn-map { display: inline-flex; align-items: center; margin-top: 1.3rem; padding: .82rem 1.75rem; background: var(--mocha); color: var(--white); font-family: var(--menu); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; transition: background .2s; }
         .btn-map:hover { background: var(--ink); }
 
         /* FOOTER */
-        footer { position: relative; overflow: hidden; text-align: center; padding: 5rem 1.5rem 4rem; background: var(--mocha) var(--hero-img) center 36%/cover no-repeat; }
+        footer { position: relative; overflow: hidden; text-align: center; padding: 5rem 1.5rem 4rem; background: var(--mocha) var(--footer-img) center 36%/cover no-repeat; }
         footer::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(74,49,40,.68) 0%,rgba(74,49,40,.78) 100%); }
         .footer-inner { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
         .footer-mono { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 108px; height: 104px; margin-bottom: 1.1rem; text-decoration: none; }
         .footer-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 5.8rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.28); }
         .footer-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.7rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.3); }
-        .footer-nav { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.3rem; }
-        .footer-nav a { font-family: var(--menu); font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,250,246,.78); text-decoration: none; transition: opacity .2s; }
-        .footer-nav a:hover { opacity: .55; }
         .footer-couple { font-family: var(--script); font-size: 2.7rem; color: var(--white); line-height: .9; margin-bottom: .55rem; }
         .footer-date { font-family: var(--menu); font-size: .64rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,250,246,.48); }
 
         /* RESPONSIVE */
         @media (max-width: 1000px) {
-            .manual-grid { grid-template-columns: repeat(2,1fr); }
-            .manual-card { border-right: none; border-bottom: 1px solid rgba(74,49,40,.12); }
-            .manual-card:nth-child(odd) { border-right: 1px solid rgba(74,49,40,.12); }
-            .manual-card:nth-last-child(-n+2) { border-bottom: none; }
+            #manual { min-height: 560px; }
+            .mid-mono-i { font-size: 7.6rem; }
+            .mid-mono-m { font-size: 6.1rem; }
         }
         @media (max-width: 860px) {
             /* Troca o menu completo por hambúrguer (esquerda) + acessos rápidos (direita) */
@@ -493,16 +492,14 @@
         }
         @media (max-width: 768px) {
             #hero { padding-top: 11rem; }
-            .venue-grid { grid-template-columns: 1fr; }
+            .venue-grid { text-align: center; }
             .cotas-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
-            .manual-grid { grid-template-columns: 1fr; }
-            .manual-card { border-right: none; border-bottom: 1px solid rgba(74,49,40,.12); }
-            .manual-card:nth-child(odd) { border-right: none; }
-            .manual-card:last-child { border-bottom: none; }
+            #manual { min-height: 440px; }
+            .mid-mono-i { font-size: 5.6rem; }
+            .mid-mono-m { font-size: 4.5rem; }
             .presenca-btns { grid-template-columns: 1fr; gap: .6rem; }
-            .footer-nav { flex-direction: column; gap: .45rem; }
         }
         @media (max-width: 900px) { .msg-card { flex: 0 0 calc(50% - .8rem); } }
         @media (max-width: 600px) { .msg-card { flex: 0 0 88%; } }
@@ -618,14 +615,10 @@
         <h2 class="stitle">Como tudo começou</h2></div>
     <div class="historia-layout reveal d1">
         <div class="historia-text">
-            <p>Era novembro de 2024. Eu sempre esqueço o dia, mas lembro do mês. Conheci Marcos na torre da Catedral São Pedro de Alcântara, numa tarde nublada em Petrópolis. Eu estava encantada pela cidade, tão antiga e romântica. Ele era guia do passeio no alto da torre. Naquele dia, meu celular estava descarregado e ele, gentilmente, me emprestou o seu para que eu tirasse fotos. Trocamos nossos números, o pretexto necessário para o início de tudo.</p>
-            <p>Dois dias depois, convidei Marcos para jantar em um restaurante italiano. Conversamos muito naquela noite, bebemos vinho, e tudo parecia leve e empolgante. Foi também nesse dia que demos nosso primeiro beijo.</p>
-            <p>No dia marcado para minha volta ao Rio, eu ficaria hospedada na casa de uma amiga. Tudo parecia tão incerto; não queria levar um namoro à distância. Nos despedimos na Ponte Vermelha, de frente à catedral. Nos beijamos acreditando que seria a última vez. Eu estava grata por tudo, Marcos era tão interessante, mas segui meu caminho...</p>
-            <p>Só que não conseguimos parar de nos falar. Marcos veio me ver em Anápolis e passamos juntos a virada do ano. No dia 2 de janeiro de 2025, ele me pediu em namoro, e eu aceitei, hehehe. No dia 5 de junho de 2025, ele veio morar em Anápolis. No dia 26 de julho de 2025, me pediu em casamento. E no dia 31 de outubro de 2026 vamos nos casar!!! Continua...</p>
-        </div>
-        <div class="historia-img-wrap">
-        
-            <p class="historia-caption">Ingrid &amp; Marcos</p>
+            <p>Era novembro de 2024. Posso até esquecer o dia exato, mas o mês ficou gravado para sempre. Conheci o Marcos no alto da torre da Catedral de São Pedro de Alcântara, em uma tarde de céu nublado em Petrópolis. Enquanto eu me encantava pela atmosfera antiga e romântica da cidade, ele guiava o passeio. Como meu celular havia descarregado, ele gentilmente me emprestou o dele para tirar fotos, e essa troca de telefones acabou sendo o pretexto perfeito para o início de tudo.</p>
+            <p>Dois dias depois, o convidei para jantar. Entre taças de vinho e boas conversas em um restaurante italiano, a noite fluiu leve e especial. Foi ali que demos nosso primeiro beijo.</p>
+            <p>A incerteza veio no dia de ir embora. Receosa com a ideia de um relacionamento à distância, nos despedimos na Ponte Vermelha, bem de frente para a catedral. Nos beijamos com o aperto no peito de quem achava que seria a despedida final. Eu me sentia grata pelo momento e encantada por ele, mas segui viagem...</p>
+            <p>Só que o destino tinha outros planos e simplesmente não conseguíamos ficar sem nos falar. O Marcos veio me visitar em Anápolis para a virada do ano e, no dia 2 de janeiro de 2025, veio o pedido de namoro. Em 5 de julho fez as malas e se mudou para Anápolis. Pouco depois, em 26 de julho de 2025, veio o pedido de casamento. E no dia 31 de outubro de 2026, vamos oficializar nossa história diante de quem amamos!</p>
         </div>
     </div>
 </section>
@@ -657,17 +650,20 @@
             <p class="pix-eyebrow">Presente para os Noivos</p>
             <p class="pix-cota-nome" id="pix-cota-nome"></p>
             <p class="pix-valor" id="pix-modal-valor"></p>
-            <div class="pix-qrcode"><img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021126330014BR.GOV.BCB.PIX0114066553061755204000053039865802BR5913IngridMarcos6009Petropolis62070503***6304E67E" alt="QR Code Pix" /></div>
+            <div class="pix-field" id="pix-valor-livre-wrap" style="display:none">
+                <label for="pixValorLivre">Quanto você quer contribuir? (R$)</label>
+                <input id="pixValorLivre" type="number" min="216" step="1" placeholder="Ex: 250" />
+            </div>
+            <div class="pix-qrcode"><img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021126360014BR.GOV.BCB.PIX0114%2B55249886385465204000053039865802BR5912IngridMarcos6010Petropolis62070503%2A%2A%2A6304F783" alt="QR Code Pix" /></div>
             <div class="pix-copy-box">
                 <p class="pix-titular"><strong>Titular:</strong> Ingrid Sobabe ou Marcos Paulo</p>
-                <p id="chavePix" class="pix-chave">066.553.061-75</p>
+                <p id="chavePix" class="pix-chave">+5524988638546</p>
                 <button class="copy-btn" id="btnCopiar" onclick="copiarPix()" type="button">Copiar Chave PIX</button>
             </div>
             <div class="pix-field">
                 <label for="pixNome">Nome para confirmação</label>
                 <input id="pixNome" type="text" placeholder="Seu nome completo" required />
             </div>
-            <p class="pix-helper">Informe seu nome para registrarmos a confirmação corretamente.</p>
             <div class="pix-field">
                 <label for="pixComprovante">Comprovante do Pix (print ou PDF) <span class="comprovante-required-tag">*obrigatório</span></label>
                 <input id="pixComprovante" type="file" accept="image/*,.pdf,application/pdf" required />
@@ -675,7 +671,7 @@
             </div>
             <p class="pix-helper">Anexe aqui o print ou o PDF do comprovante para confirmarmos seu presente.</p>
             <button class="pix-confirm" id="btnConfirmarCota" onclick="confirmarCota()" type="button">Já fiz o PIX</button>
-            <button class="pix-close" onclick="togglePixModal(false)" type="button">Fechar</button>
+            <button class="pix-close" onclick="togglePixModal(false,'pixOverlay')" type="button">Fechar</button>
         </div>
     </div>
 </section>
@@ -695,41 +691,10 @@
 </section>
 
 <!-- MANUAL -->
+<!-- FOTO + MONOGRAMA -->
 <section id="manual">
-    <div class="reveal">
-        <h2 class="stitle">Informações para o grande dia</h2></div>
-    <div class="manual-grid reveal d1">
-        <article class="manual-card">
-            <div class="manual-icon">🕐</div>
-            <h3 class="manual-title">Horários</h3>
-            <ul class="manual-list">
-                <li><strong>Data:</strong> 31 de outubro de 2026</li>
-                <li><strong>Chegada sugerida:</strong> 30 minutos antes</li>
-                <li><strong>Cerimônia:</strong> a confirmar</li>
-                <li><strong>Recepção:</strong> logo após a cerimônia</li>
-            </ul>
-        </article>
-        <article class="manual-card">
-            <div class="manual-icon">👗</div>
-            <h3 class="manual-title">Dress Code</h3>
-            <ul class="dress-tips">
-                <li>Traje <strong>social / passeio completo</strong></li>
-                <li>Cavalheiros: terno ou blazer com calça social</li>
-                <li>Damas: vestidos midi ou longos, macacões de festa</li>
-                <li>Tons neutros, terrosos, rosê, dourado ou preto</li>
-                <li>Evitar branco — reservado à noiva 🤍</li>
-            </ul>
-        </article>
-        <article class="manual-card">
-            <div class="manual-icon">📍</div>
-            <h3 class="manual-title">Local</h3>
-            <ul class="manual-list">
-                <li><strong>Cerimônia:</strong> Catedral São Pedro de Alcântara</li>
-                <li>Rua São Pedro de Alcântara, 60</li>
-                <li>Centro — Petrópolis, RJ</li>
-            </ul>
-        </article>
-    </div>
+    <span class="mid-mono-i">I</span>
+    <span class="mid-mono-m">M</span>
 </section>
 
 <!-- RSVP -->
@@ -795,16 +760,18 @@
 
 <!-- LOCAL -->
 <section id="local">
-    <div class="reveal">
-        <h2 class="stitle">Onde tudo acontecerá</h2></div>
-    <div class="venue-grid reveal d1">
-        <div>
-            <p class="local-name">Catedral São Pedro de Alcântara</p>
-            <p class="local-addr">Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ</p>
-            <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="btn-map">Abrir no Google Maps</a>
-        </div>
-        <div class="map-wrap">
-            <iframe title="Catedral São Pedro de Alcântara" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.08!2d-43.1794!3d-22.5053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9978286a41e7ef%3A0x9de4a4ab0cbfaeac!2sCatedral%20S%C3%A3o%20Pedro%20de%20Alc%C3%A2ntara!5e0!3m2!1spt-BR!2sbr!4v1714000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="local-photo-wrap">
+        <img src="local-bg.jpg" alt="Catedral São Pedro de Alcântara" class="local-photo" />
+        <div class="local-overlay-content">
+            <div class="reveal">
+                <h2 class="stitle">Onde tudo acontecerá</h2></div>
+            <div class="venue-grid reveal d1">
+                <div>
+                    <p class="local-name">Catedral São Pedro de Alcântara</p>
+                    <p class="local-addr">Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ</p>
+                    <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="btn-map">Abrir no Google Maps</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -816,14 +783,6 @@
             <span class="footer-mono-i">I</span>
             <span class="footer-mono-m">M</span>
         </a>
-        <nav class="footer-nav">
-            <a href="#hero">Início</a>
-            <a href="#historia">Nossa História</a>
-            <a href="#presentes">Lua de Mel</a>
-            <a href="#manual">Manual</a>
-            <a href="#rsvp">Presença</a>
-            <a href="#local">Local</a>
-        </nav>
         <p class="footer-couple">Ingrid &amp; Marcos</p>
         <p class="footer-date">31 de Outubro de 2026 &nbsp;·&nbsp; Feito com muito amor</p>
     </div>
@@ -837,32 +796,12 @@ const WEDDING_DATE=new Date('2026-10-31T16:00:00-03:00');
 const ENABLE_GOOGLE_FORMS=true;
 const GOOGLE_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdObA_ZQMPRwDYjZvRzRRf5z1U_9OPKQQS1vBMnGt3ZHk9_dA/formResponse";
 const GOOGLE_FORM_FIELDS={nome:"entry.698488504",presenca:"entry.301285473",mensagem:"entry.621416400",acompanhantes:"entry.1576249945",origem:""};
-/* FORMULARIO 1 do Pix — Nome e Valor (já existia) */
-const PIX_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdXLpB-poYvwodTlvDa8_4MAU5Ti8AV9yB8nlWVuRui-o7FxA/formResponse";
-const PIX_FORM_FIELDS={nome:"entry.91308880",valor:"entry.1815091321"};
-
-/* FORMULARIO 2 do Pix — Cota e Link do comprovante (formulário separado, novo) */
-const PIX_COTA_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSemKTWFdwyUS71lirUhrNCoQdLmlCdVmorge97xEe0CrZ5iYg/formResponse";
-/* Mapeamento pelos valores de teste que você preencheu: "100,00" -> Cota,
-   "google.com" -> Link do comprovante. Se estiver trocado, é só inverter os dois. */
-const PIX_COTA_FORM_FIELDS={cota:"entry.1350134623",comprovante:"entry.1208638352"};
-
-/* Bucket do Supabase Storage onde SOMENTE o arquivo do comprovante (print/PDF)
-   e enviado — ele so devolve um link, quem controla quantas cotas já foram
-   escolhidas agora é a planilha do FORMULARIO 2 (Cota + Comprovante). */
+const PIX_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSemKTWFdwyUS71lirUhrNCoQdLmlCdVmorge97xEe0CrZ5iYg/formResponse";
+const PIX_FORM_FIELDS={nome:"entry.50996302",cota:"entry.1350134623",valor:"",comprovante:"entry.1208638352"};
+/* Bucket do Supabase Storage onde os comprovantes (print/PDF) sao enviados */
 const COMPROVANTES_BUCKET="comprovantes";
-
-/* Planilha de respostas do FORMULARIO 2 (Cota + Comprovante): abra esse Forms >
-   aba "Respostas" > ícone verde do Sheets > isso cria/abre a planilha > copie
-   o ID que fica na URL entre "/d/" e "/edit". A planilha precisa estar como
-   "Qualquer pessoa com o link pode visualizar". */
-const PIX_SHEET_ID="COLE_AQUI_O_ID_DA_PLANILHA_DO_FORM_2_COTA_COMPROVANTE";
-const PIX_SHEET_NAME="Form_Responses"; // confira o nome real da aba, no rodapé da planilha
-/* Número da coluna (0 = coluna A) onde fica a resposta da pergunta "Cota"
-   NESSA planilha do Formulário 2. A coluna A é sempre o carimbo de data/hora
-   automático do Forms; como esse formulário só tem 2 perguntas, geralmente
-   "Cota" cai na coluna B (1) — mas confira na planilha antes de confirmar. */
-const PIX_COL_COTA=1;
+/* Tabela onde fica o registro de nome + link do comprovante de cada Pix, para conferencia dos noivos */
+const COMPROVANTES_TABLE="comprovantes_pix";
 
 /* Mensagens dos convidados: lidas direto de uma planilha do Google Sheets
    (a mesma planilha que o Forms de presença cria em Respostas > planilha).
@@ -885,7 +824,8 @@ const COTAS_CONFIG=[
     {id:'c190', valor:190, titulo:'Jantar Romântico',       descricao:'Um presente para um jantar inesquecível em nossa viagem.',                       total:15,emoji:'🍷'},
     {id:'c200', valor:200, titulo:'Brinde à Nova Vida',     descricao:'Contribua para celebrarmos essa nova fase com um brinde especial.',              total:15,emoji:'🍾'},
     {id:'c210', valor:210, titulo:'Noite dos Sonhos',       descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.',        total:10,emoji:'🌙'},
-    {id:'c215', valor:215, titulo:'Grande Aventura',        descricao:'O presente para vivermos um grande capítulo dessa aventura.',                    total:10,emoji:'✈️'}
+    {id:'c215', valor:215, titulo:'Grande Aventura',        descricao:'O presente para vivermos um grande capítulo dessa aventura.',                    total:10,emoji:'✈️'},
+    {id:'livre', valor:null, titulo:'Valor Livre',          descricao:'Quer contribuir com um valor diferente? Escolha a quantia que quiser para nos ajudar nessa aventura.', total:999999, emoji:'💛', livre:true, min:216}
 ];
 
 let cotasUsadas={},cotaSelecionada=null,mensagens=[],carPos=0,carVisiveis=3,acompQty=0;
@@ -896,7 +836,7 @@ function getAcompanhantes(){return Array.from(document.querySelectorAll('.acomp-
 
 function selecionarPresenca(v){
     document.getElementById('presenca').value=v;
-    const bs=document.getElementById('btn-sim'),bo=document.getElementById('btn-online'),bn=document.getElementById('btn-nao'),af=document.getElementById('acomp-fields');
+    const bs=document.getElementById('btn-sim'),bo=document.getElementById('btn-online'),bn=document.getElementById('btn-nao'),af=document.getElementById('acomp-fields'),sub=document.getElementById('btn-rsvp');
     bs.className='presenca-btn';bo.className='presenca-btn';bn.className='presenca-btn';
     if(v==='sim'){
         bs.classList.add('selected-sim');af.classList.add('visible');
@@ -905,57 +845,64 @@ function selecionarPresenca(v){
         else bn.classList.add('selected-nao');
         af.classList.remove('visible');acompQty=0;document.getElementById('qty-display').textContent='0';renderAcompNames();
     }
+    sub.classList.add('show');
 }
 
 function pad(n){return String(n).padStart(2,'0');}
 function primeiroNome(s){return String(s).trim().split(' ')[0]||'Querido convidado';}
 function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
-function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_FORM_FIELDS.nome&&PIX_FORM_FIELDS.valor;}
-function pixCotaOk(){return PIX_COTA_FORM_ACTION_URL&&!PIX_COTA_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_COTA_FORM_FIELDS.cota&&PIX_COTA_FORM_FIELDS.comprovante;}
+function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_FORM_FIELDS.nome;}
 function gfOk(){return ENABLE_GOOGLE_FORMS&&!GOOGLE_FORM_ACTION_URL.includes('COLE_AQUI');}
 
 async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');if(GOOGLE_FORM_FIELDS.acompanhantes)fd.append(GOOGLE_FORM_FIELDS.acompanhantes,p.acompanhantes||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
-async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
-async function enviarPixCotaGF(p){if(!pixCotaOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_COTA_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_COTA_FORM_FIELDS.comprovante,p.comprovante||'');await fetch(PIX_COTA_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
+async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');if(PIX_FORM_FIELDS.valor)fd.append(PIX_FORM_FIELDS.valor,p.valor||'');if(PIX_FORM_FIELDS.comprovante)fd.append(PIX_FORM_FIELDS.comprovante,p.comprovante||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 
 function renderCotas(){
     const g=document.getElementById('cotas-grid');if(!g)return;g.innerHTML='';
     COTAS_CONFIG.forEach(c=>{
+        const card=document.createElement('div');
+        if(c.livre){
+            card.className='cota-card reveal cota-livre';
+            card.innerHTML=`<div class="cota-header"><div><div style="font-size:1.25rem;margin-bottom:.2rem">${c.emoji}</div><div class="cota-titulo">${c.titulo}</div></div><div class="cota-valor">Você escolhe<span>a partir de R$ ${c.min}</span></div></div><p class="cota-desc">${c.descricao}</p><button class="cota-btn" onclick="abrirCota('${c.id}')" type="button">Escolher valor</button>`;
+            g.appendChild(card);
+            return;
+        }
         const u=cotasUsadas[c.id]||0,r=c.total-u,p=(u/c.total)*100,e=r<=0;
-        const card=document.createElement('div');card.className='cota-card reveal'+(e?' esgotada':'');
+        card.className='cota-card reveal'+(e?' esgotada':'');
         card.innerHTML=`<div class="cota-header"><div><div style="font-size:1.25rem;margin-bottom:.2rem">${c.emoji}</div><div class="cota-titulo">${c.titulo}</div></div><div class="cota-valor">R$ ${c.valor.toLocaleString('pt-BR')}<span>por cota</span></div></div><p class="cota-desc">${c.descricao}</p><div class="cota-prog-wrap"><div class="cota-prog-label"><span>${u} de ${c.total} escolhidas</span><span>${r} restante${r!==1?'s':''}</span></div><div class="cota-prog-bg"><div class="cota-prog-fill" style="width:${p}%"></div></div></div><button class="cota-btn" onclick="abrirCota('${c.id}')" ${e?'disabled':''} type="button">${e?'Todas as cotas escolhidas':'Presentear com R$ '+c.valor.toLocaleString('pt-BR')}</button>`;
         g.appendChild(card);
     });
     document.querySelectorAll('.cota-card.reveal').forEach(el=>obs.observe(el));
 }
-function pixSheetOk(){return PIX_SHEET_ID&&!PIX_SHEET_ID.includes('COLE_AQUI');}
 async function carregarCotas(){
-    renderCotas(); // desenha os cards na hora, com o que já sabemos
-    if(!pixSheetOk())return;
-    try{
-        const url=`https://docs.google.com/spreadsheets/d/${PIX_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(PIX_SHEET_NAME)}&range=A2:Z`;
-        const res=await fetch(url);
-        const text=await res.text();
-        const json=JSON.parse(text.substring(text.indexOf('{'),text.lastIndexOf('}')+1));
-        const rows=(json.table&&json.table.rows)||[];
-        const usadas={};
-        rows.forEach(r=>{
-            const cell=r.c[PIX_COL_COTA];
-            const raw=cell?(cell.f!=null?cell.f:cell.v):null;
-            if(!raw)return;
-            const m=String(raw).match(/\[([a-zA-Z0-9_-]+)\]/);
-            const id=m?m[1]:String(raw).trim();
-            if(id)usadas[id]=(usadas[id]||0)+1;
-        });
-        cotasUsadas=usadas;
-        renderCotas(); // atualiza quantidades já escolhidas assim que chegam
-    }catch(e){console.error(e);}
+    renderCotas(); // desenha os cards na hora, sem esperar a rede
+    if(sb){
+        try{
+            const{data,error}=await sb.from('presentes').select('cota_id');
+            if(!error&&data){
+                cotasUsadas={};
+                data.forEach(r=>{if(r.cota_id)cotasUsadas[r.cota_id]=(cotasUsadas[r.cota_id]||0)+1;});
+                renderCotas(); // atualiza quantidades já escolhidas assim que chegam
+            }
+        }catch(e){}
+    }
 }
 function abrirCota(id){
     const c=COTAS_CONFIG.find(x=>x.id===id);if(!c)return;
     cotaSelecionada=id;
     document.getElementById('pix-cota-nome').textContent=c.emoji+' '+c.titulo;
-    document.getElementById('pix-modal-valor').textContent='R$ '+c.valor.toLocaleString('pt-BR',{minimumFractionDigits:2});
+    const valorEl=document.getElementById('pix-modal-valor'),livreWrap=document.getElementById('pix-valor-livre-wrap'),livreInput=document.getElementById('pixValorLivre');
+    if(c.livre){
+        valorEl.style.display='none';
+        livreWrap.style.display='block';
+        livreInput.value='';
+        livreInput.min=c.min;
+        setTimeout(()=>livreInput.focus(),50);
+    }else{
+        valorEl.style.display='block';
+        livreWrap.style.display='none';
+        valorEl.textContent='R$ '+c.valor.toLocaleString('pt-BR',{minimumFractionDigits:2});
+    }
     const fi=document.getElementById('pixComprovante');if(fi)fi.value='';
     const fn=document.getElementById('comprovanteFileName');if(fn){fn.textContent='';fn.style.color='';}
     togglePixModal(true,'avisoOverlay');
@@ -994,17 +941,14 @@ async function confirmarCota(){
     const nome=document.getElementById('pixNome').value.trim();if(!nome){alert('Informe seu nome.');document.getElementById('pixNome').focus();return;}
     const fileInput=document.getElementById('pixComprovante'),file=fileInput&&fileInput.files[0];
     if(!file){alert('Anexe o comprovante do Pix (print ou PDF) para confirmar.');fileInput&&fileInput.focus();return;}
-    if(!pixOk()||!pixCotaOk()){alert('Configure os dois formulários do Pix (Nome/Valor e Cota/Comprovante).');return;}if(!sb){alert('Conexão indisponível.');return;}
+    if(!pixOk()){alert('Configure o Google Forms PIX.');return;}if(!sb){alert('Conexão indisponível.');return;}
     const btn=document.getElementById('btnConfirmarCota'),cota=COTAS_CONFIG.find(c=>c.id===cotaSelecionada);if(!cota){alert('Cota inválida.');return;}
-    btn.disabled=true;btn.textContent='Verificando disponibilidade…';
-    await carregarCotas(); // busca a contagem mais recente na planilha antes de confirmar
-    if((cotasUsadas[cota.id]||0)>=cota.total){
-        alert('Ih, essa cota acabou de esgotar! Por favor, escolha outra para presentear. 💛');
-        btn.disabled=false;btn.textContent='Já fiz o PIX';
-        togglePixModal(false,'pixOverlay');
-        return;
+    let valor=cota.valor;
+    if(cota.livre){
+        valor=parseFloat(document.getElementById('pixValorLivre').value);
+        if(!valor||isNaN(valor)||valor<cota.min){alert('Informe um valor a partir de R$ '+cota.min+'.');document.getElementById('pixValorLivre').focus();return;}
     }
-    btn.textContent='Enviando comprovante…';
+    btn.disabled=true;btn.textContent='Enviando comprovante…';
     let comprovanteUrl='';
     try{
         comprovanteUrl=await uploadComprovante(file,cota.id);
@@ -1016,20 +960,21 @@ async function confirmarCota(){
     }
     btn.textContent='Confirmando…';
     try{
-        const cotaLabel=`${cota.titulo} [${cota.id}]`;
-        const[fr1,fr2]=await Promise.all([
-            enviarPixGF({nome,valor:String(cota.valor)}),
-            enviarPixCotaGF({cota:cotaLabel,comprovante:comprovanteUrl})
-        ]);
-        if(!fr1.ok||!fr2.ok){alert('Não foi possível enviar.');return;}
-        cotasUsadas[cota.id]=(cotasUsadas[cota.id]||0)+1; // atualiza a tela na hora; a planilha confirma em seguida
-        renderCotas();
+        const fr=await enviarPixGF({nome,cota:cota.titulo,valor:String(valor),comprovante:comprovanteUrl});
+        if(!fr.ok){alert('Não foi possível enviar.');return;}
+        const{data,error}=await sb.rpc('registrar_presente',{p_cota_id:cota.id,p_valor:valor});
+        if(error){console.error(error);alert('Confirmação enviada, mas houve erro ao registrar.');return;}
+        if(!data?.ok){alert(data?.message||'Não foi possível registrar.');await carregarCotas();return;}
+        try{
+            await sb.from(COMPROVANTES_TABLE).insert({cota_id:cota.id,cota_titulo:cota.titulo,nome,valor,comprovante_url:comprovanteUrl});
+        }catch(logErr){console.error('Falha ao salvar o registro do comprovante:',logErr);}
         alert('Confirmação enviada! Muito obrigado 💛');
         cotaSelecionada=null;
         document.getElementById('pixNome').value='';
         fileInput.value='';
         const fn=document.getElementById('comprovanteFileName');if(fn){fn.textContent='';fn.style.color='';}
         togglePixModal(false,'pixOverlay');
+        await carregarCotas();
     }catch(err){console.error(err);alert('Erro inesperado.');}
     finally{btn.disabled=false;btn.textContent='Já fiz o PIX';}
 }
