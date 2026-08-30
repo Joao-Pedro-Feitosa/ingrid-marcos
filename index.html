@@ -292,6 +292,7 @@
         .stag::before { content: ""; width: 26px; height: 1px; background: currentColor; opacity: .55; }
         .stitle { font-family: var(--serif); font-size: clamp(2.2rem,4.5vw,3.2rem); font-weight: 300; font-style: italic; line-height: 1.1; margin-bottom: 1.4rem; color: var(--ink); }
         #historia .stitle { color: var(--cream); text-align: center; text-shadow: 0 2px 16px rgba(0,0,0,.7), 0 1px 4px rgba(0,0,0,.85); }
+        #local .stitle { text-shadow: 0 1px 8px rgba(255,255,255,.9), 0 0 4px rgba(255,255,255,.8); }
 
         /* História: texto centralizado sobre a foto de fundo */
         .historia-layout { display: flex; justify-content: center; }
@@ -454,14 +455,13 @@
         .thanks-msg { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,250,246,.13); font-family: var(--serif); font-size: .97rem; font-style: italic; color: rgba(255,250,246,.55); }
 
         /* LOCAL */
-        #local {
-            background: var(--cream) var(--local-img) center/contain no-repeat;
-            padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem);
-            min-height: 680px;
-        }
-        .venue-grid { display: flex; justify-content: center; text-align: center; margin-top: 2rem; }
-        .local-name { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--ink); margin-bottom: .45rem; text-shadow: 0 1px 6px rgba(255,255,255,.7), 0 0 2px rgba(255,255,255,.6); }
-        .local-addr { font-size: .87rem; color: rgba(74,49,40,.68); line-height: 1.8; text-shadow: 0 1px 6px rgba(255,255,255,.7), 0 0 2px rgba(255,255,255,.6); }
+        #local { padding: 0; background: var(--cream); }
+        .local-photo-wrap { position: relative; width: 100%; line-height: 0; }
+        .local-photo { width: 100%; height: auto; display: block; }
+        .local-overlay-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(1.5rem,5vw,3rem); }
+        .venue-grid { display: flex; justify-content: center; text-align: center; margin-top: 1.6rem; }
+        .local-name { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--ink); margin-bottom: .45rem; text-shadow: 0 1px 6px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.75); }
+        .local-addr { font-size: .87rem; color: rgba(74,49,40,.78); line-height: 1.8; text-shadow: 0 1px 6px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.75); }
         .btn-map { display: inline-flex; align-items: center; margin-top: 1.3rem; padding: .82rem 1.75rem; background: var(--mocha); color: var(--white); font-family: var(--menu); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; transition: background .2s; }
         .btn-map:hover { background: var(--ink); }
 
@@ -760,13 +760,18 @@
 
 <!-- LOCAL -->
 <section id="local">
-    <div class="reveal">
-        <h2 class="stitle">Onde tudo acontecerá</h2></div>
-    <div class="venue-grid reveal d1">
-        <div>
-            <p class="local-name">Catedral São Pedro de Alcântara</p>
-            <p class="local-addr">Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ</p>
-            <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="btn-map">Abrir no Google Maps</a>
+    <div class="local-photo-wrap">
+        <img src="local-bg.jpg" alt="Catedral São Pedro de Alcântara" class="local-photo" />
+        <div class="local-overlay-content">
+            <div class="reveal">
+                <h2 class="stitle">Onde tudo acontecerá</h2></div>
+            <div class="venue-grid reveal d1">
+                <div>
+                    <p class="local-name">Catedral São Pedro de Alcântara</p>
+                    <p class="local-addr">Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ</p>
+                    <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="btn-map">Abrir no Google Maps</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
