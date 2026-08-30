@@ -297,6 +297,11 @@
         /* História: texto centralizado sobre a foto de fundo */
         .historia-layout { display: flex; justify-content: center; }
         .historia-text { max-width: 700px; font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: rgba(250,244,238,.98); text-shadow: 0 2px 14px rgba(0,0,0,.7), 0 1px 3px rgba(0,0,0,.85); text-align: justify; text-justify: inter-word; }
+        .historia-polaroid { background: #fdfbf8; padding: 12px 12px 40px; box-shadow: 0 16px 34px rgba(0,0,0,.45); max-width: 300px; margin: 2.4rem auto; }
+        .historia-polaroid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; filter: sepia(6%) saturate(96%); }
+        .historia-polaroid.tilt-l { transform: rotate(-4deg); }
+        .historia-polaroid.tilt-r { transform: rotate(3.5deg); }
+        .historia-polaroid-cap { font-family: var(--script); font-size: 1.1rem; color: var(--mocha); text-align: center; margin-top: .5rem; }
         .historia-text p { margin-bottom: 1.5rem; }
         .historia-text p:last-child { margin-bottom: 0; }
         @media (max-width: 820px) {
@@ -616,9 +621,29 @@
     <div class="historia-layout reveal d1">
         <div class="historia-text">
             <p>Era novembro de 2024. Posso até esquecer o dia exato, mas o mês ficou gravado para sempre. Conheci o Marcos no alto da torre da Catedral de São Pedro de Alcântara, em uma tarde de céu nublado em Petrópolis. Enquanto eu me encantava pela atmosfera antiga e romântica da cidade, ele guiava o passeio. Como meu celular havia descarregado, ele gentilmente me emprestou o dele para tirar fotos, e essa troca de telefones acabou sendo o pretexto perfeito para o início de tudo.</p>
+
+            <div class="historia-polaroid tilt-l">
+                <img src="historia-foto1.jpg" alt="No alto da torre da Catedral" />
+            </div>
+
             <p>Dois dias depois, o convidei para jantar. Entre taças de vinho e boas conversas em um restaurante italiano, a noite fluiu leve e especial. Foi ali que demos nosso primeiro beijo.</p>
+
+            <div class="historia-polaroid tilt-r">
+                <img src="historia-foto2.jpg" alt="Depois do primeiro beijo" />
+            </div>
+
             <p>A incerteza veio no dia de ir embora. Receosa com a ideia de um relacionamento à distância, nos despedimos na Ponte Vermelha, bem de frente para a catedral. Nos beijamos com o aperto no peito de quem achava que seria a despedida final. Eu me sentia grata pelo momento e encantada por ele, mas segui viagem...</p>
+
+            <div class="historia-polaroid tilt-l">
+                <img src="historia-foto3.jpg" alt="Um dos nossos encontros" />
+            </div>
+
             <p>Só que o destino tinha outros planos e simplesmente não conseguíamos ficar sem nos falar. O Marcos veio me visitar em Anápolis para a virada do ano e, no dia 2 de janeiro de 2025, veio o pedido de namoro. Em 5 de julho fez as malas e se mudou para Anápolis. Pouco depois, em 26 de julho de 2025, veio o pedido de casamento. E no dia 31 de outubro de 2026, vamos oficializar nossa história diante de quem amamos!</p>
+
+            <div class="historia-polaroid tilt-r">
+                <img src="historia-foto4.jpg" alt="O pedido de casamento" />
+                <p class="historia-polaroid-cap">Disse sim! 💍</p>
+            </div>
         </div>
     </div>
 </section>
