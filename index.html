@@ -796,8 +796,8 @@ const WEDDING_DATE=new Date('2026-10-31T16:00:00-03:00');
 const ENABLE_GOOGLE_FORMS=true;
 const GOOGLE_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdObA_ZQMPRwDYjZvRzRRf5z1U_9OPKQQS1vBMnGt3ZHk9_dA/formResponse";
 const GOOGLE_FORM_FIELDS={nome:"entry.698488504",presenca:"entry.301285473",mensagem:"entry.621416400",acompanhantes:"entry.1576249945",origem:""};
-const PIX_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdXLpB-poYvwodTlvDa8_4MAU5Ti8AV9yB8nlWVuRui-o7FxA/formResponse";
-const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321",comprovante:""};
+const PIX_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSemKTWFdwyUS71lirUhrNCoQdLmlCdVmorge97xEe0CrZ5iYg/formResponse";
+const PIX_FORM_FIELDS={nome:"entry.50996302",cota:"entry.1350134623",valor:"",comprovante:"entry.1208638352"};
 /* Bucket do Supabase Storage onde os comprovantes (print/PDF) sao enviados */
 const COMPROVANTES_BUCKET="comprovantes";
 /* Tabela onde fica o registro de nome + link do comprovante de cada Pix, para conferencia dos noivos */
@@ -851,11 +851,11 @@ function selecionarPresenca(v){
 function pad(n){return String(n).padStart(2,'0');}
 function primeiroNome(s){return String(s).trim().split(' ')[0]||'Querido convidado';}
 function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
-function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_FORM_FIELDS.nome&&PIX_FORM_FIELDS.valor;}
+function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE_AQUI')&&PIX_FORM_FIELDS.nome;}
 function gfOk(){return ENABLE_GOOGLE_FORMS&&!GOOGLE_FORM_ACTION_URL.includes('COLE_AQUI');}
 
 async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');if(GOOGLE_FORM_FIELDS.acompanhantes)fd.append(GOOGLE_FORM_FIELDS.acompanhantes,p.acompanhantes||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
-async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');if(PIX_FORM_FIELDS.comprovante)fd.append(PIX_FORM_FIELDS.comprovante,p.comprovante||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
+async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');if(PIX_FORM_FIELDS.valor)fd.append(PIX_FORM_FIELDS.valor,p.valor||'');if(PIX_FORM_FIELDS.comprovante)fd.append(PIX_FORM_FIELDS.comprovante,p.comprovante||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 
 function renderCotas(){
     const g=document.getElementById('cotas-grid');if(!g)return;g.innerHTML='';
