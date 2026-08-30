@@ -349,6 +349,19 @@
         .pix-close { display: block; width: 100%; margin-top: .45rem; padding: .7rem; background: transparent; color: rgba(74,49,40,.45); border: 1px solid var(--blush); font-family: var(--menu); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; transition: all .2s; }
         .pix-close:hover { border-color: var(--mocha); color: var(--mocha); }
 
+        /* AVISO COMPROVANTE (tela antes do Pix) */
+        .aviso-icon { font-size: 2.1rem; margin-bottom: .9rem; }
+        .aviso-titulo { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--ink); margin-bottom: 1rem; line-height: 1.25; }
+        .aviso-texto { font-size: .88rem; line-height: 1.85; color: rgba(74,49,40,.78); margin-bottom: .3rem; text-align: left; }
+        .aviso-texto strong { color: var(--mocha); }
+
+        /* UPLOAD DO COMPROVANTE */
+        .pix-field input[type="file"] { width: 100%; padding: .65rem .7rem; border: 1px dashed var(--gold-lt); background: var(--cream); font-family: var(--sans); font-size: .78rem; color: var(--ink); cursor: pointer; }
+        .pix-field input[type="file"]:focus { border-color: var(--gold); outline: none; }
+        .pix-field input[type="file"]::file-selector-button { margin-right: .7rem; padding: .42rem .85rem; border: none; background: var(--mocha); color: var(--white); font-family: var(--sans); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+        .comprovante-file-name { font-size: .68rem; color: rgba(74,49,40,.55); margin-top: .4rem; line-height: 1.5; word-break: break-all; }
+        .comprovante-required-tag { color: var(--rose); font-size: .68rem; font-weight: 600; }
+
         /* MENSAGENS */
         #mensagens-section { background: var(--mocha); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
         #mensagens-section .stag { color: var(--gold-lt); }
@@ -619,6 +632,18 @@
         </div>
         <div class="cotas-grid reveal d1" id="cotas-grid"></div>
     </div>
+    <!-- AVISO ANTES DO PIX -->
+    <div id="avisoOverlay" class="pix-overlay">
+        <div class="pix-modal" style="max-width:420px">
+            <div class="aviso-icon">💌</div>
+            <p class="aviso-titulo">Antes de fazer o Pix</p>
+            <p class="aviso-texto">Por favor, faça o Pix e <strong>salve o comprovante</strong> — print da tela ou PDF — antes de continuar.</p>
+            <p class="aviso-texto">Na próxima tela você vai anexar esse comprovante para confirmarmos o seu presente aos noivos. 💛</p>
+            <button class="pix-confirm" id="btnAvisoOk" onclick="prosseguirParaPix()" type="button">OK, entendi</button>
+            <button class="pix-close" onclick="togglePixModal(false,'avisoOverlay')" type="button">Cancelar</button>
+        </div>
+    </div>
+
     <!-- PIX MODAL -->
     <div id="pixOverlay" class="pix-overlay">
         <div class="pix-modal">
@@ -639,9 +664,14 @@
                 <label for="pixNome">Nome para confirmação</label>
                 <input id="pixNome" type="text" placeholder="Seu nome completo" required />
             </div>
-            <p class="pix-helper">Informe seu nome para registrarmos a confirmação corretamente.</p>
+            <div class="pix-field">
+                <label for="pixComprovante">Comprovante do Pix (print ou PDF) <span class="comprovante-required-tag">*obrigatório</span></label>
+                <input id="pixComprovante" type="file" accept="image/*,.pdf,application/pdf" required />
+                <p id="comprovanteFileName" class="comprovante-file-name"></p>
+            </div>
+            <p class="pix-helper">Anexe aqui o print ou o PDF do comprovante para confirmarmos seu presente.</p>
             <button class="pix-confirm" id="btnConfirmarCota" onclick="confirmarCota()" type="button">Já fiz o PIX</button>
-            <button class="pix-close" onclick="togglePixModal(false)" type="button">Fechar</button>
+            <button class="pix-close" onclick="togglePixModal(false,'pixOverlay')" type="button">Fechar</button>
         </div>
     </div>
 </section>
@@ -762,7 +792,11 @@ const ENABLE_GOOGLE_FORMS=true;
 const GOOGLE_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdObA_ZQMPRwDYjZvRzRRf5z1U_9OPKQQS1vBMnGt3ZHk9_dA/formResponse";
 const GOOGLE_FORM_FIELDS={nome:"entry.698488504",presenca:"entry.301285473",mensagem:"entry.621416400",acompanhantes:"entry.1576249945",origem:""};
 const PIX_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSdXLpB-poYvwodTlvDa8_4MAU5Ti8AV9yB8nlWVuRui-o7FxA/formResponse";
-const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321"};
+const PIX_FORM_FIELDS={nome:"entry.91308880",cota:"",valor:"entry.1815091321",comprovante:""};
+/* Bucket do Supabase Storage onde os comprovantes (print/PDF) sao enviados */
+const COMPROVANTES_BUCKET="comprovantes";
+/* Tabela onde fica o registro de nome + link do comprovante de cada Pix, para conferencia dos noivos */
+const COMPROVANTES_TABLE="comprovantes_pix";
 
 /* Mensagens dos convidados: lidas direto de uma planilha do Google Sheets
    (a mesma planilha que o Forms de presença cria em Respostas > planilha).
@@ -816,7 +850,7 @@ function pixOk(){return PIX_FORM_ACTION_URL&&!PIX_FORM_ACTION_URL.includes('COLE
 function gfOk(){return ENABLE_GOOGLE_FORMS&&!GOOGLE_FORM_ACTION_URL.includes('COLE_AQUI');}
 
 async function enviarGF(p){if(!gfOk())return{ok:false,skipped:true};try{const fd=new FormData();if(GOOGLE_FORM_FIELDS.nome)fd.append(GOOGLE_FORM_FIELDS.nome,p.nome||'');if(GOOGLE_FORM_FIELDS.presenca)fd.append(GOOGLE_FORM_FIELDS.presenca,p.presenca||'');if(GOOGLE_FORM_FIELDS.mensagem)fd.append(GOOGLE_FORM_FIELDS.mensagem,p.mensagem||'');if(GOOGLE_FORM_FIELDS.acompanhantes)fd.append(GOOGLE_FORM_FIELDS.acompanhantes,p.acompanhantes||'');await fetch(GOOGLE_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
-async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
+async function enviarPixGF(p){if(!pixOk())return{ok:false,skipped:true};try{const fd=new FormData();fd.append(PIX_FORM_FIELDS.nome,p.nome||'');if(PIX_FORM_FIELDS.cota)fd.append(PIX_FORM_FIELDS.cota,p.cota||'');fd.append(PIX_FORM_FIELDS.valor,p.valor||'');if(PIX_FORM_FIELDS.comprovante)fd.append(PIX_FORM_FIELDS.comprovante,p.comprovante||'');await fetch(PIX_FORM_ACTION_URL,{method:'POST',mode:'no-cors',body:fd});return{ok:true};}catch(e){return{ok:false,error:e};}}
 
 function renderCotas(){
     const g=document.getElementById('cotas-grid');if(!g)return;g.innerHTML='';
@@ -864,13 +898,44 @@ function abrirCota(id){
         livreWrap.style.display='none';
         valorEl.textContent='R$ '+c.valor.toLocaleString('pt-BR',{minimumFractionDigits:2});
     }
-    togglePixModal(true);
+    const fi=document.getElementById('pixComprovante');if(fi)fi.value='';
+    const fn=document.getElementById('comprovanteFileName');if(fn){fn.textContent='';fn.style.color='';}
+    togglePixModal(true,'avisoOverlay');
 }
-function togglePixModal(show){const o=document.getElementById('pixOverlay');if(!o)return;if(show){o.classList.add('open');document.body.style.overflow='hidden';}else{o.classList.remove('open');document.body.style.overflow='';}}
+function prosseguirParaPix(){togglePixModal(false,'avisoOverlay');togglePixModal(true,'pixOverlay');}
+function togglePixModal(show,id){id=id||'pixOverlay';const o=document.getElementById(id);if(!o)return;if(show){o.classList.add('open');document.body.style.overflow='hidden';}else{o.classList.remove('open');document.body.style.overflow='';}}
 function copiarPix(){const chave=document.getElementById('chavePix').innerText.trim(),btn=document.getElementById('btnCopiar');if(!navigator.clipboard){alert('Chave: '+chave);return;}navigator.clipboard.writeText(chave).then(()=>{btn.textContent='Copiado! ✓';setTimeout(()=>btn.textContent='Copiar Chave PIX',3000);}).catch(()=>alert('Chave: '+chave));}
+const COMPROVANTE_MAX_MB=8;
+function validarComprovanteInput(){
+    const inp=document.getElementById('pixComprovante'),fn=document.getElementById('comprovanteFileName');
+    if(!inp||!fn)return;
+    inp.addEventListener('change',function(){
+        const f=this.files[0];
+        if(!f){fn.textContent='';fn.style.color='';return;}
+        const tipoOk=f.type.startsWith('image/')||f.type==='application/pdf';
+        const tamanhoOk=f.size<=COMPROVANTE_MAX_MB*1024*1024;
+        if(!tipoOk){fn.textContent='Formato inválido. Envie uma imagem (print) ou um PDF.';fn.style.color='#b0413e';this.value='';return;}
+        if(!tamanhoOk){fn.textContent='Arquivo muito grande (máx. '+COMPROVANTE_MAX_MB+'MB).';fn.style.color='#b0413e';this.value='';return;}
+        fn.style.color='rgba(74,49,40,.55)';
+        fn.textContent='Selecionado: '+f.name+' ('+(f.size/1024/1024).toFixed(1)+' MB)';
+    });
+}
+validarComprovanteInput();
+async function uploadComprovante(file,cotaId){
+    if(!sb)throw new Error('Conexão com o Supabase indisponível.');
+    const ext=(file.name.split('.').pop()||'dat').toLowerCase().replace(/[^a-z0-9]/g,'')||'dat';
+    const path=`${cotaId}/${Date.now()}_${Math.random().toString(36).slice(2,8)}.${ext}`;
+    const{error}=await sb.storage.from(COMPROVANTES_BUCKET).upload(path,file,{cacheControl:'3600',upsert:false});
+    if(error)throw error;
+    const{data}=sb.storage.from(COMPROVANTES_BUCKET).getPublicUrl(path);
+    if(!data?.publicUrl)throw new Error('Não foi possível gerar o link do comprovante.');
+    return data.publicUrl;
+}
 async function confirmarCota(){
     if(!cotaSelecionada){alert('Nenhuma cota selecionada.');return;}
     const nome=document.getElementById('pixNome').value.trim();if(!nome){alert('Informe seu nome.');document.getElementById('pixNome').focus();return;}
+    const fileInput=document.getElementById('pixComprovante'),file=fileInput&&fileInput.files[0];
+    if(!file){alert('Anexe o comprovante do Pix (print ou PDF) para confirmar.');fileInput&&fileInput.focus();return;}
     if(!pixOk()){alert('Configure o Google Forms PIX.');return;}if(!sb){alert('Conexão indisponível.');return;}
     const btn=document.getElementById('btnConfirmarCota'),cota=COTAS_CONFIG.find(c=>c.id===cotaSelecionada);if(!cota){alert('Cota inválida.');return;}
     let valor=cota.valor;
@@ -878,9 +943,35 @@ async function confirmarCota(){
         valor=parseFloat(document.getElementById('pixValorLivre').value);
         if(!valor||isNaN(valor)||valor<cota.min){alert('Informe um valor a partir de R$ '+cota.min+'.');document.getElementById('pixValorLivre').focus();return;}
     }
-    btn.disabled=true;btn.textContent='Confirmando…';
-    try{const fr=await enviarPixGF({nome,cota:cota.titulo,valor:String(valor)});if(!fr.ok){alert('Não foi possível enviar.');return;}const{data,error}=await sb.rpc('registrar_presente',{p_cota_id:cota.id,p_valor:valor});if(error){console.error(error);alert('Confirmação enviada, mas houve erro ao registrar.');return;}if(!data?.ok){alert(data?.message||'Não foi possível registrar.');await carregarCotas();return;}alert('Confirmação enviada! Muito obrigado 💛');cotaSelecionada=null;document.getElementById('pixNome').value='';togglePixModal(false);await carregarCotas();}
-    catch(err){console.error(err);alert('Erro inesperado.');}finally{btn.disabled=false;btn.textContent='Já fiz o PIX';}
+    btn.disabled=true;btn.textContent='Enviando comprovante…';
+    let comprovanteUrl='';
+    try{
+        comprovanteUrl=await uploadComprovante(file,cota.id);
+    }catch(err){
+        console.error(err);
+        alert('Não foi possível enviar o comprovante. Verifique sua conexão e tente novamente.');
+        btn.disabled=false;btn.textContent='Já fiz o PIX';
+        return;
+    }
+    btn.textContent='Confirmando…';
+    try{
+        const fr=await enviarPixGF({nome,cota:cota.titulo,valor:String(valor),comprovante:comprovanteUrl});
+        if(!fr.ok){alert('Não foi possível enviar.');return;}
+        const{data,error}=await sb.rpc('registrar_presente',{p_cota_id:cota.id,p_valor:valor});
+        if(error){console.error(error);alert('Confirmação enviada, mas houve erro ao registrar.');return;}
+        if(!data?.ok){alert(data?.message||'Não foi possível registrar.');await carregarCotas();return;}
+        try{
+            await sb.from(COMPROVANTES_TABLE).insert({cota_id:cota.id,cota_titulo:cota.titulo,nome,valor,comprovante_url:comprovanteUrl});
+        }catch(logErr){console.error('Falha ao salvar o registro do comprovante:',logErr);}
+        alert('Confirmação enviada! Muito obrigado 💛');
+        cotaSelecionada=null;
+        document.getElementById('pixNome').value='';
+        fileInput.value='';
+        const fn=document.getElementById('comprovanteFileName');if(fn){fn.textContent='';fn.style.color='';}
+        togglePixModal(false,'pixOverlay');
+        await carregarCotas();
+    }catch(err){console.error(err);alert('Erro inesperado.');}
+    finally{btn.disabled=false;btn.textContent='Já fiz o PIX';}
 }
 
 function tick(){const d=WEDDING_DATE.getTime()-Date.now();if(d<=0){document.getElementById('cd-grid').style.display='none';document.getElementById('cd-done').style.display='block';return;}document.getElementById('cd-d').textContent=Math.floor(d/864e5);document.getElementById('cd-h').textContent=pad(Math.floor((d%864e5)/36e5));document.getElementById('cd-m').textContent=pad(Math.floor((d%36e5)/6e4));document.getElementById('cd-s').textContent=pad(Math.floor((d%6e4)/1e3));}
