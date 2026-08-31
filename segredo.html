@@ -48,7 +48,7 @@
         .nav-left { justify-content: flex-end; } .nav-right { justify-content: flex-start; }
         .top-nav a { font-family: var(--menu); font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--white); text-decoration: none; transition: opacity .2s; }
         .top-nav a:hover { opacity: .65; }
-        .nav-text-top { font-family: var(--menu); font-size: 0.95rem; letter-spacing: .22em; text-transform: uppercase; color: var(--white); text-decoration: none; white-space: nowrap; padding: 0 1rem; }
+        .nav-text-top { font-family: var(--menu); font-size: 1.1rem; letter-spacing: .22em; text-transform: uppercase; color: var(--white); text-decoration: none; white-space: nowrap; padding: 0 1rem; }
 
         /* NAV TOGGLE (hamburger) — oculto no desktop */
         .nav-toggle { display: none; align-items: center; justify-content: center; flex-direction: column; gap: 6px; width: 56px; height: 56px; background: rgba(255,250,246,.09); border: 1px solid rgba(255,250,246,.25); border-radius: 4px; cursor: pointer; padding: 0; z-index: 10; }
@@ -89,7 +89,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 9rem 1.5rem 4rem;
+  padding: 4rem 1.5rem;
   background: var(--mocha) var(--hero-img) center 36%/cover no-repeat;
 }
 
@@ -118,7 +118,7 @@
 
 .hero-names {
   font-family: "Simple Serenity Script", cursive;
-  font-size: clamp(4.8rem, 15vw, 8.3rem);
+  font-size: clamp(5.8rem, 18vw, 10rem);
   font-weight: 400;
   color: var(--white);
   line-height: .84;
@@ -132,16 +132,7 @@
   gap: clamp(.5rem, 2vw, 1.5rem);
 }
 
-/* Regra para DIMINUIR apenas o "E" */
 .hero-names .letra-e {
-  /* 0.7em faz com que ele fique 30% menor que os nomes. 
-     Se achar muito pequeno, teste 0.8em */
-  font-size: 0.7em; 
-}
-
-/* Nova regra para aumentar apenas o "E" */
-.hero-names .letra-e {
-  /* Usando 1.4em, ele sempre será 40% maior que o tamanho atual do clamp */
   font-size: 1.4em; 
 }
 
@@ -204,12 +195,10 @@
   font-style: normal;
 }
        .std-main { 
-  /* Agora usando a fonte Serif que você declarou acima */
   font-family: "Simple Serenity Serif", serif; 
   font-size: clamp(1.4rem, 12vw, 8rem); 
   color: var(--white); 
   line-height: .9; 
-  /* Fica sempre em uma linha só, encolhendo em vez de quebrar */
   display: flex;       
   flex-wrap: nowrap;
   justify-content: center; 
@@ -218,7 +207,6 @@
 }
 
 .std-the { 
-  /* Garante o mesmo tamanho e fonte do pai */
   font-size: clamp(2.2rem, 12vw, 8rem); 
   color: var(--gold-lt); 
   display: inline; 
@@ -254,7 +242,6 @@
   line-height: 1; 
 }
 
-/* 4. DATA: Mês em Simple Serenity Serif */
 .std-month { 
   font-family: "Simple Serenity Serif", serif; 
   font-size: clamp(.9rem, 5vw, 3.2rem); 
@@ -271,10 +258,8 @@
   text-transform: uppercase; 
   color: rgba(255, 250, 246, .55); 
   line-height: 1.5; 
-
-  /* O SEGREDO AQUI: */
-  width: max-content;  /* Faz o bloco ter o tamanho exato do texto, sem sobrar */
-  text-align: center;   /* Centraliza Petrópolis embaixo de Catedral */
+  width: max-content;
+  text-align: center;
 }
         .std-loc strong { color: rgba(255,250,246,.75); }
 
@@ -382,7 +367,6 @@
 
         /* MANUAL */
         #manual { background: var(--cream); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
-        /* FOTO + MONOGRAMA (divisor "grande dia") */
         #manual {
             position: relative;
             min-height: 680px;
@@ -481,14 +465,13 @@
             .mid-mono-m { font-size: 6.1rem; }
         }
         @media (max-width: 860px) {
-            /* Troca o menu completo por hambúrguer (esquerda) + acessos rápidos (direita) */
             .top-nav { display: flex; justify-content: flex-start; align-items: center; padding-left: .9rem; padding-right: .9rem; min-height: 122px; }
             .nav-left, .nav-right { display: none; }
             .nav-toggle { display: flex; position: relative; z-index: 2; }
             .nav-text-top { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
         }
         @media (max-width: 768px) {
-            #hero { padding-top: 11rem; }
+            #hero { padding-top: 4rem; }
             .venue-grid { text-align: center; }
             .cotas-grid { grid-template-columns: 1fr; }
         }
@@ -529,9 +512,9 @@
 
 <!-- HERO -->
 <section id="hero">
-        <BR><br><br><br>
+    <div class="hero-center">
         <h1 class="hero-names">
-          Casamento de <span class=".letra-e ">Marcos e Ingrid</span>
+          Casamento de <span class="letra-e">Marcos e Ingrid</span>
         </h1>
     </div>
 </section>
