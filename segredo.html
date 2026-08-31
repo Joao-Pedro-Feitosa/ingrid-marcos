@@ -85,7 +85,7 @@
         }
         .hero-names .letra-e { font-size: 1.4em; }
 
-        /* HISTÓRIA (POLAROIDS E TEXTO) */
+        /* HISTÓRIA (TEXTO REFORMULADO) */
         #historia {
             position: relative;
             background: linear-gradient(180deg, rgba(20,12,9,.5), rgba(20,12,9,.55)),
@@ -97,20 +97,8 @@
         .stitle { font-family: var(--serif); font-size: clamp(2.2rem,4.5vw,3.2rem); font-weight: 300; font-style: italic; line-height: 1.1; margin-bottom: 1.4rem; color: var(--ink); }
         #historia .stitle { color: var(--cream); text-align: center; text-shadow: 0 2px 16px rgba(0,0,0,.7); }
         .historia-layout { display: flex; justify-content: center; }
-        .historia-text { max-width: 720px; font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: rgba(250,244,238,.98); text-shadow: 0 2px 14px rgba(0,0,0,.7); text-align: justify; }
-        .historia-text p { margin-bottom: 1.8rem; }
-        
-        .historia-polaroid {
-            background: var(--white); padding: 12px 12px 20px 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3); margin: 2rem auto 2.5rem auto;
-            max-width: 320px; width: 100%; text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .historia-polaroid:hover { transform: scale(1.03) rotate(0deg) !important; box-shadow: 0 12px 30px rgba(0,0,0,0.45); }
-        .historia-polaroid img { width: 100%; height: auto; display: block; }
-        .historia-polaroid-cap { margin-top: 10px; font-family: var(--script); font-size: 1.4rem; color: var(--mocha); text-shadow: none; line-height: 1; }
-        .tilt-l { transform: rotate(-3deg); }
-        .tilt-r { transform: rotate(3deg); }
+        .historia-text { max-width: 720px; font-family: var(--serif); font-size: clamp(1.1rem,2.2vw,1.3rem); line-height: 1.9; color: rgba(250,244,238,.98); text-shadow: 0 2px 14px rgba(0,0,0,.7); text-align: center; }
+        .historia-text p { margin-bottom: 0; }
 
         /* RSVP */
         #rsvp { background: var(--mocha); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
@@ -171,7 +159,6 @@
             .nav-text-top { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
         }
         @media (max-width: 768px) { #hero { padding-top: 4rem; } }
-        @media (max-width: 600px) { .historia-polaroid { max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -202,34 +189,11 @@
 <section id="historia">
     <div class="reveal" style="text-align: center;">
         <span class="stag">Nossa Jornada</span>
-        <h2 class="stitle">Como tudo começou</h2>
+        <h2 class="stitle">Sejam bem-vindos!</h2>
     </div>
     <div class="historia-layout reveal d1">
         <div class="historia-text">
-            <p>Era novembro de 2024. Posso até esquecer o dia exato, mas o mês ficou gravado para sempre. Conheci o Marcos no alto da torre da Catedral de São Pedro de Alcântara, em uma tarde de céu nublado em Petrópolis. Enquanto eu me encantava pela atmosfera antiga e romântica da cidade, ele guiava o passeio. Como meu celular havia descarregado, ele gentilmente me emprestou o dele para tirar fotos, e essa troca de telefones acabou sendo o pretexto perfeito para o início de tudo.</p>
-
-            <div class="historia-polaroid tilt-l">
-                <img src="historia-foto1.jpg" alt="No alto da torre da Catedral" />
-            </div>
-
-            <p>Dois dias depois, o convidei para jantar. Entre taças de vinho e boas conversas em um restaurante italiano, a noite fluiu leve e especial. Foi ali que demos nosso primeiro beijo.</p>
-
-            <div class="historia-polaroid tilt-r">
-                <img src="historia-foto2.jpg" alt="Depois do primeiro beijo" />
-            </div>
-
-            <p>A incerteza veio no dia de ir embora. Receosa com a ideia de um relacionamento à distância, nos despedimos na Ponte Vermelha, bem de frente para a catedral. Nos beijamos com o aperto no peito de quem achava que seria a despedida final. Eu me sentia grata pelo momento e encantada por ele, mas segui viagem...</p>
-
-            <div class="historia-polaroid tilt-l">
-                <img src="historia-foto3.jpg" alt="Um dos nossos encontros" />
-            </div>
-
-            <p>Só que o destino tinha outros planos e simplesmente não conseguíamos ficar sem nos falar. O Marcos veio me visitar em Anápolis para a virada do ano e, no dia 2 de janeiro de 2025, veio o pedido de namoro. Em 5 de julho fez as malas e se mudou para Anápolis. Pouco depois, em 26 de julho de 2025, veio o pedido de casamento. E no dia 31 de outubro de 2026, vamos oficializar nossa história diante de quem amamos!</p>
-
-            <div class="historia-polaroid tilt-r">
-                <img src="historia-foto4.jpg" alt="O pedido de casamento" />
-                <p class="historia-polaroid-cap">Disse sim! 💍</p>
-            </div>
+            <p>Querido convidado, para celebrar o nosso casamento, preparamos uma recepção intimista e muito especial. Escolhemos compartilhar este momento apenas com as pessoas mais queridas e que fazem parte da nossa história. Estamos radiantes e ansiosos para vivenciar esse dia ao seu lado!</p>
         </div>
     </div>
 </section>
