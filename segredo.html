@@ -48,9 +48,7 @@
         .nav-left { justify-content: flex-end; } .nav-right { justify-content: flex-start; }
         .top-nav a { font-family: var(--menu); font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--white); text-decoration: none; transition: opacity .2s; }
         .top-nav a:hover { opacity: .65; }
-        .nav-monogram { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 108px; height: 104px; flex-shrink: 0; text-decoration: none; }
-        .nav-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 5.8rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.25); white-space: nowrap; }
-        .nav-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.7rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.28); white-space: nowrap; }
+        .nav-text-top { font-family: var(--menu); font-size: 0.95rem; letter-spacing: .22em; text-transform: uppercase; color: var(--white); text-decoration: none; white-space: nowrap; padding: 0 1rem; }
 
         /* NAV TOGGLE (hamburger) — oculto no desktop */
         .nav-toggle { display: none; align-items: center; justify-content: center; flex-direction: column; gap: 6px; width: 56px; height: 56px; background: rgba(255,250,246,.09); border: 1px solid rgba(255,250,246,.25); border-radius: 4px; cursor: pointer; padding: 0; z-index: 10; }
@@ -487,9 +485,7 @@
             .top-nav { display: flex; justify-content: flex-start; align-items: center; padding-left: .9rem; padding-right: .9rem; min-height: 122px; }
             .nav-left, .nav-right { display: none; }
             .nav-toggle { display: flex; position: relative; z-index: 2; }
-            .nav-monogram { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 114px; height: 109px; }
-            .nav-mono-i { font-size: 6.1rem; }
-            .nav-mono-m { font-size: 5rem; }
+            .nav-text-top { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
         }
         @media (max-width: 768px) {
             #hero { padding-top: 11rem; }
@@ -506,9 +502,6 @@
         @media (max-width: 600px) { .msg-card { flex: 0 0 88%; } }
         @media (max-width: 480px) {
             .top-nav { min-height: 106px; }
-            .nav-monogram { width: 98px; height: 93px; }
-            .nav-mono-i { font-size: 5.2rem; }
-            .nav-mono-m { font-size: 4.3rem; }
             .nav-toggle { width: 50px; height: 50px; }
             .footer-mono { width: 68px; height: 64px; }
             .footer-mono-i { font-size: 3.6rem; }
@@ -527,10 +520,7 @@
     <div class="nav-group nav-left">
         <a href="#hero">Início</a>
     </div>
-    <a href="#hero" class="nav-monogram">
-        <span class="nav-mono-i">I</span>
-        <span class="nav-mono-m">M</span>
-    </a>
+    <a href="#hero" class="nav-text-top">Recepção do</a>
     <div class="nav-group nav-right">
         <a href="#local">Local</a>
         <a href="#rsvp">Confirmar Presença</a>
