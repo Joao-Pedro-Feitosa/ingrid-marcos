@@ -26,10 +26,7 @@
             --menu:   'Cormorant SC', Georgia, serif;
             --sans:   'Jost', sans-serif;
             --hero-img: url('localrecep.jpeg');
-            --bg-img:   url('Downloads/casamento/img/fundo.jpg');
             --historia-img: url('fundo-bg.jpeg');
-            --local-img: url('local-bg.jpg');
-            --mid-img: url('fotomid-bg.jpeg');
             --footer-img: url('footer-catedral.jpg');
         }
         html { scroll-behavior: smooth; }
@@ -67,16 +64,6 @@
             src: url("./Simple Serenity Script.ttf") format("truetype");
             font-weight: 400; font-style: normal;
         }
-        @font-face {
-            font-family: "Simple Serenity Serif";
-            src: url("./Simple Serenity Serif.ttf") format("truetype");
-            font-weight: 400; font-style: normal;
-        }
-        @font-face {
-            font-family: "Cinzel Bold";
-            src: url("./Cinzel-Bold.ttf") format("truetype");
-            font-weight: 700; font-style: normal;
-        }
 
         /* HERO */
         #hero {
@@ -98,34 +85,7 @@
         }
         .hero-names .letra-e { font-size: 1.4em; }
 
-        /* COUNTDOWN */
-        #countdown { background: var(--cream); padding: 2.8rem clamp(1.5rem,6vw,5rem); text-align: center; }
-        .cd-label { font-family: var(--menu); font-size: 25px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
-        .cd-grid { display: inline-flex; gap: clamp(.6rem,3.5vw,2.8rem); align-items: flex-end; flex-wrap: nowrap; justify-content: center; max-width: 100%; }
-        .cd-unit { display: flex; flex-direction: column; align-items: center; gap: .35rem; min-width: 48px; }
-        .cd-num { font-family: var(--serif); font-size: clamp(2.6rem,8vw,5rem); font-weight: 300; color: var(--ink); line-height: 1; }
-        .cd-lbl { font-size: clamp(.58rem,1.8vw,.7rem); letter-spacing: .16em; text-transform: uppercase; color: rgba(74,49,40,.45); white-space: nowrap; }
-        .cd-sep { font-family: var(--serif); font-size: clamp(1.9rem,5.5vw,3.5rem); color: var(--gold); line-height: 1; padding-bottom: .5rem; }
-
-        /* SAVE THE DATE */
-        #save-the-date { 
-            position: relative; overflow: hidden; text-align: center; 
-            padding: 2.6rem clamp(2rem, 8vw, 7rem) 4rem; min-height: min(750px, 100svh); 
-            display: flex; flex-direction: column; justify-content: flex-start;
-        }
-        .std-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; z-index: 0; pointer-events: none; }
-        .std-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, .5); z-index: 1; }
-        #save-the-date .reveal { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: space-between; flex: 1; width: 100%; }
-        .std-eyebrow { font-family: var(--menu); font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: rgba(255,250,246,.6); margin-bottom: 1.2rem; }
-        .std-main { font-family: "Simple Serenity Serif", serif; font-size: clamp(1.4rem, 12vw, 8rem); color: var(--white); line-height: .9; display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: clamp(.3rem, 2vw, 1.5rem); }
-        .std-the { font-size: clamp(2.2rem, 12vw, 8rem); color: var(--gold-lt); display: inline; font-style: normal; letter-spacing: normal; }
-        .std-title-group { display: flex; flex-direction: column; align-items: center; }
-        .std-date-line { display: flex; flex-wrap: nowrap; align-items: baseline; justify-content: center; gap: clamp(.3rem, 1.5vw, .6rem); margin-top: .3rem; }
-        .std-day { font-family: "Simple Serenity Serif", serif; font-size: clamp(.9rem, 5vw, 3.2rem); font-weight: 400; color: var(--white); line-height: 1; }
-        .std-month { font-family: "Simple Serenity Serif", serif; font-size: clamp(.9rem, 5vw, 3.2rem); letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 250, 246, .8); }
-        .std-loc { margin-top: 1.2rem; font-family: "Cinzel Bold", serif; font-size: 15px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255, 250, 246, .55); line-height: 1.5; text-align: center; }
-
-        /* HISTÓRIA COM POLAROIDS */
+        /* HISTÓRIA (POLAROIDS E TEXTO) */
         #historia {
             position: relative;
             background: linear-gradient(180deg, rgba(20,12,9,.5), rgba(20,12,9,.55)),
@@ -139,6 +99,7 @@
         .historia-layout { display: flex; justify-content: center; }
         .historia-text { max-width: 720px; font-family: var(--serif); font-size: clamp(1.05rem,2vw,1.18rem); line-height: 1.95; color: rgba(250,244,238,.98); text-shadow: 0 2px 14px rgba(0,0,0,.7); text-align: justify; }
         .historia-text p { margin-bottom: 1.8rem; }
+        
         .historia-polaroid {
             background: var(--white); padding: 12px 12px 20px 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3); margin: 2rem auto 2.5rem auto;
@@ -150,63 +111,6 @@
         .historia-polaroid-cap { margin-top: 10px; font-family: var(--script); font-size: 1.4rem; color: var(--mocha); text-shadow: none; line-height: 1; }
         .tilt-l { transform: rotate(-3deg); }
         .tilt-r { transform: rotate(3deg); }
-
-        /* PRESENTES & COTAS */
-        #presentes { background: var(--blush) var(--bg-img) center/cover no-repeat; }
-        #presentes .presentes-inner { background: rgba(239,227,216,.88); backdrop-filter: blur(2px); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); text-align: center; }
-        .cotas-intro { font-size: .92rem; line-height: 1.9; color: rgba(74,49,40,.78); max-width: 58ch; margin: 0 auto 2.4rem; }
-        .cotas-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; margin-top: 2rem; }
-        .cota-card { background: var(--white); padding: 1.6rem; position: relative; transition: transform .25s; overflow: hidden; text-align: left; }
-        .cota-card:hover { transform: translateY(-2px); }
-        .cota-card.esgotada { opacity: .55; pointer-events: none; }
-        .cota-card.esgotada::after { content: 'ESGOTADA'; position: absolute; top: 14px; right: -24px; background: var(--rose); color: white; font-size: .55rem; letter-spacing: .14em; padding: 4px 32px; transform: rotate(45deg); }
-        .cota-card.cota-livre { border: 1px solid var(--gold); }
-        .cota-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .8rem; gap: 1rem; }
-        .cota-titulo { font-family: var(--serif); font-size: 1.4rem; font-weight: 300; font-style: italic; color: var(--ink); }
-        .cota-valor { font-family: var(--serif); font-size: 1.65rem; font-weight: 300; color: var(--mocha); line-height: 1; text-align: right; }
-        .cota-valor span { font-size: .7rem; font-family: var(--sans); display: block; color: var(--gold); }
-        .cota-desc { font-size: .8rem; color: rgba(74,49,40,.68); line-height: 1.7; margin-bottom: 1rem; }
-        .cota-prog-wrap { margin-bottom: 1rem; }
-        .cota-prog-label { display: flex; justify-content: space-between; font-size: .68rem; color: var(--ink); margin-bottom: 4px; }
-        .cota-prog-bg { width: 100%; height: 5px; background: var(--blush); overflow: hidden; }
-        .cota-prog-fill { height: 100%; background: var(--gold); transition: width 1.2s ease; width: 0%; }
-        .cota-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: .72rem 1rem; background: var(--mocha); color: var(--white); font-family: var(--sans); font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; border: none; cursor: pointer; transition: background .2s; }
-        .cota-btn:hover { background: var(--ink); }
-
-        /* PIX MODAL */
-        .pix-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(74,49,40,.75); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 1.5rem; }
-        .pix-overlay.open { display: flex; }
-        .pix-modal { background: var(--white); max-width: 430px; width: 100%; padding: 2.4rem 2rem; text-align: center; max-height: 92vh; overflow-y: auto; box-shadow: 0 40px 80px rgba(74,49,40,.3); }
-        .pix-eyebrow { font-family: var(--menu); font-size: .62rem; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
-        .pix-cota-nome { font-family: var(--script); font-size: 1.75rem; color: var(--mocha); line-height: 1.1; margin-bottom: .3rem; }
-        .pix-valor { font-family: var(--serif); font-size: 2.7rem; font-weight: 300; color: var(--ink); margin: .2rem 0 1.3rem; line-height: 1; }
-        .pix-qrcode { width: 152px; height: 152px; margin: 0 auto 1.1rem; padding: 6px; border: 1px solid var(--blush); }
-        .pix-copy-box { background: var(--cream); padding: .85rem 1rem; margin-bottom: 1.1rem; }
-        .pix-titular { font-size: .72rem; color: rgba(74,49,40,.55); margin-bottom: .3rem; }
-        .pix-chave { font-family: monospace; font-size: .9rem; color: var(--ink); margin-bottom: .45rem; word-break: break-all; }
-        .copy-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: .32rem .95rem; font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; font-family: var(--sans); cursor: pointer; transition: all .2s; }
-        .copy-btn:hover { background: var(--gold); color: var(--white); }
-        .pix-field { text-align: left; margin-bottom: .8rem; }
-        .pix-field label { font-size: .78rem; color: var(--ink); font-weight: 500; display: block; margin-bottom: .28rem; }
-        .pix-field input { width: 100%; padding: .78rem; border: 1px solid var(--blush); background: var(--white); font-family: var(--sans); font-size: .88rem; color: var(--ink); outline: none; }
-        .pix-confirm { display: block; width: 100%; margin-top: 1.1rem; padding: .92rem; background: var(--mocha); color: var(--white); border: none; font-family: var(--menu); font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
-        .pix-close { display: block; width: 100%; margin-top: .45rem; padding: .7rem; background: transparent; color: rgba(74,49,40,.45); border: 1px solid var(--blush); font-family: var(--menu); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
-
-        /* MENSAGENS CARROSSEL */
-        #mensagens-section { background: var(--mocha); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); text-align: center; }
-        #mensagens-section .stag { color: var(--gold-lt); }
-        #mensagens-section .stitle { color: var(--white); }
-        .carousel-outer { overflow: hidden; width: 100%; margin-top: 2rem; }
-        .carousel-track { display: flex; gap: 1.2rem; transition: transform .6s ease; }
-        .msg-card { background: rgba(255,250,246,.07); padding: 1.8rem; flex: 0 0 calc(33.333% - .8rem); min-width: 235px; text-align: left; }
-        .msg-quote { font-family: var(--serif); font-size: 2.6rem; color: var(--gold-lt); line-height: .8; margin-bottom: .4rem; opacity: .55; }
-        .msg-texto { font-family: var(--serif); font-size: .98rem; font-style: italic; color: rgba(255,250,246,.8); line-height: 1.7; margin-bottom: .9rem; }
-        .msg-autor { font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-lt); }
-
-        /* MANUAL */
-        #manual { position: relative; min-height: 680px; background: var(--mid-img) center/cover no-repeat; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); }
-        .mid-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-64%,-56%) rotate(-5deg); font-family: var(--script); font-size: 9.4rem; color: var(--white); text-shadow: 0 4px 22px rgba(0,0,0,.35); white-space: nowrap; }
-        .mid-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 7.6rem; color: var(--white); text-shadow: 0 4px 22px rgba(0,0,0,.38); white-space: nowrap; }
 
         /* RSVP */
         #rsvp { background: var(--mocha); padding: clamp(4rem,8vw,6rem) clamp(2rem,6vw,5rem); }
@@ -260,16 +164,14 @@
         .footer-date { font-family: var(--menu); font-size: .64rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,250,246,.48); }
 
         /* RESPONSIVE */
-        @media (max-width: 1000px) { #manual { min-height: 560px; } .mid-mono-i { font-size: 7.6rem; } .mid-mono-m { font-size: 6.1rem; } }
         @media (max-width: 860px) {
             .top-nav { display: flex; justify-content: flex-start; align-items: center; padding-left: .9rem; padding-right: .9rem; min-height: 70px; }
             .nav-left, .nav-right { display: none; }
             .nav-toggle { display: flex; position: relative; z-index: 2; }
             .nav-text-top { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
         }
-        @media (max-width: 768px) { #hero { padding-top: 4rem; } .cotas-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 640px) { #manual { min-height: 440px; } .mid-mono-i { font-size: 5.6rem; } .mid-mono-m { font-size: 4.5rem; } }
-        @media (max-width: 600px) { .historia-polaroid { max-width: 100%; } .msg-card { flex: 0 0 88%; } }
+        @media (max-width: 768px) { #hero { padding-top: 4rem; } }
+        @media (max-width: 600px) { .historia-polaroid { max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -279,13 +181,11 @@
     <div class="nav-group nav-left">
         <a href="#hero">Início</a>
         <a href="#historia">Nossa História</a>
-        <a href="#presentes">Presentes</a>
     </div>
     <a href="#hero" class="nav-text-top">Recepção do casamento de</a>
     <div class="nav-group nav-right">
-        <a href="#manual">Informações</a>
-        <a href="#local">Local</a>
         <a href="#rsvp">Confirmar Presença</a>
+        <a href="#local">Local</a>
     </div>
 </nav>
 
@@ -298,41 +198,7 @@
     </div>
 </section>
 
-<!-- COUNTDOWN -->
-<section id="countdown">
-    <div class="cd-label reveal">Contagem Regressiva</div>
-    <div class="cd-grid reveal d1">
-        <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Dias</span></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Horas</span></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Minutos</span></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Segundos</span></div>
-    </div>
-</section>
-
-<!-- SAVE THE DATE -->
-<section id="save-the-date">
-    <video class="std-video" autoplay loop muted playsinline>
-        <source src="std-bg.mp4" type="video/mp4">
-    </video>
-    <div class="std-overlay"></div>
-    <div class="reveal">
-        <p class="std-eyebrow">Guarde esta data</p>
-        <div class="std-title-group">
-            <h2 class="std-main"><span class="std-the">Save</span> the Date</h2>
-            <div class="std-date-line">
-                <span class="std-day">31</span>
-                <span class="std-month">Outubro</span>
-                <span class="std-day">2026</span>
-            </div>
-        </div>
-        <p class="std-loc">Petrópolis — RJ</p>
-    </div>
-</section>
-
-<!-- HISTÓRIA (NOVA SEÇÃO COM POLAROIDS) -->
+<!-- HISTÓRIA -->
 <section id="historia">
     <div class="reveal" style="text-align: center;">
         <span class="stag">Nossa Jornada</span>
@@ -366,83 +232,6 @@
             </div>
         </div>
     </div>
-</section>
-
-<!-- PRESENTES -->
-<section id="presentes">
-    <div class="presentes-inner">
-        <div class="reveal">
-            <span class="stag">Lista de Casamento</span>
-            <h2 class="stitle">Presentes & Cotas</h2>
-            <p class="cotas-intro">Sua presença é o maior presente! Se quiser nos presentear, escolha uma cota abaixo para nossa lua de mel e início dessa nova vida.</p>
-        </div>
-        <div class="cotas-grid reveal d1">
-            <div class="cota-card">
-                <div class="cota-header">
-                    <h3 class="cota-titulo">Jantar Romântico em Petrópolis</h3>
-                    <div class="cota-valor">R$ 150 <span>Pix</span></div>
-                </div>
-                <p class="cota-desc">Para um brinde especial a dois durante nossa celebração.</p>
-                <button type="button" class="cota-btn" onclick="abrirPix('Jantar Romântico', 150)">Presentear com Cota</button>
-            </div>
-            <div class="cota-card">
-                <div class="cota-header">
-                    <h3 class="cota-titulo">Passeio de Lua de Mel</h3>
-                    <div class="cota-valor">R$ 300 <span>Pix</span></div>
-                </div>
-                <p class="cota-desc">Ajude-nos a criar memórias incríveis na nossa viagem.</p>
-                <button type="button" class="cota-btn" onclick="abrirPix('Passeio Lua de Mel', 300)">Presentear com Cota</button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PIX MODAL -->
-<div class="pix-overlay" id="pix-modal">
-    <div class="pix-modal">
-        <p class="pix-eyebrow">Presentear os Noivos</p>
-        <h3 class="pix-cota-nome" id="pix-nome">Cota de Presente</h3>
-        <div class="pix-valor" id="pix-val-disp">R$ 0,00</div>
-        <div class="pix-copy-box">
-            <p class="pix-titular">Chave PIX (E-mail / Telefone)</p>
-            <p class="pix-chave" id="pix-key">casamento@ingridemarcos.com</p>
-            <button type="button" class="copy-btn" onclick="copiarPix()">Copiar Chave</button>
-        </div>
-        <div class="pix-field">
-            <label for="pix-remetente">Seu Nome</label>
-            <input type="text" id="pix-remetente" placeholder="Para sabermos quem nos presenteou" />
-        </div>
-        <button type="button" class="pix-confirm" onclick="fecharPix()">Concluir</button>
-        <button type="button" class="pix-close" onclick="fecharPix()">Fechar</button>
-    </div>
-</div>
-
-<!-- MENSAGENS -->
-<section id="mensagens-section">
-    <div class="reveal">
-        <span class="stag">Carinho dos Amigos</span>
-        <h2 class="stitle">Mensagens Aos Noivos</h2>
-    </div>
-    <div class="carousel-outer reveal d1">
-        <div class="carousel-track">
-            <div class="msg-card">
-                <div class="msg-quote">“</div>
-                <p class="msg-texto">Desejo toda a felicidade do mundo nessa nova caminhada! Que Deus abençoe essa união.</p>
-                <p class="msg-autor">Ana &amp; Carlos</p>
-            </div>
-            <div class="msg-card">
-                <div class="msg-quote">“</div>
-                <p class="msg-texto">Muito feliz em fazer parte desse momento tão lindo e inesquecível!</p>
-                <p class="msg-autor">Mariana Silva</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- MANUAL -->
-<section id="manual">
-    <div class="mid-mono-i">I</div>
-    <div class="mid-mono-m">M</div>
 </section>
 
 <!-- RSVP -->
@@ -533,36 +322,6 @@ const GOOGLE_FORM_ACTION_URL="https://docs.google.com/forms/d/e/1FAIpQLSf6YmMsMM
 const GOOGLE_FORM_FIELDS={nome:"entry.1697724406",presenca:"entry.1345573089",acompanhantes:"entry.1230490740",origem:""};
 
 let sb;try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){}
-
-// COUNTDOWN
-const eventDate = new Date('2026-10-31T18:00:00').getTime();
-function updateCountdown(){
-    const now = new Date().getTime();
-    const diff = eventDate - now;
-    if(diff > 0){
-        document.getElementById('cd-d').textContent = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-        document.getElementById('cd-h').textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        document.getElementById('cd-m').textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        document.getElementById('cd-s').textContent = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-    }
-}
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// PIX MODAL FUNCTIONS
-function abrirPix(nome, valor){
-    document.getElementById('pix-nome').textContent = nome;
-    document.getElementById('pix-val-disp').textContent = 'R$ ' + valor.toFixed(2).replace('.', ',');
-    document.getElementById('pix-modal').classList.add('open');
-}
-function fecharPix(){
-    document.getElementById('pix-modal').classList.remove('open');
-}
-function copiarPix(){
-    const key = document.getElementById('pix-key').textContent;
-    navigator.clipboard.writeText(key);
-    alert('Chave PIX copiada!');
-}
 
 // RSVP LOGIC
 let qtyConvidados=1;
