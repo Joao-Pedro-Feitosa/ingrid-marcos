@@ -301,7 +301,7 @@
         .historia-polaroid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; filter: sepia(6%) saturate(96%); }
         .historia-polaroid.tilt-l { transform: rotate(-4deg); }
         .historia-polaroid.tilt-r { transform: rotate(3.5deg); }
-        .historia-polaroid-cap { font-family: var(--script); font-size: 1.1rem; color: var(--mocha); text-align: center; margin-top: .5rem; }
+        .historia-polaroid-cap { font-family: var(--serif); font-size: .92rem; font-style: italic; color: var(--mocha); text-align: center; margin-top: .6rem; line-height: 1.35; }
         .historia-timeline { margin-top: 3rem; padding: 1rem clamp(1rem,6vw,4rem) 1.6rem; }
         .historia-timeline-track { display: flex; gap: clamp(1.6rem,4vw,3rem); overflow-x: auto; padding: 1.4rem 1rem 1.2rem; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: rgba(250,244,238,.5) transparent; }
         .historia-timeline-track::-webkit-scrollbar { height: 6px; }
@@ -470,21 +470,18 @@
         #local { padding: 0; background: var(--cream); }
         .local-photo-wrap { position: relative; width: 100%; line-height: 0; }
         .local-photo { width: 100%; height: auto; display: block; }
-        .local-overlay-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(1.5rem,5vw,3rem); }
-        .venue-grid { display: flex; justify-content: center; text-align: center; margin-top: 1.6rem; }
-        .local-name { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--ink); margin-bottom: .45rem; text-shadow: 0 1px 6px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.75); }
-        .local-addr { font-size: .87rem; color: rgba(74,49,40,.78); line-height: 1.8; text-shadow: 0 1px 6px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.75); }
-        .btn-map { display: inline-flex; align-items: center; margin-top: 1.3rem; padding: .82rem 1.75rem; background: var(--mocha); color: var(--white); font-family: var(--menu); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; transition: background .2s; }
+        .local-corner-content { position: absolute; top: clamp(7rem,13vw,9.5rem); left: clamp(1.2rem,4vw,2.2rem); display: flex; flex-direction: column; align-items: flex-start; gap: .7rem; max-width: 240px; }
+        .local-corner-label { font-family: var(--serif); font-size: clamp(2.1rem,5vw,2.8rem); font-style: italic; color: var(--white); text-shadow: 0 2px 10px rgba(0,0,0,.75), 0 1px 4px rgba(0,0,0,.85); }
+        .btn-map { display: inline-flex; align-items: center; padding: .7rem 1.4rem; background: var(--mocha); color: var(--white); font-family: var(--menu); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; transition: background .2s; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
         .btn-map:hover { background: var(--ink); }
 
         /* FOOTER */
         footer { position: relative; overflow: hidden; text-align: center; padding: 5rem 1.5rem 4rem; background: var(--mocha) var(--footer-img) center 36%/cover no-repeat; }
         footer::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(74,49,40,.68) 0%,rgba(74,49,40,.78) 100%); }
         .footer-inner { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
-        .footer-mono { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 108px; height: 104px; margin-bottom: 1.1rem; text-decoration: none; }
-        .footer-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 5.8rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.28); }
-        .footer-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 4.7rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.3); }
-        .footer-couple { font-family: var(--script); font-size: 2.7rem; color: var(--white); line-height: .9; margin-bottom: .55rem; }
+        .footer-mono { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 190px; height: 182px; text-decoration: none; }
+        .footer-mono-i { position: absolute; top: 50%; left: 50%; transform: translate(-62%,-54%) rotate(-5deg); font-family: var(--script); font-size: 10.2rem; color: var(--pearl); text-shadow: 0 3px 16px rgba(0,0,0,.28); }
+        .footer-mono-m { position: absolute; top: 50%; left: 50%; transform: translate(-36%,-48%); font-family: var(--serif); font-size: 8.3rem; color: var(--white); text-shadow: 0 3px 16px rgba(0,0,0,.3); }
         .footer-date { font-family: var(--menu); font-size: .64rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,250,246,.48); }
 
         /* RESPONSIVE */
@@ -504,7 +501,6 @@
         }
         @media (max-width: 768px) {
             #hero { padding-top: 11rem; }
-            .venue-grid { text-align: center; }
             .cotas-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
@@ -521,9 +517,9 @@
             .nav-mono-i { font-size: 5.2rem; }
             .nav-mono-m { font-size: 4.3rem; }
             .nav-toggle { width: 50px; height: 50px; }
-            .footer-mono { width: 68px; height: 64px; }
-            .footer-mono-i { font-size: 3.6rem; }
-            .footer-mono-m { font-size: 2.9rem; }
+            .footer-mono { width: 130px; height: 124px; }
+            .footer-mono-i { font-size: 6.8rem; }
+            .footer-mono-m { font-size: 5.5rem; }
             .hero-kicker { font-size: 17px; }
             .std-loc { font-size: 12px; }
             #save-the-date { padding-top: 3rem; padding-bottom: 3rem; }
@@ -638,16 +634,19 @@
         <div class="historia-timeline-track">
             <div class="historia-polaroid tilt-l">
                 <img src="historia-foto1.jpg" alt="No alto da torre da Catedral" />
+                <p class="historia-polaroid-cap">O começo de tudo: visitação ao Alto da Torre</p>
             </div>
             <div class="historia-polaroid tilt-r">
                 <img src="historia-foto2.jpg" alt="Depois do primeiro beijo" />
+                <p class="historia-polaroid-cap">Jantar no restaurante italiano</p>
             </div>
             <div class="historia-polaroid tilt-l">
                 <img src="historia-foto3.jpg" alt="Um dos nossos encontros" />
+                <p class="historia-polaroid-cap">Virada de ano em Anápolis &amp; início do namoro</p>
             </div>
             <div class="historia-polaroid tilt-r">
                 <img src="historia-foto4.jpg" alt="O pedido de casamento" />
-                <p class="historia-polaroid-cap">Disse sim! 💍</p>
+                <p class="historia-polaroid-cap">26 de julho: o pedido de casamento</p>
             </div>
         </div>
     </div>
@@ -658,7 +657,7 @@
     <div class="presentes-inner">
         <div class="reveal" style="text-align:center">
             <h2 class="stitle">Ajude os Noivos</h2>
-            <p class="cotas-intro">Nossa maior alegria é compartilhar este dia com você. Se desejar nos presentear, escolha uma das cotas abaixo para contribuir com nossa <strong>Lua de Mel</strong>. Cada valor representa um pedacinho desta aventura que faremos juntos!</p>
+            <p class="cotas-intro">Querido convidado, se deseja nos presentear, escolha uma das cotas abaixo. Cada valor representa um pedacinho desta aventura que faremos juntos!</p>
         </div>
         <div class="cotas-grid reveal d1" id="cotas-grid"></div>
     </div>
@@ -775,7 +774,7 @@
                 <textarea id="mensagem" placeholder="Escreva suas palavras de carinho... 💌" maxlength="300"></textarea>
                 <p style="font-size:.66rem;opacity:.38;text-align:right;margin-top:3px"><span id="char-count">0</span>/300</p>
             </div>
-            <button id="btn-rsvp" type="button" onclick="enviarRsvp()" class="rsvp-submit reveal d1">Enviar</button>
+            <button id="btn-rsvp" type="button" onclick="enviarRsvp()" class="rsvp-submit reveal d1">Confirmar Presença</button>
         </div>
     </div>
     <div id="rsvp-success" style="display:none">
@@ -792,16 +791,9 @@
 <section id="local">
     <div class="local-photo-wrap">
         <img src="local-bg.jpg" alt="Catedral São Pedro de Alcântara" class="local-photo" />
-        <div class="local-overlay-content">
-            <div class="reveal">
-                <h2 class="stitle">Onde tudo acontecerá</h2></div>
-            <div class="venue-grid reveal d1">
-                <div>
-                    <p class="local-name">Catedral São Pedro de Alcântara</p>
-                    <p class="local-addr">Rua São Pedro de Alcântara, 60<br>Centro — Petrópolis, RJ</p>
-                    <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="btn-map">Abrir no Google Maps</a>
-                </div>
-            </div>
+        <div class="local-corner-content reveal">
+            <p class="local-corner-label">Local</p>
+            <a href="https://maps.google.com/?q=Catedral+São+Pedro+de+Alcântara+Petrópolis+RJ" target="_blank" rel="noopener" class="btn-map">Abrir no Google Maps</a>
         </div>
     </div>
 </section>
@@ -813,8 +805,6 @@
             <span class="footer-mono-i">I</span>
             <span class="footer-mono-m">M</span>
         </a>
-        <p class="footer-couple">Ingrid &amp; Marcos</p>
-        <p class="footer-date">31 de Outubro de 2026 &nbsp;·&nbsp; Feito com muito amor</p>
     </div>
 </footer>
 
@@ -850,12 +840,12 @@ const COTAS_CONFIG=[
     {id:'c135', valor:135, titulo:'Café da Manhã a Dois',   descricao:'Contribua para começarmos o dia com carinho durante a viagem.',                  total:20,emoji:'☕'},
     {id:'c150', valor:150, titulo:'Doce Lembrança',         descricao:'Um mimo doce para guardarmos como lembrança dessa aventura.',                    total:20,emoji:'🍰'},
     {id:'c165', valor:165, titulo:'Passeio Especial',       descricao:'Ajude a tornar um passeio ainda mais inesquecível.',                             total:25,emoji:'🗺️'},
-    {id:'c180', valor:180, titulo:'Tarde de Relaxamento',   descricao:'Presenteie um momento de spa e relaxamento na lua de mel.',                      total:20,emoji:'💆'},
+    {id:'c180', valor:180, titulo:'Passeio de barco 🛥️',   descricao:'Ajude a tornar um passeio de barco ainda mais especial durante a lua de mel.',    total:20,emoji:'🛥️'},
     {id:'c190', valor:190, titulo:'Jantar Romântico',       descricao:'Um presente para um jantar inesquecível em nossa viagem.',                       total:15,emoji:'🍷'},
     {id:'c200', valor:200, titulo:'Brinde à Nova Vida',     descricao:'Contribua para celebrarmos essa nova fase com um brinde especial.',              total:15,emoji:'🍾'},
     {id:'c210', valor:210, titulo:'Noite dos Sonhos',       descricao:'Ajude a tornar ainda mais especial uma hospedagem durante a lua de mel.',        total:10,emoji:'🌙'},
     {id:'c215', valor:215, titulo:'Grande Aventura',        descricao:'O presente para vivermos um grande capítulo dessa aventura.',                    total:10,emoji:'✈️'},
-    {id:'livre', valor:null, titulo:'Valor Livre',          descricao:'Quer contribuir com um valor diferente? Escolha a quantia que quiser para nos ajudar nessa aventura.', total:999999, emoji:'💛', livre:true, min:216}
+    {id:'livre', valor:null, titulo:'Valor Livre',          descricao:'Quer contribuir com um valor diferente? Escolha a quantia que quiser para nos ajudar nessa aventura.', total:999999, emoji:'💜', livre:true, min:216}
 ];
 
 let cotasUsadas={},cotaSelecionada=null,mensagens=[],carPos=0,carVisiveis=3,acompQty=0;
